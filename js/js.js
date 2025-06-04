@@ -349,14 +349,13 @@ function updateGPSInfo() {
         if (currentGPSData.heading !== null) {
             const directions = [
                 "Пн",
-                "ПнС",
-                "С",
-                "СхС",
+                "ПнСх",
                 "Сх",
-                "ПдС",
+                "ПдСх",
                 "Пд",
-                "ЗхП",
+                "ПдЗх",
                 "Зх",
+                "ПнЗх",
             ];
             const directionIndex = Math.round(currentGPSData.heading / 45) % 8;
             headingInfoEl.textContent = `${currentGPSData.heading.toFixed(
