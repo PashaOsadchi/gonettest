@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Тест швидкості інтернету</title>
+
+    <link rel="canonical" href="https://1111.com/" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="icon/icon_192.png"
+    />
+    <link rel="manifest" href="pwa.webmanifest" />
+
+    <link href="styles/style.css" rel="stylesheet" type="text/css" />
+
+    <script defer src="js/registration_service_worker.js"></script>
+
+    <script defer src="js/js.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  </head>
+
+  <body data-theme="light">
+    <div class="alert-indicator" id="alertIndicator">Втрачено з'єднання!</div>
+
+    <div class="notification" id="notification"></div>
+
+    <div class="container">
+      <div class="theme-controls">
+        <button
+          class="icon-btn"
+          onclick="toggleTheme()"
+          title="Перемкнути тему"
+        >
+          🌓
+        </button>
+        <button
+          class="icon-btn"
+          onclick="toggleFullscreen()"
+          title="Повноекранний режим"
+        >
+          ⛶
+        </button>
+        <button
+          class="icon-btn"
+          onclick="toggleSettings()"
+          title="Налаштування"
+        >
+          ⚙️
+        </button>
+      </div>
+
+      <div class="status" id="operator"></div>
+
+      <!-- Налаштування -->
+      <div class="settings-panel" id="settingsPanel">
+        <h3 style="margin-bottom: 20px">Налаштування</h3>
+        <div class="setting-group">
+          <label class="setting-label"
+            >Інтервал збереження даних (секунди):</label
+          >
+          <input
+            type="number"
+            class="setting-input"
+            id="saveInterval"
+            value="1"
+            min="1"
+            max="60"
+          />
+        </div>
+        <div class="setting-group">
+          <label class="setting-label"
+            >Мінімальна відстань для збереження GPS (метри):</label
+          >
+          <input
+            type="number"
+            class="setting-input"
+            id="gpsDistance"
+            value="1"
+            min="0"
+            max="100"
+          />
+        </div>
+        <div class="setting-group">
+          <label class="setting-label"
+            >Поріг швидкості для сповіщення (Мбіт/с):</label
+          >
+          <input
+            type="number"
+            class="setting-input"
+            id="speedThreshold"
+            value="5"
+            min="0"
+            max="1000"
+          />
+        </div>
+        <div class="setting-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="soundAlerts" checked />
+            <label class="setting-label">Звукові сповіщення</label>
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="voiceAlerts" />
+            <label class="setting-label">Голосові сповіщення</label>
+          </div>
+        </div>
+        <button class="btn btn-success" onclick="saveSettings()">
+          Зберегти налаштування
+        </button>
+      </div>
+
+      <div class="speed-section">
+        <div class="speed-display">
+          <span id="speedValue">0.00</span>
+          <span class="speed-unit">Мбіт/с</span>
+        </div>
+
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="status" id="status">Натисніть "Почати тест"</div>
+
+        <div class="controls">
+          <button class="btn" id="startBtn" onclick="toggleTest()">
+            Почати тест
+          </button>
+        </div>
+
+        <div class="stats">
+          <div class="stat-item">
+            <div class="stat-label">Завантажено</div>
+            <div class="stat-value" id="downloadedValue">0.00 МБ</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Час</div>
+            <div class="stat-value" id="timeValue">0 с</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Записів</div>
+            <div class="stat-value" id="recordsCount">0</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Сер. швидкість</div>
+            <div class="stat-value" id="avgSpeed">0.00 Мбіт/с</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Макс. швидкість</div>
+            <div class="stat-value" id="maxSpeed">0.00 Мбіт/с</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Мін. швидкість</div>
+            <div class="stat-value" id="minSpeed">0.00 Мбіт/с</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="speedChart"></canvas>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-secondary btn-small" onclick="exportChart()">
+          Експорт графіка
+        </button>
+      </div>
+
+      <!-- Розширена GPS інформація -->
+      <div class="gps-info" id="gpsInfo">
+        <div style="font-weight: bold; margin-bottom: 10px">
+          Детальний GPS Статус
+        </div>
+        <div class="gps-info-row">
+          <span>Статус GPS:</span>
+          <span id="gpsStatus">Не активний</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Точність:</span>
+          <span id="gpsAccuracy">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Поточні координати:</span>
+          <span id="currentCoords">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Висота:</span>
+          <span id="altitudeInfo">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>GPS швидкість:</span>
+          <span id="gpsSpeedInfo">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Напрямок:</span>
+          <span id="headingInfo">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Відстань від попередньої точки:</span>
+          <span id="distanceInfo">N/A</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Загальна відстань:</span>
+          <span id="totalDistanceInfo">0.00 км</span>
+        </div>
+        <div class="gps-info-row">
+          <span>Останнє збереження:</span>
+          <span id="lastSaveInfo">Немає даних</span>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <div class="data-header">
+          <h3>Останні вимірювання</h3>
+          <div class="records-count" id="recordsInfo">Записів: 0</div>
+        </div>
+        <div class="data-table">
+          <div class="data-row data-header-row">
+            <div>Час</div>
+            <div>Інтернет (Мбіт/с)</div>
+            <div>Завантажено (МБ)</div>
+            <div>Широта</div>
+            <div>Довгота</div>
+            <div>Висота</div>
+            <div>GPS Швидкість</div>
+          </div>
+          <div id="dataDisplay">
+            <div style="text-align: center; padding: 20px; opacity: 0.6">
+              Немає даних
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-secondary" onclick="downloadData()">
+          Завантажити дані
+        </button>
+        <button class="btn btn-success" onclick="clearData()">
+          Очистити дані
+        </button>
+      </div>
+
+      <div class="info" id="info">
+        <div><strong>IP:</strong> <span id="ip">-</span></div>
+        <div><strong>Хост:</strong> <span id="hostname">-</span></div>
+        <div><strong>Місто:</strong> <span id="city">-</span></div>
+        <div><strong>Регіон:</strong> <span id="region">-</span></div>
+        <div><strong>Країна:</strong> <span id="country">-</span></div>
+        <div><strong>Координати:</strong> <span id="loc">-</span></div>
+        <div><strong>Провайдер:</strong> <span id="org">-</span></div>
+        <div><strong>Поштовий індекс:</strong> <span id="postal">-</span></div>
+        <div><strong>Часовий пояс:</strong> <span id="timezone">-</span></div>
+      </div>
+    </div>
+  </body>
+</html>

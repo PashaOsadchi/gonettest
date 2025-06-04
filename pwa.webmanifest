@@ -1,0 +1,30 @@
+{
+    "name": "!",
+    "short_name": "!",
+    "description": "!",
+    "icons": [
+        {
+            "src": "icon/icon.png",
+            "sizes": "483x483",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon/icon_144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon/icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "scope": "./",
+    "start_url": "/index.html",
+    "display": "fullscreen",
+    "theme_color": "#696969",
+    "background_color": "#696969"
+}
