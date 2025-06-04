@@ -357,7 +357,8 @@ function updateGPSInfo() {
                 "Зх",
                 "ПнЗх",
             ];
-            const directionIndex = Math.round(currentGPSData.heading / 45) % 8;
+            const directionIndex =
+                Math.round(currentGPSData.heading / 45) % directions.length;
             headingInfoEl.textContent = `${currentGPSData.heading.toFixed(
                 0
             )}° (${directions[directionIndex]})`;
