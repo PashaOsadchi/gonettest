@@ -89,13 +89,13 @@ h1 {
 .speed-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 .speed-display {
   font-size: 4em;
   font-weight: bold;
-  margin: 30px 0;
+  margin: 5px 0;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
   min-height: 80px;
   display: flex;
@@ -130,7 +130,7 @@ h1 {
   background: var(--glass-bg);
   border-radius: 50px;
   height: 20px;
-  margin: 20px 0;
+  margin: 5px 0;
   overflow: hidden;
   position: relative;
 }
@@ -146,13 +146,13 @@ h1 {
 .stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  margin: 30px 0;
+  gap: 5px;
+  margin: 5px 0;
 }
 
 .stat-item {
   background: var(--glass-bg);
-  padding: 20px;
+  padding: 5px;
   border-radius: 15px;
   border: 1px solid var(--glass-border);
 }
@@ -172,7 +172,7 @@ h1 {
   gap: 15px;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 20px 0;
+  margin: 5px 0;
 }
 
 .btn {
@@ -206,7 +206,7 @@ h1 {
 }
 
 .status {
-  margin: 20px 0;
+  margin: 5px 0;
   font-size: 1.1em;
   opacity: 0.9;
 }
@@ -214,8 +214,8 @@ h1 {
 .gps-info {
   background: var(--glass-bg);
   border-radius: 10px;
-  padding: 15px;
-  margin: 20px 0;
+  padding: 5px;
+  margin: 5px 0;
   font-size: 0.9em;
   border: 1px solid var(--glass-border);
 }
@@ -230,7 +230,7 @@ h1 {
   background: var(--glass-bg);
   border-radius: 15px;
   padding: 20px;
-  margin: 20px 0;
+  margin: 5px 0;
   border: 1px solid var(--glass-border);
   display: none;
 }
@@ -317,7 +317,7 @@ h1 {
 .data-table {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  padding: 15px;
+  padding: 5px;
   max-height: 200px;
   overflow-y: auto;
   overflow-x: auto;
@@ -402,7 +402,7 @@ h1 {
   }
 
   .container {
-    padding: 15px;
+    padding: 5px;
     width: 100%;
     max-width: 100%;
     margin: 0;
@@ -419,7 +419,7 @@ h1 {
 
   .speed-display {
     font-size: 2.5em;
-    margin: 20px 0;
+    margin: 5px 0;
     min-height: 60px;
   }
 
@@ -430,7 +430,7 @@ h1 {
 
   .btn {
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     font-size: 1em;
   }
 
@@ -454,12 +454,12 @@ h1 {
 
   .stats {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin: 20px 0;
+    gap: 5px;
+    margin: 5px 0;
   }
 
   .stat-item {
-    padding: 15px;
+    padding: 5px;
   }
 
   .stat-value {
@@ -483,16 +483,16 @@ h1 {
 
   .gps-info {
     font-size: 0.8em;
-    padding: 12px;
-    margin: 15px 0;
+    padding: 5px;
+    margin: 5px 0;
   }
 
-  .gps-info-row {
+  /* .gps-info-row {
     flex-direction: column;
     gap: 5px;
     margin: 8px 0;
     align-items: flex-start;
-  }
+  } */
 
   .data-table {
     font-size: 0.7em;
@@ -509,7 +509,7 @@ h1 {
   }
 
   .settings-panel {
-    padding: 15px;
+    padding: 5px;
     margin: 15px 0;
   }
 
@@ -547,10 +547,6 @@ h1 {
     font-size: 2em;
   }
 
-  .stats {
-    grid-template-columns: 1fr;
-  }
-
   .chart-container {
     height: auto; /* скидаємо фіксовану висоту, якщо вона була */
     padding: 0; /* інколи зайвий padding “додав” вихід за межі */
@@ -563,40 +559,38 @@ h1 {
 }
 
 /* === Інформаційна панель IP / ISP ======================================= */
-.info {
+#info {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
+  border-radius: 10px;   /* збігається з #gpsInfo */
+  padding: 5px;          /* компактний відступ */
+  margin: 5px 0;
+  font-size: 0.9em;
   backdrop-filter: blur(10px);
-  border-radius: 15px;
-  padding: 20px 25px;
-  margin-top: 25px;
-  
-  /* розміщуємо нижче основного контейнера, але по центру */
-  width: 90%;
-  max-width: 1200px;
-  color: var(--text-color);
-  font-size: 0.95em;
-  line-height: 1.4;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  
-  /* flex-таблиця з двома колонками “ключ – значення” */
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  column-gap: 15px;
-  row-gap: 6px;
 }
 
-/* жирний лейбл (лівий стовпчик) */
-.info strong {
+/* кожен рядок усередині #info → одна лінійка «підпис-значення» */
+#info > div {
+  display: flex;
+  justify-content: space-between; /* підпис зліва, значення справа */
+  gap: 12px;
+  margin: 4px 0;
+}
+
+/* підпис (лівий бік) */
+#info strong {
   font-weight: 600;
   opacity: 0.85;
 }
 
-/* трошки приглушуємо значення, щоб не “перекрикували” лейбл */
-.info span {
+/* значення (правий бік) */
+#info span {
+  text-align: right;     /* вирівнюємо текст по правому краю */
+  flex: 1;               /* заповнює доступний простір, щоб підписи не «стриба́ли» */
   opacity: 0.9;
   word-break: break-word;
 }
+
 
 /* ------------------------- Mobile ≤ 768 px ----------------------------- */
 @media (max-width: 768px) {
