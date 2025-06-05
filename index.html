@@ -7,7 +7,10 @@
     <title>Тест швидкості інтернету</title>
 
     <link rel="canonical" href="https://1111.com/" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Для iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Для Android -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <link rel="apple-touch-icon" href="icon/icon_192.png" />
     <link
@@ -121,7 +124,6 @@
       <div class="speed-section">
         <div class="speed-display">
           <span id="speedValue">0.00</span>
-          <span class="speed-unit">Мбіт/с</span>
         </div>
 
         <div class="progress-container">
@@ -138,28 +140,28 @@
 
         <div class="stats">
           <div class="stat-item">
-            <div class="stat-label">Завантажено</div>
-            <div class="stat-value" id="downloadedValue">0.00 МБ</div>
+            <div class="stat-label">Завантажено МБ</div>
+            <div class="stat-value" id="downloadedValue">0.00</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Час</div>
-            <div class="stat-value" id="timeValue">0 с</div>
+            <div class="stat-label">Час с</div>
+            <div class="stat-value" id="timeValue">0</div>
           </div>
           <div class="stat-item">
             <div class="stat-label">Записів</div>
             <div class="stat-value" id="recordsCount">0</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Сер. швидкість</div>
-            <div class="stat-value" id="avgSpeed">0.00 Мбіт/с</div>
+            <div class="stat-label">Сер. швидкість Мбіт/с</div>
+            <div class="stat-value" id="avgSpeed">0.00</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Макс. швидкість</div>
-            <div class="stat-value" id="maxSpeed">0.00 Мбіт/с</div>
+            <div class="stat-label">Макс. швидкість Мбіт/с</div>
+            <div class="stat-value" id="maxSpeed">0.00</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Мін. швидкість</div>
-            <div class="stat-value" id="minSpeed">0.00 Мбіт/с</div>
+            <div class="stat-label">Мін. швидкість Мбіт/с</div>
+            <div class="stat-value" id="minSpeed">0.00</div>
           </div>
         </div>
       </div>
