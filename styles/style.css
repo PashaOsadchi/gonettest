@@ -87,7 +87,7 @@ h1 {
 }
 
 .speed-display {
-  font-size: 4em;
+  font-size: 3em;
   font-weight: bold;
   margin: 5px 0;
   text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
@@ -405,7 +405,7 @@ h1 {
   }
 
   .speed-display {
-    font-size: 2.5em;
+    font-size: 2em;
     margin: 5px 0;
     min-height: 60px;
   }
@@ -441,7 +441,7 @@ h1 {
   }
 
   .stat-value {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .theme-controls {
@@ -515,7 +515,7 @@ h1 {
   }
 
   .speed-display {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 
   .chart-container {
@@ -586,4 +586,6 @@ h1 {
     font-size: 0.8em;
   }
 }
+
+
 
