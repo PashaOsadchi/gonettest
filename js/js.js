@@ -252,14 +252,14 @@ function updateStats() {
 
         document.getElementById("avgSpeed").textContent = `${avg.toFixed(
             2
-        )} Мбіт/с`;
+        )}`;
         document.getElementById(
             "maxSpeed"
-        ).textContent = `${speedStats.max.toFixed(2)} Мбіт/с`;
+        ).textContent = `${speedStats.max.toFixed(2)}`;
         document.getElementById("minSpeed").textContent =
             speedStats.min === Infinity
-                ? "0.00 Мбіт/с"
-                : `${speedStats.min.toFixed(2)} Мбіт/с`;
+                ? "0.00"
+                : `${speedStats.min.toFixed(2)}`;
 
         // Перевірка порогу швидкості
         if (currentSpeedMbps < settings.speedThreshold && isConnected) {
@@ -681,10 +681,10 @@ function clearData() {
 
         document.getElementById("lastSaveInfo").textContent = "Немає даних";
         document.getElementById("lastSaveInfo").style.color = "white";
-        document.getElementById("avgSpeed").textContent = "0.00 Мбіт/с";
-        document.getElementById("maxSpeed").textContent = "0.00 Мбіт/с";
-        document.getElementById("minSpeed").textContent = "0.00 Мбіт/с";
-        document.getElementById("totalDistanceInfo").textContent = "0.00 км";
+        document.getElementById("avgSpeed").textContent = "0.00";
+        document.getElementById("maxSpeed").textContent = "0.00";
+        document.getElementById("minSpeed").textContent = "0.00 ";
+        document.getElementById("totalDistanceInfo").textContent = "0.00";
 
         showNotification("Дані очищено!");
     }
@@ -711,10 +711,10 @@ function updateUI() {
     document.getElementById("downloadedValue").textContent = `${(
         totalBytes /
         (1024 * 1024)
-    ).toFixed(2)} МБ`;
+    ).toFixed(2)}`;
     document.getElementById("timeValue").textContent = `${Math.floor(
         elapsed
-    )} с`;
+    )}`;
     document.getElementById("progressBar").style.width = `${Math.min(
         100,
         (totalBytes / TARGET) * 100
