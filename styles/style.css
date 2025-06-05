@@ -407,7 +407,7 @@ h1 {
   .speed-display {
     font-size: 2em;
     margin: 5px 0;
-    min-height: 60px;
+    min-height: 20px;
   }
 
   .controls {
@@ -515,7 +515,7 @@ h1 {
   }
 
   .speed-display {
-    font-size: 1.5em;
+    font-size: 1.2em;
   }
 
   .chart-container {
