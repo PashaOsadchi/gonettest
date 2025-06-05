@@ -888,6 +888,12 @@ function toggleTheme() {
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     body.setAttribute("data-theme", newTheme);
 
+    // Update theme color meta tag
+    const themeColorMeta = document.getElementById('themeColorMeta');
+    if (themeColorMeta) {
+        themeColorMeta.content = newTheme === 'dark' ? '#1a1a2e' : '#667eea';
+    }
+
     // Оновлюємо графік під нову тему
     if (speedChart) {
         const textColor = getComputedStyle(
