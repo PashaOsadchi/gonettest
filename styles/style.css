@@ -96,13 +96,6 @@ h1 {
   align-items: center;
   justify-content: center;
 }
-
-.speed-unit {
-  font-size: 0.4em;
-  margin-left: 10px;
-  opacity: 0.8;
-}
-
 /* 1) Переконаємося, що .chart-container завжди не виходить за межі */
 .chart-container {
   width: 100%; /* займає всю доступну ширину батьківського .container */
