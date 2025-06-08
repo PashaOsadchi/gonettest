@@ -159,6 +159,21 @@ function speak(text) {
     speechSynthesis.speak(utterance);
 }
 
+function logTestSummary() {
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    const downloadedMB = (totalBytes / (1024 * 1024)).toFixed(2);
+    const avg = speedStats.count
+        ? (speedStats.sum / speedStats.count).toFixed(2)
+        : "0.00";
+    const min = speedStats.min === Infinity ? 0 : speedStats.min;
+    addLog(
+        `Результати тесту: час ${elapsed} с, дані ${downloadedMB} МБ, ` +
+            `середня швидкість ${avg} Мбіт/с, ` +
+            `макс ${speedStats.max.toFixed(2)} Мбіт/с, ` +
+            `мін ${min === 0 ? "0.00" : min.toFixed(2)} Мбіт/с`
+    );
+}
+
 function initChart() {
     const ctx = document.getElementById("speedChart").getContext("2d");
     speedChart = new Chart(ctx, {
@@ -819,7 +834,12 @@ async function runTest() {
       document.getElementById("alertIndicator").style.display = "block";
 
       const errorMsg = e.name === "AbortError" ? "Timeout" : e.message;
-      addLog(`Помилка: ${errorMsg} (${consecutiveErrors}/${MAX_CONSECUTIVE_ERRORS})`);
+      const elapsedErr = ((Date.now() - startTime) / 1000).toFixed(1);
+      const downloadedErr = (totalBytes / (1024 * 1024)).toFixed(2);
+      addLog(
+        `Помилка з'єднання: ${errorMsg}; передано ${downloadedErr} МБ за ${elapsedErr} с ` +
+        `(${consecutiveErrors}/${MAX_CONSECUTIVE_ERRORS})`
+      );
       playBeep(300, 500);
       if (consecutiveErrors === 1) {
         showNotification("Втрачено з'єднання!");
@@ -848,6 +868,7 @@ async function runTest() {
   document.getElementById("status").textContent = "Тест зупинено";
   document.getElementById("alertIndicator").style.display = "none";
   testInProgress = false;
+  logTestSummary();
 }
 
 // Окрема допоміжна функція, яка повертається лише тоді, коли перевірка
