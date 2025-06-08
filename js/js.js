@@ -9,6 +9,7 @@ let consecutiveErrors = 0;
 const MAX_CONSECUTIVE_ERRORS = 1000;
 let isConnected = true;
 let isFullscreen = false;
+let testInProgress = false;
 
 // Дані та налаштування
 let speedData = [];
@@ -747,6 +748,8 @@ async function fetchWithTimeout(url, options = {}, timeout = 10000) {
 }
 
 async function runTest() {
+  if (testInProgress) return;
+  testInProgress = true;
   startTime = Date.now();
   prevBytes = totalBytes = 0;
   consecutiveErrors = 0;
@@ -844,6 +847,7 @@ async function runTest() {
   clearInterval(dataInterval);
   document.getElementById("status").textContent = "Тест зупинено";
   document.getElementById("alertIndicator").style.display = "none";
+  testInProgress = false;
 }
 
 // Окрема допоміжна функція, яка повертається лише тоді, коли перевірка
@@ -991,4 +995,16 @@ window.addEventListener("orientationchange", () => {
             speedChart.resize();
         }
     }, 100);
+});
+
+// Відновлення тесту після втрати з'єднання
+window.addEventListener('online', () => {
+    if (testActive && !testInProgress) {
+        isConnected = true;
+        runTest();
+    }
+});
+
+window.addEventListener('offline', () => {
+    isConnected = false;
 });
