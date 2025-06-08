@@ -853,15 +853,23 @@ async function runTest() {
 // Окрема допоміжна функція, яка повертається лише тоді, коли перевірка
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
-  const checkUrl = `https://speed.cloudflare.com/__down?bytes=100`;
+  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=100`;
+  const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
   while (testActive && !isConnected) {
     try {
       addLog("Перевірка з'єднання…");
-      const resp = await fetchWithTimeout(checkUrl, { cache: "no-store" }, 500);
-      if (resp.ok) {
+      const resp1 = await fetchWithTimeout(checkUrl1, { cache: "no-store" }, 500);
+      if (resp1.ok) {
         // Якщо принаймні одиничний байт вдалося завантажити — вважаємо, що ми вже онлайн
+        isConnected = true;
+        break;
+      }
+
+      const resp2 = await fetchWithTimeout(checkUrl2, { cache: "no-store" }, 500);
+      if (resp2.ok) {
+        // Якщо другий ресурс відповів позитивно — вважаємо, що мережа відновлена
         isConnected = true;
         break;
       }
