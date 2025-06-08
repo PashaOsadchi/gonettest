@@ -1007,7 +1007,7 @@ window.addEventListener("orientationchange", () => {
 
 // Відновлення тесту після втрати з'єднання
 window.addEventListener('online', () => {
-    if (testActive && !testInProgress) {
+    if (testActive) {
         isConnected = true;
         runTest();
     }
