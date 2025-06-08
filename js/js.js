@@ -567,6 +567,10 @@ function updateRecordsCount() {
     ).textContent = `Записів: ${speedData.length}`;
 }
 
+function replaceSpacesWithUnderscore(str) {
+  return str.replace(/ /g, '_');
+}
+
 function downloadData() {
     let dateStr = '';
     let timeStr = ''; 
@@ -635,7 +639,7 @@ function downloadData() {
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `speed_test_gps_${dateStr}_${timeStr}.csv`;
+    link.download = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.csv`;
     link.style.display = "none";
     document.body.appendChild(link);
     link.click();
