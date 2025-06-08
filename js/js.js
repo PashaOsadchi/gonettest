@@ -883,16 +883,23 @@ async function waitForReconnect() {
   while (testActive && !isConnected) {
     try {
       addLog("Перевірка з'єднання…");
-      const resp1 = await fetchWithTimeout(checkUrl1, { cache: "no-store" }, 500);
-      if (resp1.ok) {
-        // Якщо принаймні одиничний байт вдалося завантажити — вважаємо, що ми вже онлайн
+      const resp1 = await fetchWithTimeout(
+        checkUrl1,
+        { cache: "no-store", mode: "no-cors" },
+        500
+      );
+      if (resp1) {
+        // Навіть без CORS, якщо запит завершився успішно — мережа присутня
         isConnected = true;
         break;
       }
 
-      const resp2 = await fetchWithTimeout(checkUrl2, { cache: "no-store" }, 500);
-      if (resp2.ok) {
-        // Якщо другий ресурс відповів позитивно — вважаємо, що мережа відновлена
+      const resp2 = await fetchWithTimeout(
+        checkUrl2,
+        { cache: "no-store", mode: "no-cors" },
+        500
+      );
+      if (resp2) {
         isConnected = true;
         break;
       }
