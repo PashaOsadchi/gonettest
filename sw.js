@@ -27,6 +27,15 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  const url = event.request.url;
+  if (
+    url.startsWith('https://speed.cloudflare.com/__down') ||
+    url.startsWith('https://www.google.com/generate_204')
+  ) {
+    // Bypass the service worker for connectivity check requests so that
+    // they are never cached and always hit the network.
+    return;
+  }
   if (event.request.headers.get('Accept')?.includes('text/html')) {
     event.respondWith(
       fetch(event.request)
