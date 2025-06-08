@@ -180,6 +180,15 @@ function resetTestState() {
     pendingRun = false;
     isConnected = true;
     consecutiveErrors = 0;
+
+    if (updateInterval) {
+        clearInterval(updateInterval);
+        updateInterval = null;
+    }
+    if (dataInterval) {
+        clearInterval(dataInterval);
+        dataInterval = null;
+    }
 }
 
 function initChart() {
@@ -784,6 +793,11 @@ async function checkRealConnection() {
 }
 
 async function runTest() {
+  if (!testActive) {
+    resetTestState();
+    return;
+  }
+
   if (testInProgress) {
     pendingRun = true;
     return;
@@ -793,17 +807,13 @@ async function runTest() {
   startTime = Date.now();
   prevBytes = totalBytes = 0;
   consecutiveErrors = 0;
-
-  if (!testActive) {
-    resetTestState();
-    return;
-  }
   // Запускаємо оновлення UI що секунду
   updateInterval = setInterval(updateUI, 1000);
   // Запускаємо періодичне збереження точок даних
   dataInterval = setInterval(saveDataPoint, settings.saveInterval * 1000);
 
   while (testActive) {
+    if (!testActive) break;
     try {
       addLog("Спроба завантаження…");
       // Перед кожним реальним тестом перевіримо, чи ми зараз офлайні?
@@ -837,6 +847,7 @@ async function runTest() {
 
       // Починаємо читати дані потоково
       while (testActive) {
+        if (!testActive) break;
         try {
           const readPromise = reader.read();
           const timeoutPromise = new Promise((_, reject) =>
@@ -905,6 +916,7 @@ async function runTest() {
     runTest();
     return;
   }
+  stopGPS();
   resetTestState();
   logTestSummary();
 }
@@ -917,6 +929,7 @@ async function waitForReconnect() {
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
   while (testActive && !isConnected) {
+    if (!testActive) return;
     try {
       addLog("Перевірка з'єднання…");
       const resp1 = await fetchWithTimeout(
@@ -941,33 +954,30 @@ async function waitForReconnect() {
       }
     } catch {
       // Якщо знову offline — просто чекаємо 500 мс і пробуємо ще
+      if (!testActive) return;
     }
     await new Promise((r) => setTimeout(r, 500));
   }
 }
 
 async function toggleTest() {
-    if (testActive && !testInProgress) {
-        runTest();
-        showNotification("Тест запущено!");
+    if (testInProgress && testActive) {
+        testActive = false;
+        document.getElementById("startBtn").textContent = "Почати тест";
+        addLog("Зупинка тесту...");
+        showNotification("Тест зупинено!");
         return;
     }
 
-    testActive = !testActive;
-    document.getElementById("startBtn").textContent = testActive
-        ? "Зупинити тест"
-        : "Почати тест";
-    addLog(testActive ? "Старт тесту" : "Зупинка тесту");
+    if (!testInProgress) {
+        testActive = true;
+        document.getElementById("startBtn").textContent = "Зупинити тест";
+        addLog("Старт тесту");
+        showNotification("Тест запущено!");
 
-    if (testActive) {
         isConnected = await checkRealConnection();
         initGPS();
         runTest();
-        showNotification("Тест запущено!");
-    } else {
-        resetTestState();
-        stopGPS();
-        showNotification("Тест зупинено!");
     }
 }
 
