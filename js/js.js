@@ -10,6 +10,7 @@ const MAX_CONSECUTIVE_ERRORS = 1000;
 let isConnected = true;
 let isFullscreen = false;
 let testInProgress = false;
+let pendingRun = false;
 
 // Дані та налаштування
 let speedData = [];
@@ -763,8 +764,12 @@ async function fetchWithTimeout(url, options = {}, timeout = 10000) {
 }
 
 async function runTest() {
-  if (testInProgress) return;
+  if (testInProgress) {
+    pendingRun = true;
+    return;
+  }
   testInProgress = true;
+  pendingRun = false;
   startTime = Date.now();
   prevBytes = totalBytes = 0;
   consecutiveErrors = 0;
@@ -870,6 +875,11 @@ async function runTest() {
   document.getElementById("status").textContent = "Тест зупинено";
   document.getElementById("alertIndicator").style.display = "none";
   testInProgress = false;
+  if (pendingRun && testActive) {
+    pendingRun = false;
+    runTest();
+    return;
+  }
   logTestSummary();
 }
 
@@ -911,6 +921,12 @@ async function waitForReconnect() {
 }
 
 function toggleTest() {
+    if (testActive && !testInProgress) {
+        runTest();
+        showNotification("Тест запущено!");
+        return;
+    }
+
     testActive = !testActive;
     document.getElementById("startBtn").textContent = testActive
         ? "Зупинити тест"
