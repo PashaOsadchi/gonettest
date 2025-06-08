@@ -896,8 +896,8 @@ async function runTest() {
       // Запускаємо чек повторного підключення — всередині waitForReconnect()
       // функція довго не блокує UI, а кожні N мс робить запит bytes=1 для перевірки.
       // Після успіху вона поверне керування сюди, а ми знову зайдемо у верхню try{} й запустимо реальний тест.
-      try { reader.cancel(); } catch (_) {}
-      try { resp.body.cancel(); } catch (_) {}
+      try { reader.cancel(); } catch (e) { addLog('reader.cancel failed: ' + e.message); }
+      try { resp.body.cancel(); } catch (e) { addLog('body.cancel failed: ' + e.message); }
       await waitForReconnect();
       if (!testActive) break;
       // Після повернення з waitForReconnect, переходимо до нового кола зовнішнього while:
