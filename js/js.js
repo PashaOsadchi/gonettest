@@ -102,6 +102,7 @@ async function detectISP() {
     } catch (e) {
         document.getElementById('info').innerHTML =
             '<div style="color:red;">Не вдалося отримати інформацію про з’єднання</div>';
+        addLog('detectISP error: ' + e.message);
     }
 }
 detectISP();
@@ -790,7 +791,8 @@ async function checkRealConnection() {
             RECONNECT_TIMEOUT
         );
         return true;
-    } catch {
+    } catch (e) {
+        addLog('checkRealConnection error: ' + e.message);
         return false;
     }
 }
@@ -955,7 +957,8 @@ async function waitForReconnect() {
         isConnected = true;
         break;
       }
-    } catch {
+    } catch (e) {
+      addLog('waitForReconnect error: ' + e.message);
       // Якщо знову offline — просто чекаємо 500 мс і пробуємо ще
       if (!testActive) return;
     }
