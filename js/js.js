@@ -12,6 +12,9 @@ let isFullscreen = false;
 let testInProgress = false;
 let pendingRun = false;
 
+// Таймаут для перевірки доступності мережі
+const RECONNECT_TIMEOUT = 3000; // мс
+
 // Дані та налаштування
 let speedData = [];
 let dataInterval = null;
@@ -784,7 +787,7 @@ async function checkRealConnection() {
         await fetchWithTimeout(
             'https://www.google.com/generate_204',
             { cache: 'no-store', mode: 'no-cors' },
-            1000
+            RECONNECT_TIMEOUT
         );
         return true;
     } catch {
@@ -935,7 +938,7 @@ async function waitForReconnect() {
       const resp1 = await fetchWithTimeout(
         checkUrl1,
         { cache: "no-store", mode: "no-cors" },
-        500
+        RECONNECT_TIMEOUT
       );
       if (resp1) {
         // Навіть без CORS, якщо запит завершився успішно — мережа присутня
@@ -946,7 +949,7 @@ async function waitForReconnect() {
       const resp2 = await fetchWithTimeout(
         checkUrl2,
         { cache: "no-store", mode: "no-cors" },
-        500
+        RECONNECT_TIMEOUT
       );
       if (resp2) {
         isConnected = true;
