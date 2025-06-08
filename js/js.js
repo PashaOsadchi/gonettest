@@ -175,6 +175,13 @@ function logTestSummary() {
     );
 }
 
+function resetTestState() {
+    testInProgress = false;
+    pendingRun = false;
+    isConnected = true;
+    consecutiveErrors = 0;
+}
+
 function initChart() {
     const ctx = document.getElementById("speedChart").getContext("2d");
     speedChart = new Chart(ctx, {
@@ -763,6 +770,19 @@ async function fetchWithTimeout(url, options = {}, timeout = 10000) {
     }
 }
 
+async function checkRealConnection() {
+    try {
+        await fetchWithTimeout(
+            'https://www.google.com/generate_204',
+            { cache: 'no-store', mode: 'no-cors' },
+            1000
+        );
+        return true;
+    } catch {
+        return false;
+    }
+}
+
 async function runTest() {
   if (testInProgress) {
     pendingRun = true;
@@ -773,6 +793,11 @@ async function runTest() {
   startTime = Date.now();
   prevBytes = totalBytes = 0;
   consecutiveErrors = 0;
+
+  if (!testActive) {
+    resetTestState();
+    return;
+  }
   // Запускаємо оновлення UI що секунду
   updateInterval = setInterval(updateUI, 1000);
   // Запускаємо періодичне збереження точок даних
@@ -880,6 +905,7 @@ async function runTest() {
     runTest();
     return;
   }
+  resetTestState();
   logTestSummary();
 }
 
@@ -920,7 +946,7 @@ async function waitForReconnect() {
   }
 }
 
-function toggleTest() {
+async function toggleTest() {
     if (testActive && !testInProgress) {
         runTest();
         showNotification("Тест запущено!");
@@ -934,11 +960,12 @@ function toggleTest() {
     addLog(testActive ? "Старт тесту" : "Зупинка тесту");
 
     if (testActive) {
-        isConnected = true;
+        isConnected = await checkRealConnection();
         initGPS();
         runTest();
         showNotification("Тест запущено!");
     } else {
+        resetTestState();
         stopGPS();
         showNotification("Тест зупинено!");
     }
