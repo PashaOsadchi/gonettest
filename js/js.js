@@ -780,6 +780,7 @@ async function runTest() {
       // Якщо isConnected === false, то засікаємо «retry until online»:
       if (!isConnected) {
         await waitForReconnect();
+        if (!testActive) break;
       }
 
       // Коли вже точно онлайн, пробуємо робити реальний fetch
@@ -852,6 +853,7 @@ async function runTest() {
       try { reader.cancel(); } catch (_) {}
       try { resp.body.cancel(); } catch (_) {}
       await waitForReconnect();
+      if (!testActive) break;
       // Після повернення з waitForReconnect, переходимо до нового кола зовнішнього while:
       continue;
     }
