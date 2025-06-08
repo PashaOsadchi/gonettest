@@ -4,7 +4,7 @@ let totalBytes = 0,
     prevBytes = 0,
     startTime = 0,
     updateInterval = null;
-const TARGET = 100 * 1024 * 1024 * 1024;
+const TARGET = 1 * 1024 * 1024 * 1024;
 let consecutiveErrors = 0;
 const MAX_CONSECUTIVE_ERRORS = 1000;
 let isConnected = true;
@@ -929,7 +929,7 @@ async function runTest() {
 // Окрема допоміжна функція, яка повертається лише тоді, коли перевірка
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
-  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=100`;
+  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=1048576`;
   const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
@@ -939,7 +939,7 @@ async function waitForReconnect() {
       addLog("Перевірка з'єднання…");
       const resp1 = await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store", mode: "no-cors" },
+        { cache: "no-store" },
         RECONNECT_TIMEOUT
       );
       if (resp1) {
@@ -950,7 +950,7 @@ async function waitForReconnect() {
 
       const resp2 = await fetchWithTimeout(
         checkUrl2,
-        { cache: "no-store", mode: "no-cors" },
+        { cache: "no-store" },
         RECONNECT_TIMEOUT
       );
       if (resp2) {
