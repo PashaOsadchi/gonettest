@@ -818,8 +818,13 @@ async function runTest() {
   // Запускаємо періодичне збереження точок даних
   dataInterval = setInterval(saveDataPoint, settings.saveInterval * 1000);
 
+  let resp = null,
+      reader = null;
+
   while (testActive) {
     if (!testActive) break;
+    resp = null;
+    reader = null;
     try {
       addLog("Спроба завантаження…");
       // Перед кожним реальним тестом перевіримо, чи ми зараз офлайні?
@@ -830,7 +835,7 @@ async function runTest() {
       }
 
       // Коли вже точно онлайн, пробуємо робити реальний fetch
-      const resp = await fetchWithTimeout(
+      resp = await fetchWithTimeout(
         `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
         { cache: "no-store" },
         // Даємо більше часу на відповідь після втрати зв'язку,
@@ -850,7 +855,7 @@ async function runTest() {
         speak("З'єднання відновлено");
       }
 
-      const reader = resp.body.getReader();
+      reader = resp.body.getReader();
       consecutiveErrors = 0;
 
       // Починаємо читати дані потоково
@@ -899,8 +904,8 @@ async function runTest() {
       // Запускаємо чек повторного підключення — всередині waitForReconnect()
       // функція довго не блокує UI, а кожні N мс робить запит bytes=1 для перевірки.
       // Після успіху вона поверне керування сюди, а ми знову зайдемо у верхню try{} й запустимо реальний тест.
-      try { reader.cancel(); } catch (e) { addLog('reader.cancel failed: ' + e.message); }
-      try { resp.body.cancel(); } catch (e) { addLog('body.cancel failed: ' + e.message); }
+      try { if (reader) reader.cancel(); } catch (e) { addLog('reader.cancel failed: ' + e.message); }
+      try { if (resp) resp.body.cancel(); } catch (e) { addLog('body.cancel failed: ' + e.message); }
       await waitForReconnect();
       if (!testActive) break;
       // Після повернення з waitForReconnect, переходимо до нового кола зовнішнього while:
