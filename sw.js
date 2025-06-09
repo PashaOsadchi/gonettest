@@ -32,8 +32,8 @@ self.addEventListener('fetch', event => {
     url.startsWith('https://speed.cloudflare.com/__down') ||
     url.startsWith('https://www.google.com/generate_204')
   ) {
-    // Bypass the service worker for connectivity check requests so that
-    // they are never cached and always hit the network.
+    // Always fetch connectivity check requests from the network without caching
+    event.respondWith(fetch(event.request, { cache: 'no-store' }));
     return;
   }
   if (event.request.headers.get('Accept')?.includes('text/html')) {
