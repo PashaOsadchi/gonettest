@@ -16,6 +16,10 @@ let pendingRun = false;
 // Збільшено до 5000 мс, щоб врахувати повільніші підключення
 const RECONNECT_TIMEOUT = 5000; // мс
 
+// Таймаут для великих завантажень. 8 с дає достатньо часу
+// повільним з'єднанням, не затягуючи очікування
+const BIG_FETCH_TIMEOUT = 8000; // мс
+
 // Дані та налаштування
 let speedData = [];
 let dataInterval = null;
@@ -840,7 +844,7 @@ async function runTest() {
         { cache: "no-store" },
         // Даємо більше часу на відповідь після втрати зв'язку,
         // щоб тест не падав одразу на мережах з високою затримкою
-        30000
+        BIG_FETCH_TIMEOUT
       );
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
