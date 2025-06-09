@@ -1,16 +1,16 @@
 // Конфігурація
 const TARGET = 1 * 1024 * 1024 * 1024; // Обсяг для тестового завантаження (байт)
 const MAX_CONSECUTIVE_ERRORS = 1000; // Максимальна кількість помилок поспіль
-const RECONNECT_TIMEOUT = 5000; // Таймаут перевірки підключення (мс)
-const BIG_FETCH_TIMEOUT = 30000; // Таймаут великого запиту (мс)
+const RECONNECT_TIMEOUT = 1000; // Таймаут перевірки підключення (мс)
+const BIG_FETCH_TIMEOUT = 1000; // Таймаут великого запиту (мс)
 const NOTIFICATION_DURATION = 3000; // Тривалість сповіщення (мс)
 const BEEP_FREQUENCY = 800; // Частота сигналу за замовчуванням (Гц)
 const BEEP_DURATION = 200; // Тривалість сигналу за замовчуванням (мс)
 const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
-const DEFAULT_FETCH_TIMEOUT = 10000; // Таймаут запиту за замовчуванням (мс)
-const STREAM_READ_TIMEOUT = 15000; // Таймаут читання потоку (мс)
+const DEFAULT_FETCH_TIMEOUT = 1000; // Таймаут запиту за замовчуванням (мс)
+const STREAM_READ_TIMEOUT = 1000; // Таймаут читання потоку (мс)
 const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
 const DEFAULT_SAVE_INTERVAL = 1; // Інтервал збереження даних (с)
 const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підключення (мс)
@@ -850,7 +850,10 @@ async function runTest() {
 
       // Коли вже точно онлайн, пробуємо робити реальний fetch
       resp = await fetchWithTimeout(
-        `https://httpbin.org/bytes/${TARGET}`,
+        // `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
+        // `https://speedtest.tele2.net/1GB.zip`, 
+        // `https://ash-speed.hetzner.com/1GB.bin`, 
+        `https://www.thinkbroadband.com/download/1GB.zip`, 
         { cache: "no-store" },
         // Даємо більше часу на відповідь після втрати зв'язку,
         // щоб тест не падав одразу на мережах з високою затримкою
@@ -958,7 +961,7 @@ async function runTest() {
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
   // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
-  const checkUrl1 = `https://httpbin.org/bytes/1`;
+  const checkUrl1 = `https://httpbin.org/bytes/102400`;
   const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
