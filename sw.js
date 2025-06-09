@@ -28,12 +28,8 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const url = event.request.url;
-  if (
-    url.startsWith('https://speed.cloudflare.com/__down') ||
-    url.startsWith('https://www.google.com/generate_204')
-  ) {
-    // Always fetch connectivity check requests from the network without caching
-    event.respondWith(fetch(event.request, { cache: 'no-store' }));
+  if (url.includes('speed.cloudflare.com') || url.includes('generate_204')) {
+    // Let the browser handle these requests normally without caching
     return;
   }
   if (event.request.headers.get('Accept')?.includes('text/html')) {
