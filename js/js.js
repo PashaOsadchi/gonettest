@@ -850,7 +850,7 @@ async function runTest() {
 
       // Коли вже точно онлайн, пробуємо робити реальний fetch
       resp = await fetchWithTimeout(
-        `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
+        `https://httpbin.org/bytes/${TARGET}`,
         { cache: "no-store" },
         // Даємо більше часу на відповідь після втрати зв'язку,
         // щоб тест не падав одразу на мережах з високою затримкою
@@ -958,7 +958,7 @@ async function runTest() {
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
   // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
-  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=1`;
+  const checkUrl1 = `https://httpbin.org/bytes/1`;
   const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
