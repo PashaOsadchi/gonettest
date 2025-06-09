@@ -973,7 +973,7 @@ async function waitForReconnect() {
     try {
       await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store", mode: "no-cors" },
+        { cache: "no-store" },
         RECONNECT_TIMEOUT
       );
       success = true;
