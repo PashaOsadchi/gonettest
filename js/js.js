@@ -1,24 +1,34 @@
+// Конфігурація
+const TARGET = 1 * 1024 * 1024 * 1024; // Обсяг для тестового завантаження (байт)
+const MAX_CONSECUTIVE_ERRORS = 1000; // Максимальна кількість помилок поспіль
+const RECONNECT_TIMEOUT = 5000; // Таймаут перевірки підключення (мс)
+const BIG_FETCH_TIMEOUT = 8000; // Таймаут великого запиту (мс)
+const NOTIFICATION_DURATION = 3000; // Тривалість сповіщення (мс)
+const BEEP_FREQUENCY = 800; // Частота сигналу за замовчуванням (Гц)
+const BEEP_DURATION = 200; // Тривалість сигналу за замовчуванням (мс)
+const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
+const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
+const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
+const DEFAULT_FETCH_TIMEOUT = 10000; // Таймаут запиту за замовчуванням (мс)
+const STREAM_READ_TIMEOUT = 5000; // Таймаут читання потоку (мс)
+const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
+const DEFAULT_SAVE_INTERVAL = 1; // Інтервал збереження даних (с)
+const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підключення (мс)
+const RUN_LOOP_PAUSE = 500; // Пауза в циклі тесту (мс)
+const ORIENTATION_DELAY = 100; // Затримка після зміни орієнтації (мс)
+const MAX_DATA_POINTS = 60; // Максимальна кількість точок графіка
+
 // Глобальні змінні
 let testActive = false;
 let totalBytes = 0,
     prevBytes = 0,
     startTime = 0,
     updateInterval = null;
-const TARGET = 1 * 1024 * 1024 * 1024;
 let consecutiveErrors = 0;
-const MAX_CONSECUTIVE_ERRORS = 1000;
 let isConnected = true;
 let isFullscreen = false;
 let testInProgress = false;
 let pendingRun = false;
-
-// Таймаут для перевірки доступності мережі
-// Збільшено до 5000 мс, щоб врахувати повільніші підключення
-const RECONNECT_TIMEOUT = 5000; // мс
-
-// Таймаут для великих завантажень. 8 с дає достатньо часу
-// повільним з'єднанням, не затягуючи очікування
-const BIG_FETCH_TIMEOUT = 8000; // мс
 
 // Дані та налаштування
 let speedData = [];
@@ -42,7 +52,7 @@ let totalDistance = 0;
 
 // Налаштування
 let settings = {
-    saveInterval: 1,
+    saveInterval: DEFAULT_SAVE_INTERVAL,
     gpsDistance: 1,
     speedThreshold: 1,
     soundAlerts: true,
@@ -52,7 +62,7 @@ let settings = {
 // Графік
 let speedChart = null;
 let chartData = [];
-let maxDataPoints = 60; // Показуємо останні 60 точок
+let maxDataPoints = MAX_DATA_POINTS; // Показуємо останні 60 точок
 
 // Статистика
 let speedStats = {
@@ -120,7 +130,7 @@ function addLog(msg) {
     console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
 }
 
-function showNotification(message, duration = 3000) {
+function showNotification(message, duration = NOTIFICATION_DURATION) {
     const notification = document.getElementById("notification");
     notification.textContent = message;
     notification.style.display = "block";
@@ -129,7 +139,7 @@ function showNotification(message, duration = 3000) {
     }, duration);
 }
 
-function playBeep(frequency = 800, duration = 200) {
+function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
     if (!settings.soundAlerts) return;
 
     try {
@@ -165,7 +175,7 @@ function speak(text) {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "uk-UA";
-    utterance.rate = 0.8;
+    utterance.rate = SPEECH_RATE;
     speechSynthesis.speak(utterance);
 }
 
@@ -453,8 +463,8 @@ function initGPS() {
 
     const options = {
         enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 1000,
+        timeout: GPS_TIMEOUT,
+        maximumAge: GPS_MAX_AGE,
     };
 
     gpsWatchId = navigator.geolocation.watchPosition(
@@ -771,7 +781,7 @@ function updateUI() {
     updateStats();
 }
 
-async function fetchWithTimeout(url, options = {}, timeout = 10000) {
+async function fetchWithTimeout(url, options = {}, timeout = DEFAULT_FETCH_TIMEOUT) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -818,7 +828,7 @@ async function runTest() {
   prevBytes = totalBytes = 0;
   consecutiveErrors = 0;
   // Запускаємо оновлення UI що секунду
-  updateInterval = setInterval(updateUI, 1000);
+  updateInterval = setInterval(updateUI, UI_UPDATE_INTERVAL);
   // Запускаємо періодичне збереження точок даних
   dataInterval = setInterval(saveDataPoint, settings.saveInterval * 1000);
 
@@ -868,7 +878,7 @@ async function runTest() {
         try {
           const readPromise = reader.read();
           const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Read timeout")), 5000)
+            setTimeout(() => reject(new Error("Read timeout")), STREAM_READ_TIMEOUT)
           );
           const { done, value } = await Promise.race([
             readPromise,
@@ -918,7 +928,7 @@ async function runTest() {
 
     // Якщо testActive === true і isConnected === true — невелика пауза 0.5 с
     if (testActive && isConnected) {
-      await new Promise((r) => setTimeout(r, 500));
+      await new Promise((r) => setTimeout(r, RUN_LOOP_PAUSE));
     }
   }
 
@@ -1001,7 +1011,7 @@ async function waitForReconnect() {
       break;
     }
 
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, RECONNECT_RETRY_INTERVAL));
   }
 }
 
@@ -1130,6 +1140,6 @@ window.addEventListener("orientationchange", () => {
         if (speedChart) {
             speedChart.resize();
         }
-    }, 100);
+    }, ORIENTATION_DELAY);
 });
 
