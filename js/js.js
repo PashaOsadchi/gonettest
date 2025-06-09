@@ -833,7 +833,9 @@ async function runTest() {
       const resp = await fetchWithTimeout(
         `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
         { cache: "no-store" },
-        10000
+        // Даємо більше часу на відповідь після втрати зв'язку,
+        // щоб тест не падав одразу на мережах з високою затримкою
+        30000
       );
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
