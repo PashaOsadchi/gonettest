@@ -859,10 +859,7 @@ async function runTest() {
         // щоб тест не падав одразу на мережах з високою затримкою
         // BIG_FETCH_TIMEOUT
       // );
-      resp = await fetchWithTimeout(
-        `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
-        BIG_FETCH_TIMEOUT
-      );
+      resp = await fetch(`https://speed.cloudflare.com/__down?bytes=${TARGET}`);
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
