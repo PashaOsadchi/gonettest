@@ -974,6 +974,26 @@ async function waitForReconnect() {
     if (success) {
       // Навіть без CORS, якщо запит завершився успішно — мережа присутня
       isConnected = true;
+      // Після відновлення з'єднання скидаємо лічильники та статистику
+      totalBytes = 0;
+      prevBytes = 0;
+      startTime = Date.now();
+      speedStats = { min: Infinity, max: 0, sum: 0, count: 0 };
+      chartData = [];
+
+      // Оновлюємо залежні елементи інтерфейсу
+      document.getElementById('downloadedValue').textContent = '0.00';
+      document.getElementById('timeValue').textContent = '0';
+      document.getElementById('speedValue').textContent = '0.00';
+      document.getElementById('avgSpeed').textContent = '0.00';
+      document.getElementById('maxSpeed').textContent = '0.00';
+      document.getElementById('minSpeed').textContent = '0.00';
+      document.getElementById('progressBar').style.width = '0%';
+      if (speedChart) {
+        speedChart.data.labels = [];
+        speedChart.data.datasets[0].data = [];
+        speedChart.update();
+      }
       break;
     }
 
