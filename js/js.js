@@ -17,6 +17,7 @@ const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підкл�
 const RUN_LOOP_PAUSE = 500; // Пауза в циклі тесту (мс)
 const ORIENTATION_DELAY = 100; // Затримка після зміни орієнтації (мс)
 const MAX_DATA_POINTS = 60; // Максимальна кількість точок графіка
+const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 
 // Глобальні змінні
 let testActive = false;
@@ -325,6 +326,21 @@ function updateStats() {
             }
         }
     }
+}
+
+function updateSpeedPerSecond(speedMbps) {
+    currentSpeedMbps = speedMbps;
+    document.getElementById("speedValue").textContent = speedMbps.toFixed(2);
+    const indicator = document.getElementById("realtimeIndicator");
+    if (indicator) {
+        indicator.textContent = `${speedMbps.toFixed(2)} Мбіт/с`;
+    }
+    updateChart();
+    updateStats();
+}
+
+function updateProgress(progress) {
+    document.getElementById("progressBar").style.width = `${Math.min(100, progress * 100)}%`;
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -812,6 +828,42 @@ async function checkRealConnection() {
     }
 }
 
+async function measureDownloadSpeed() {
+    const resp = await fetchWithTimeout(serverUrl, {}, BIG_FETCH_TIMEOUT);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+
+    const reader = resp.body.getReader();
+    let bytes = 0;
+    const start = performance.now();
+    let lastUpdate = start;
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        bytes += value.length;
+        totalBytes += value.length;
+
+        const now = performance.now();
+        if (now - lastUpdate >= 1000) {
+            const speed = (bytes * 8) / ((now - start) / 1000) / (1024 * 1024);
+            updateSpeedPerSecond(speed);
+            updateProgress(bytes / TARGET);
+            lastUpdate = now;
+        }
+
+        if (bytes >= TARGET) {
+            try { await reader.cancel(); } catch (e) {}
+            break;
+        }
+    }
+
+    const duration = (performance.now() - start) / 1000;
+    const speedMbps = (bytes * 8) / (duration * 1024 * 1024);
+    updateSpeedPerSecond(speedMbps);
+    updateProgress(1);
+    return { speedMbps, bytes };
+}
+
 async function runTest() {
   if (!testActive) {
     resetTestState();
@@ -832,79 +884,22 @@ async function runTest() {
   // Запускаємо періодичне збереження точок даних
   dataInterval = setInterval(saveDataPoint, settings.saveInterval * 1000);
 
-  let resp = null,
-      reader = null;
-
   while (testActive) {
     if (!testActive) break;
-    resp = null;
-    reader = null;
     try {
       addLog("Спроба завантаження…");
-      // Перед кожним реальним тестом перевіримо, чи ми зараз офлайні?
-      // Якщо isConnected === false, то засікаємо «retry until online»:
       if (!isConnected) {
         await waitForReconnect();
         if (!testActive) break;
       }
 
-      // Коли вже точно онлайн, пробуємо робити реальний fetch
-       resp = await fetchWithTimeout(
-           `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
-        // `https://speedtest.tele2.net/1GB.zip`, 
-        // `https://ash-speed.hetzner.com/1GB.bin`, 
-        // `http://ipv4.download.thinkbroadband.com/1GB.zip`, 
-        // { cache: "no-store", mode: "no-cors" },
-           {},
-        // Даємо більше часу на відповідь після втрати зв'язку,
-        // щоб тест не падав одразу на мережах з високою затримкою
-           BIG_FETCH_TIMEOUT
-       );
-      //resp = await fetch(`https://speed.cloudflare.com/__down?bytes=${TARGET}`);
-
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-
-      // Якщо дійшли сюди — значить fetch успішний, а ми до цього були offline
-      if (!isConnected) {
-        isConnected = true;
-        addLog("З'єднання відновлено!");
-        document.getElementById("status").textContent = "Тест активний";
-        showNotification("З'єднання відновлено!");
-        playBeep(600, 200);
-        speak("З'єднання відновлено");
-      }
-
-      reader = resp.body.getReader();
+      const { speedMbps } = await measureDownloadSpeed();
       consecutiveErrors = 0;
-
-      // Починаємо читати дані потоково
-      while (testActive) {
-        if (!testActive) break;
-        try {
-          const readPromise = reader.read();
-          const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Read timeout")), STREAM_READ_TIMEOUT)
-          );
-          const { done, value } = await Promise.race([
-            readPromise,
-            timeoutPromise,
-          ]);
-
-          if (done) break;
-          totalBytes += value.length;
-        } catch (readError) {
-          // Якщо timeout або помилка при читанні блокує подальша робота —
-          // викидаємо в зовнішній catch, щоб зайти в «offline flow»
-          addLog("Timeout при читанні даних");
-          throw readError;
-        }
-      }
+      currentSpeedMbps = speedMbps;
+      updateStats();
     } catch (e) {
-      // Виходимо сюди, коли fetch впав або reader.read() кинув помилку
       if (e.message && e.message.includes('ERR_NETWORK_CHANGED')) {
         addLog('Network interface changed, retrying…');
-        try { if (reader) reader.cancel(); } catch (err) { addLog('reader.cancel failed: ' + err.message); }
-        try { if (resp) resp.body.cancel(); } catch (err) { addLog('body.cancel failed: ' + err.message); }
         continue;
       }
       isConnected = false;
@@ -926,18 +921,11 @@ async function runTest() {
         speak("Втрачено з'єднання з інтернетом");
       }
 
-      // Запускаємо чек повторного підключення — всередині waitForReconnect()
-      // функція довго не блокує UI, а кожні N мс робить запит bytes=1 для перевірки.
-      // Після успіху вона поверне керування сюди, а ми знову зайдемо у верхню try{} й запустимо реальний тест.
-      try { if (reader) reader.cancel(); } catch (e) { addLog('reader.cancel failed: ' + e.message); }
-      try { if (resp) resp.body.cancel(); } catch (e) { addLog('body.cancel failed: ' + e.message); }
       await waitForReconnect();
       if (!testActive) break;
-      // Після повернення з waitForReconnect, переходимо до нового кола зовнішнього while:
       continue;
     }
 
-    // Якщо testActive === true і isConnected === true — невелика пауза 0.5 с
     if (testActive && isConnected) {
       await new Promise((r) => setTimeout(r, RUN_LOOP_PAUSE));
     }
