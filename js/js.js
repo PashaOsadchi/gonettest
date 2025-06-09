@@ -2,7 +2,7 @@
 const TARGET = 1 * 1024 * 1024 * 1024; // Обсяг для тестового завантаження (байт)
 const MAX_CONSECUTIVE_ERRORS = 1000; // Максимальна кількість помилок поспіль
 const RECONNECT_TIMEOUT = 1000; // Таймаут перевірки підключення (мс)
-const BIG_FETCH_TIMEOUT = 1000; // Таймаут великого запиту (мс)
+const BIG_FETCH_TIMEOUT = 30000; // Таймаут великого запиту (мс, 30 с)
 const NOTIFICATION_DURATION = 3000; // Тривалість сповіщення (мс)
 const BEEP_FREQUENCY = 800; // Частота сигналу за замовчуванням (Гц)
 const BEEP_DURATION = 200; // Тривалість сигналу за замовчуванням (мс)
@@ -10,7 +10,7 @@ const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
 const DEFAULT_FETCH_TIMEOUT = 1000; // Таймаут запиту за замовчуванням (мс)
-const STREAM_READ_TIMEOUT = 1000; // Таймаут читання потоку (мс)
+const STREAM_READ_TIMEOUT = 5000; // Таймаут читання потоку (мс, 5 с)
 const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
 const DEFAULT_SAVE_INTERVAL = 1; // Інтервал збереження даних (с)
 const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підключення (мс)
