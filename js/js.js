@@ -2,7 +2,7 @@
 const TARGET = 1 * 1024 * 1024 * 1024; // Обсяг для тестового завантаження (байт)
 const MAX_CONSECUTIVE_ERRORS = 1000; // Максимальна кількість помилок поспіль
 const RECONNECT_TIMEOUT = 5000; // Таймаут перевірки підключення (мс)
-const BIG_FETCH_TIMEOUT = 8000; // Таймаут великого запиту (мс)
+const BIG_FETCH_TIMEOUT = 30000; // Таймаут великого запиту (мс)
 const NOTIFICATION_DURATION = 3000; // Тривалість сповіщення (мс)
 const BEEP_FREQUENCY = 800; // Частота сигналу за замовчуванням (Гц)
 const BEEP_DURATION = 200; // Тривалість сигналу за замовчуванням (мс)
@@ -10,7 +10,7 @@ const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
 const DEFAULT_FETCH_TIMEOUT = 10000; // Таймаут запиту за замовчуванням (мс)
-const STREAM_READ_TIMEOUT = 5000; // Таймаут читання потоку (мс)
+const STREAM_READ_TIMEOUT = 15000; // Таймаут читання потоку (мс)
 const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
 const DEFAULT_SAVE_INTERVAL = 1; // Інтервал збереження даних (с)
 const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підключення (мс)
@@ -896,6 +896,12 @@ async function runTest() {
       }
     } catch (e) {
       // Виходимо сюди, коли fetch впав або reader.read() кинув помилку
+      if (e.message && e.message.includes('ERR_NETWORK_CHANGED')) {
+        addLog('Network interface changed, retrying…');
+        try { if (reader) reader.cancel(); } catch (err) { addLog('reader.cancel failed: ' + err.message); }
+        try { if (resp) resp.body.cancel(); } catch (err) { addLog('body.cancel failed: ' + err.message); }
+        continue;
+      }
       isConnected = false;
       consecutiveErrors++;
       document.getElementById("speedValue").textContent = "0.00";
@@ -964,10 +970,10 @@ async function waitForReconnect() {
     try {
       const resp1 = await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store", mode: "cors" },
+        { cache: "no-store", mode: "no-cors" },
         RECONNECT_TIMEOUT
       );
-      if (resp1 && resp1.ok && resp1.type !== "opaque") success = true;
+      if (resp1 && resp1.ok) success = true;
     } catch (e) {
       addLog('waitForReconnect checkUrl1 error: ' + e.message);
     }
@@ -976,10 +982,10 @@ async function waitForReconnect() {
       try {
         const resp2 = await fetchWithTimeout(
           checkUrl2,
-          { cache: "no-store", mode: "cors" },
+          { cache: "no-store", mode: "no-cors" },
           RECONNECT_TIMEOUT
         );
-        if (resp2 && resp2.ok && resp2.type !== "opaque") success = true;
+        if (resp2 && resp2.ok) success = true;
       } catch (e) {
         addLog('waitForReconnect checkUrl2 error: ' + e.message);
       }
