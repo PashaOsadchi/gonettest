@@ -13,7 +13,8 @@ let testInProgress = false;
 let pendingRun = false;
 
 // Таймаут для перевірки доступності мережі
-const RECONNECT_TIMEOUT = 3000; // мс
+// Збільшено до 5000 мс, щоб врахувати повільніші підключення
+const RECONNECT_TIMEOUT = 5000; // мс
 
 // Дані та налаштування
 let speedData = [];
@@ -929,7 +930,8 @@ async function runTest() {
 // Окрема допоміжна функція, яка повертається лише тоді, коли перевірка
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
-  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=1048576`;
+  // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
+  const checkUrl1 = `https://speed.cloudflare.com/__down?bytes=1`;
   const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
