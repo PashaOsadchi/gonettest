@@ -10,7 +10,7 @@ const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
 const DEFAULT_FETCH_TIMEOUT = 1000; // Таймаут запиту за замовчуванням (мс)
-const STREAM_READ_TIMEOUT = 5000; // Таймаут читання потоку (мс, 5 с)
+const STREAM_READ_TIMEOUT = 500000; // Таймаут читання потоку (мс, 5 с)
 const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
 const DEFAULT_SAVE_INTERVAL = 1; // Інтервал збереження даних (с)
 const RECONNECT_RETRY_INTERVAL = 500; // Інтервал спроб підключення (мс)
@@ -849,17 +849,18 @@ async function runTest() {
       }
 
       // Коли вже точно онлайн, пробуємо робити реальний fetch
-      // resp = await fetchWithTimeout(
-        // `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
+       resp = await fetchWithTimeout(
+           `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
         // `https://speedtest.tele2.net/1GB.zip`, 
         // `https://ash-speed.hetzner.com/1GB.bin`, 
         // `http://ipv4.download.thinkbroadband.com/1GB.zip`, 
         // { cache: "no-store", mode: "no-cors" },
+           {},
         // Даємо більше часу на відповідь після втрати зв'язку,
         // щоб тест не падав одразу на мережах з високою затримкою
-        // BIG_FETCH_TIMEOUT
-      // );
-      resp = await fetch(`https://speed.cloudflare.com/__down?bytes=${TARGET}`);
+           BIG_FETCH_TIMEOUT
+       );
+      //resp = await fetch(`https://speed.cloudflare.com/__down?bytes=${TARGET}`);
 
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
