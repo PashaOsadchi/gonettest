@@ -8,13 +8,13 @@
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js", { scope: "/" }).then((registration) => console.log(registration.scope), (err) => console.log(err));
+        navigator.serviceWorker.register("sw.js", { scope: "/" }).then((registration) => console.log(registration.scope), (err) => console.log(err));
     });
 }
 
 /* if ("serviceWorker" in navigator) {
     window.addEventListener("load", function () {
-        navigator.serviceWorker.register("/sw.js", { scope: "/" }).then(
+        navigator.serviceWorker.register("sw.js", { scope: "/" }).then(
             function (registration) {
                 // Registration was successful
                 // console.log('Реєстрація Service Worker пройшла успішно: ', registration.scope);

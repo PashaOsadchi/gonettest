@@ -1,15 +1,15 @@
 const CACHE_NAME = 'v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles/style.css',
-  '/js/js.js',
-  '/js/registration_service_worker.js',
-  '/icon/icon.png',
-  '/icon/icon_144.png',
-  '/icon/icon_192.png',
-  '/icon/icon_512.png',
-  '/pwa.webmanifest'
+  '.',
+  'index.html',
+  'styles/style.css',
+  'js/js.js',
+  'js/registration_service_worker.js',
+  'icon/icon.png',
+  'icon/icon_144.png',
+  'icon/icon_192.png',
+  'icon/icon_512.png',
+  'pwa.webmanifest'
 ];
 
 self.addEventListener('install', event => {
@@ -40,7 +40,7 @@ self.addEventListener('fetch', event => {
           caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
           return response;
         })
-        .catch(() => caches.match(event.request).then(res => res || caches.match('/index.html')))
+        .catch(() => caches.match(event.request).then(res => res || caches.match('index.html')))
     );
     return;
   }
