@@ -971,24 +971,24 @@ async function waitForReconnect() {
     addLog("Перевірка з'єднання…");
 
     try {
-      const resp1 = await fetchWithTimeout(
+      await fetchWithTimeout(
         checkUrl1,
         { cache: "no-store", mode: "no-cors" },
         RECONNECT_TIMEOUT
       );
-      if (resp1 && resp1.ok) success = true;
+      success = true;
     } catch (e) {
       addLog('waitForReconnect checkUrl1 error: ' + e.message);
     }
 
     if (!success) {
       try {
-        const resp2 = await fetchWithTimeout(
+        await fetchWithTimeout(
           checkUrl2,
           { cache: "no-store", mode: "no-cors" },
           RECONNECT_TIMEOUT
         );
-        if (resp2 && resp2.ok) success = true;
+        success = true;
       } catch (e) {
         addLog('waitForReconnect checkUrl2 error: ' + e.message);
       }
