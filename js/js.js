@@ -961,7 +961,7 @@ async function runTest() {
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
   // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
-  const checkUrl1 = `https://httpbin.org/bytes/102400`;
+  const checkUrl1 = `https://www.google.com/generate_204`;
   const checkUrl2 = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
@@ -973,7 +973,7 @@ async function waitForReconnect() {
     try {
       await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store" },
+        { cache: "no-store", mode: "no-cors" },
         RECONNECT_TIMEOUT
       );
       success = true;
