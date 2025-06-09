@@ -950,10 +950,10 @@ async function waitForReconnect() {
     try {
       const resp1 = await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store", mode: "no-cors" },
+        { cache: "no-store", mode: "cors" },
         RECONNECT_TIMEOUT
       );
-      if (resp1) success = true;
+      if (resp1 && resp1.ok && resp1.type !== "opaque") success = true;
     } catch (e) {
       addLog('waitForReconnect checkUrl1 error: ' + e.message);
     }
@@ -962,10 +962,10 @@ async function waitForReconnect() {
       try {
         const resp2 = await fetchWithTimeout(
           checkUrl2,
-          { cache: "no-store", mode: "no-cors" },
+          { cache: "no-store", mode: "cors" },
           RECONNECT_TIMEOUT
         );
-        if (resp2) success = true;
+        if (resp2 && resp2.ok && resp2.type !== "opaque") success = true;
       } catch (e) {
         addLog('waitForReconnect checkUrl2 error: ' + e.message);
       }
