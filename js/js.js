@@ -852,8 +852,8 @@ async function runTest() {
       resp = await fetchWithTimeout(
         // `https://speed.cloudflare.com/__down?bytes=${TARGET}`,
         // `https://speedtest.tele2.net/1GB.zip`, 
-        `https://ash-speed.hetzner.com/1GB.bin`, 
-        // `http://ipv4.download.thinkbroadband.com/1GB.zip`, 
+        // `https://ash-speed.hetzner.com/1GB.bin`, 
+        `http://ipv4.download.thinkbroadband.com/1GB.zip`, 
         { cache: "no-store" },
         // Даємо більше часу на відповідь після втрати зв'язку,
         // щоб тест не падав одразу на мережах з високою затримкою
