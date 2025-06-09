@@ -935,33 +935,39 @@ async function waitForReconnect() {
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
   while (testActive && !isConnected) {
     if (!testActive) return;
+    let success = false;
+    addLog("Перевірка з'єднання…");
+
     try {
-      addLog("Перевірка з'єднання…");
       const resp1 = await fetchWithTimeout(
         checkUrl1,
-        { cache: "no-store" },
+        { cache: "no-store", mode: "no-cors" },
         RECONNECT_TIMEOUT
       );
-      if (resp1) {
-        // Навіть без CORS, якщо запит завершився успішно — мережа присутня
-        isConnected = true;
-        break;
-      }
-
-      const resp2 = await fetchWithTimeout(
-        checkUrl2,
-        { cache: "no-store" },
-        RECONNECT_TIMEOUT
-      );
-      if (resp2) {
-        isConnected = true;
-        break;
-      }
+      if (resp1) success = true;
     } catch (e) {
-      addLog('waitForReconnect error: ' + e.message);
-      // Якщо знову offline — просто чекаємо 500 мс і пробуємо ще
-      if (!testActive) return;
+      addLog('waitForReconnect checkUrl1 error: ' + e.message);
     }
+
+    if (!success) {
+      try {
+        const resp2 = await fetchWithTimeout(
+          checkUrl2,
+          { cache: "no-store", mode: "no-cors" },
+          RECONNECT_TIMEOUT
+        );
+        if (resp2) success = true;
+      } catch (e) {
+        addLog('waitForReconnect checkUrl2 error: ' + e.message);
+      }
+    }
+
+    if (success) {
+      // Навіть без CORS, якщо запит завершився успішно — мережа присутня
+      isConnected = true;
+      break;
+    }
+
     await new Promise((r) => setTimeout(r, 500));
   }
 }
