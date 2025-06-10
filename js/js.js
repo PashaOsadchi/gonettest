@@ -1103,6 +1103,10 @@ function toggleSettings() {
     panel.classList.toggle("active");
 }
 
+function refreshPage() {
+    window.location.reload();
+}
+
 function saveSettings() {
     settings.saveInterval =
         parseInt(document.getElementById("saveInterval").value) || 1;
