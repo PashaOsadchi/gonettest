@@ -1065,7 +1065,9 @@ function toggleFullscreen() {
 
     if (isFullscreen) {
         body.classList.add("fullscreen-mode");
-        if (document.documentElement.requestFullscreen) {
+        if (body.requestFullscreen) {
+            body.requestFullscreen();
+        } else if (document.documentElement.requestFullscreen) {
             document.documentElement.requestFullscreen();
         }
         showNotification("Повноекранний режим увімкнено");
