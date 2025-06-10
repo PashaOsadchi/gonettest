@@ -19,6 +19,27 @@ const ORIENTATION_DELAY = 100; // Затримка після зміни орі�
 const MAX_DATA_POINTS = 60; // Максимальна кількість точок графіка
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 
+// Wake Lock
+let wakeLock = null;
+
+async function requestWakeLock() {
+    try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        wakeLock.addEventListener('release', () => {
+            wakeLock = null;
+            console.log('Wake Lock released');
+        });
+    } catch (err) {
+        console.error('Wake Lock error:', err);
+    }
+}
+
+document.addEventListener('visibilitychange', async () => {
+    if (wakeLock !== null && document.visibilityState === 'visible') {
+        await requestWakeLock();
+    }
+});
+
 // Глобальні змінні
 let testActive = false;
 let totalBytes = 0,
@@ -1119,6 +1140,7 @@ window.addEventListener("load", () => {
     initChart();
     loadSettings();
     updateGPSInfo();
+    requestWakeLock();
 
     // Обробка виходу з повноекранного режиму
     document.addEventListener("fullscreenchange", () => {
