@@ -331,10 +331,6 @@ function updateStats() {
 function updateSpeedPerSecond(speedMbps) {
     currentSpeedMbps = speedMbps;
     document.getElementById("speedValue").textContent = speedMbps.toFixed(2);
-    const indicator = document.getElementById("realtimeIndicator");
-    if (indicator) {
-        indicator.textContent = `${speedMbps.toFixed(2)} Мбіт/с`;
-    }
     updateChart();
     updateStats();
 }
