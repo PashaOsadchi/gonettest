@@ -446,7 +446,7 @@ h1 {
   }
 
   .logo {
-    position: relative;
+    position: fixed;
     top: auto;
     left: auto;
     align-self: flex-start;
@@ -455,7 +455,6 @@ h1 {
     margin-bottom: 15px;
     order: -1;
   }
-
   .icon-btn {
     width: 45px;
     height: 45px;
