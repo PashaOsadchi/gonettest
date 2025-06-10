@@ -114,7 +114,15 @@ async function detectISP() {
         document.getElementById('timezone').textContent = data.timezone || '-';
 
         // Відображаємо знайдений оператор
-        document.getElementById('operator').textContent = operator || '-';
+        const operatorEl = document.getElementById('operator');
+        operatorEl.textContent = operator || '-';
+        if (data.org === 'AS21497 PrJSC VF UKRAINE') {
+            operatorEl.style.color = 'red';
+        } else if (data.org === 'AS15895 "Kyivstar" PJSC') {
+            operatorEl.style.color = 'blue';
+        } else if (data.org === 'AS34058 Limited Liability Company "lifecell"') {
+            operatorEl.style.color = 'yellow';
+        }
     } catch (e) {
         document.getElementById('info').innerHTML =
             '<div style="color:red;">Не вдалося отримати інформацію про з’єднання</div>';
