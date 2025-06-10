@@ -55,12 +55,15 @@ body {
 
 .fullscreen-mode .container {
   width: 100%;
-  height: 100%;
+  /* Allow container to grow beyond viewport height */
+  min-height: 100%;
+  max-height: none;
   max-width: none;
   border-radius: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
 }
 
 .container {
