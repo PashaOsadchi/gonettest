@@ -1089,12 +1089,22 @@ function toggleFullscreen() {
             document.documentElement.requestFullscreen();
         }
         showNotification("Повноекранний режим увімкнено");
+        setTimeout(() => {
+            if (speedChart) {
+                speedChart.resize();
+            }
+        }, ORIENTATION_DELAY);
     } else {
         body.classList.remove("fullscreen-mode");
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
         showNotification("Повноекранний режим вимкнено");
+        setTimeout(() => {
+            if (speedChart) {
+                speedChart.resize();
+            }
+        }, ORIENTATION_DELAY);
     }
 }
 
