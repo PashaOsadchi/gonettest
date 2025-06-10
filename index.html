@@ -66,7 +66,7 @@
       <div class="settings-panel" id="settingsPanel">
         <h3 style="margin-bottom: 20px">Налаштування</h3>
         <div class="setting-group">
-          <label class="setting-label"
+          <label class="setting-label" for="saveInterval"
             >Інтервал збереження даних (секунди):</label
           >
           <input
@@ -79,7 +79,7 @@
           />
         </div>
         <div class="setting-group">
-          <label class="setting-label"
+          <label class="setting-label" for="gpsDistance"
             >Мінімальна відстань для збереження GPS (метри):</label
           >
           <input
@@ -92,7 +92,7 @@
           />
         </div>
         <div class="setting-group">
-          <label class="setting-label"
+          <label class="setting-label" for="speedThreshold"
             >Поріг швидкості для сповіщення (Мбіт/с):</label
           >
           <input
@@ -107,13 +107,13 @@
         <div class="setting-group">
           <div class="checkbox-group">
             <input type="checkbox" id="soundAlerts" checked />
-            <label class="setting-label">Звукові сповіщення</label>
+            <label class="setting-label" for="soundAlerts">Звукові сповіщення</label>
           </div>
         </div>
         <div class="setting-group">
           <div class="checkbox-group">
             <input type="checkbox" id="voiceAlerts" />
-            <label class="setting-label">Голосові сповіщення</label>
+            <label class="setting-label" for="voiceAlerts">Голосові сповіщення</label>
           </div>
         </div>
         <button class="btn btn-success" onclick="saveSettings()">
