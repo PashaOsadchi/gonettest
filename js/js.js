@@ -335,10 +335,6 @@ function updateSpeedPerSecond(speedMbps) {
     updateStats();
 }
 
-function updateProgress(progress) {
-    document.getElementById("progressBar").style.width = `${Math.min(100, progress * 100)}%`;
-}
-
 function calculateDistance(lat1, lon1, lat2, lon2) {
     if (lat1 === null || lon1 === null || lat2 === null || lon2 === null) {
         return null;
@@ -783,10 +779,6 @@ function updateUI() {
     document.getElementById("timeValue").textContent = `${Math.floor(
         elapsed
     )}`;
-    document.getElementById("progressBar").style.width = `${Math.min(
-        100,
-        (totalBytes / TARGET) * 100
-    )}%`;
 
     updateGPSInfo();
     updateChart();
@@ -843,7 +835,6 @@ async function measureDownloadSpeed() {
         if (now - lastUpdate >= 1000) {
             const speed = (bytes * 8) / ((now - start) / 1000) / (1024 * 1024);
             updateSpeedPerSecond(speed);
-            updateProgress(bytes / TARGET);
             lastUpdate = now;
         }
 
@@ -856,7 +847,6 @@ async function measureDownloadSpeed() {
     const duration = (performance.now() - start) / 1000;
     const speedMbps = (bytes * 8) / (duration * 1024 * 1024);
     updateSpeedPerSecond(speedMbps);
-    updateProgress(1);
     return { speedMbps, bytes };
 }
 
@@ -997,7 +987,6 @@ async function waitForReconnect() {
       document.getElementById('avgSpeed').textContent = '0.00';
       document.getElementById('maxSpeed').textContent = '0.00';
       document.getElementById('minSpeed').textContent = '0.00';
-      document.getElementById('progressBar').style.width = '0%';
       if (speedChart) {
         speedChart.data.labels = [];
         speedChart.data.datasets[0].data = [];
