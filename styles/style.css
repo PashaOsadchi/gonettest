@@ -449,7 +449,7 @@ h1 {
     position: relative;
     top: auto;
     left: auto;
-    align-self: center;
+    align-self: flex-start;
     width: 45px;
     height: 45px;
     margin-bottom: 15px;
