@@ -51,6 +51,7 @@ let isConnected = true;
 let isFullscreen = false;
 let testInProgress = false;
 let pendingRun = false;
+let activeDownloadController = null;
 
 // Дані та налаштування
 let speedData = [];
@@ -846,17 +847,24 @@ async function checkRealConnection() {
 }
 
 async function measureDownloadSpeed() {
-    const resp = await fetchWithTimeout(serverUrl, {}, BIG_FETCH_TIMEOUT);
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    activeDownloadController = new AbortController();
+    const timeoutId = setTimeout(() => activeDownloadController.abort(), BIG_FETCH_TIMEOUT);
+    try {
+        const resp = await fetch(serverUrl, { signal: activeDownloadController.signal });
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
 
-    const reader = resp.body.getReader();
-    let bytes = 0;
-    const start = performance.now();
-    let lastUpdate = start;
+        const reader = resp.body.getReader();
+        let bytes = 0;
+        const start = performance.now();
+        let lastUpdate = start;
 
     while (true) {
         const { done, value } = await reader.read();
         if (done) break;
+        if (!testActive) {
+            activeDownloadController.abort();
+            throw new DOMException('Aborted', 'AbortError');
+        }
         bytes += value.length;
         totalBytes += value.length;
 
@@ -873,10 +881,14 @@ async function measureDownloadSpeed() {
         }
     }
 
-    const duration = (performance.now() - start) / 1000;
-    const speedMbps = (bytes * 8) / (duration * 1024 * 1024);
-    updateSpeedPerSecond(speedMbps);
-    return { speedMbps, bytes };
+        const duration = (performance.now() - start) / 1000;
+        const speedMbps = (bytes * 8) / (duration * 1024 * 1024);
+        updateSpeedPerSecond(speedMbps);
+        return { speedMbps, bytes };
+    } finally {
+        clearTimeout(timeoutId);
+        activeDownloadController = null;
+    }
 }
 
 async function runTest() {
@@ -913,6 +925,9 @@ async function runTest() {
       currentSpeedMbps = speedMbps;
       updateStats();
     } catch (e) {
+      if (e.name === 'AbortError' && !testActive) {
+        break;
+      }
       if (e.message && e.message.includes('ERR_NETWORK_CHANGED')) {
         addLog('Network interface changed, retrying…');
         continue;
@@ -1031,6 +1046,9 @@ async function waitForReconnect() {
 async function toggleTest() {
     if (testInProgress && testActive) {
         testActive = false;
+        if (activeDownloadController) {
+            activeDownloadController.abort();
+        }
         document.getElementById("startBtn").textContent = "Почати тест";
         addLog("Зупинка тесту...");
         showNotification("Тест зупинено!");
