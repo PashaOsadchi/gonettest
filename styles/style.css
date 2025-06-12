@@ -188,19 +188,38 @@ h1 {
   opacity: 0.9;
 }
 
-.gps-info {
+.info {
   background: var(--glass-bg);
   border-radius: 10px;
   padding: 5px;
   margin: 5px 0;
   font-size: 0.9em;
   border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
 }
 
-.gps-info-row {
+.info-row {
   display: flex;
   justify-content: space-between;
   margin: 5px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span:first-child {
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.info-row span:last-child {
+  text-align: right;
+  flex: 1;
+  opacity: 0.9;
+  word-break: break-word;
 }
 
 .settings-panel {
@@ -468,7 +487,7 @@ h1 {
     font-size: 1.1em;
   }
 
-  .gps-info {
+  .info {
     font-size: 0.8em;
     padding: 5px;
     margin: 5px 0;
@@ -538,36 +557,14 @@ h1 {
 }
 
 /* === Інформаційна панель IP / ISP ======================================= */
-#info {
+.info {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 10px;   /* збігається з #gpsInfo */
+  border-radius: 10px;   /* збігається з gpsInfo */
   padding: 5px;          /* компактний відступ */
   margin: 5px 0;
   font-size: 0.9em;
   backdrop-filter: blur(10px);
-}
-
-/* кожен рядок усередині #info → одна лінійка «підпис-значення» */
-#info > div {
-  display: flex;
-  justify-content: space-between; /* підпис зліва, значення справа */
-  gap: 12px;
-  margin: 4px 0;
-}
-
-/* підпис (лівий бік) */
-#info strong {
-  font-weight: 600;
-  opacity: 0.85;
-}
-
-/* значення (правий бік) */
-#info span {
-  text-align: right;     /* вирівнюємо текст по правому краю */
-  flex: 1;               /* заповнює доступний простір, щоб підписи не «стриба́ли» */
-  opacity: 0.9;
-  word-break: break-word;
 }
 
 
@@ -582,8 +579,7 @@ h1 {
     row-gap: 10px;
   }
   
-  .info strong,
-  .info span {
+  .info-row span {
     display: inline;                     /* підпис і значення в один рядок */
   }
 }
