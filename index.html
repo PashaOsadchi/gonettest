@@ -23,10 +23,19 @@
     <link rel="manifest" href="pwa.webmanifest" />
 
     <link href="styles/style.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
 
     <script defer src="js/registration_service_worker.js"></script>
 
     <script defer src="js/js.js"></script>
+
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    ></script>
 
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   </head>
@@ -263,6 +272,11 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="map-section">
+        <h3>Карта вимірювань</h3>
+        <div id="map"></div>
       </div>
 
       <div class="controls">
