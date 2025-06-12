@@ -87,6 +87,10 @@ let speedChart = null;
 let chartData = [];
 let maxDataPoints = MAX_DATA_POINTS; // Показуємо останні 60 точок
 
+// Карта
+let map = null;
+let mapMarkers = [];
+
 // Статистика
 let speedStats = {
     min: Infinity,
@@ -365,6 +369,32 @@ function updateSpeedPerSecond(speedMbps) {
     updateStats();
 }
 
+function getColorBySpeed(speed) {
+    if (speed <= 0) return 'red';
+    if (speed <= 2) return 'yellow';
+    return 'green';
+}
+
+function initMap() {
+    map = L.map('map').setView([48.3794, 31.1656], 6);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+}
+
+function addMapMarker(point) {
+    if (!map || point.latitude == null || point.longitude == null) return;
+    const color = getColorBySpeed(point.speed);
+    const marker = L.circleMarker([point.latitude, point.longitude], {
+        radius: 6,
+        color,
+        fillColor: color,
+        fillOpacity: 0.8,
+    }).addTo(map);
+    mapMarkers.push(marker);
+}
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
     if (lat1 === null || lon1 === null || lat2 === null || lon2 === null) {
         return null;
@@ -596,6 +626,7 @@ function saveDataPoint() {
     };
 
     speedData.push(dataPoint);
+    addMapMarker(dataPoint);
 
     lastSavedGPSData = {
         latitude: currentGPSData.latitude,
@@ -1170,6 +1201,7 @@ function loadSettings() {
 // Ініціалізація при завантаженні
 window.addEventListener("load", () => {
     initChart();
+    initMap();
     loadSettings();
     updateGPSInfo();
     requestWakeLock();

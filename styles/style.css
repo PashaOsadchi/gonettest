@@ -356,6 +356,17 @@ h1 {
   opacity: 0.8;
 }
 
+.map-section {
+  margin-top: 30px;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+}
+
 .alert-indicator {
   position: fixed;
   top: 50%;
@@ -445,6 +456,10 @@ h1 {
   .chart-container {
     height: 300px; /* ви можете коригувати це значення під свій дизайн */
     padding: 0; /* прибираємо внутрішні відступи, щоб нічого не «виривалося» */
+  }
+
+  #map {
+    height: 300px;
   }
 
 
@@ -553,6 +568,10 @@ h1 {
 
   .chart-container canvas {
     height: auto !important;
+  }
+
+  #map {
+    height: 200px;
   }
 }
 
