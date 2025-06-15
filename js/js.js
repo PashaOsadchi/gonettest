@@ -90,6 +90,7 @@ let maxDataPoints = MAX_DATA_POINTS; // Показуємо останні 60 т�
 // Карта
 let map = null;
 let mapMarkers = [];
+let mapInitialized = false;
 
 // Статистика
 let speedStats = {
@@ -376,11 +377,33 @@ function getColorBySpeed(speed) {
 }
 
 function initMap() {
+    if (mapInitialized) return;
     map = L.map('map').setView([48.3794, 31.1656], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
     }).addTo(map);
+    mapInitialized = true;
+}
+
+function initMapIfNeeded() {
+    if (!mapInitialized) {
+        initMap();
+    }
+}
+
+function setupMapObserver() {
+    const mapEl = document.getElementById('map');
+    if (!mapEl || !('IntersectionObserver' in window)) return;
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                initMapIfNeeded();
+                obs.disconnect();
+            }
+        });
+    });
+    observer.observe(mapEl);
 }
 
 function addMapMarker(point) {
@@ -1091,6 +1114,7 @@ async function toggleTest() {
         document.getElementById("startBtn").textContent = "Зупинити тест";
         addLog("Старт тесту");
         showNotification("Тест запущено!");
+        initMapIfNeeded();
 
         isConnected = await checkRealConnection();
         initGPS();
@@ -1201,10 +1225,10 @@ function loadSettings() {
 // Ініціалізація після побудови DOM
 window.addEventListener("DOMContentLoaded", () => {
     initChart();
-    initMap();
     loadSettings();
     updateGPSInfo();
     requestWakeLock();
+    setupMapObserver();
 
     // Обробка виходу з повноекранного режиму
     document.addEventListener("fullscreenchange", () => {
