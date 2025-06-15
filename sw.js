@@ -1,11 +1,11 @@
-const CACHE_NAME = 'v2';
+const CACHE_NAME = 'v3';
 const urlsToCache = [
   '.',
   'index.html',
   'styles/style.css',
   'js/js.js',
-  'styles/leaflet.css',
-  'js/leaflet.js',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'js/registration_service_worker.js',
   'icon/icon.png',
   'icon/icon_144.png',
