@@ -4,6 +4,8 @@ const urlsToCache = [
   'index.html',
   'styles/style.css',
   'js/js.js',
+  'styles/leaflet.css',
+  'js/leaflet.js',
   'js/registration_service_worker.js',
   'icon/icon.png',
   'icon/icon_144.png',
