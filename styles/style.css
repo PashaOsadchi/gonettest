@@ -528,9 +528,15 @@ h1 {
   }
 
   .info {
-    font-size: 0.8em;
-    padding: 5px;
-    margin: 5px 0;
+    width: 100%;
+    padding: 15px 18px;
+    font-size: 0.85em;
+    margin-top: 15px;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  .info-row span {
+    display: inline;
   }
 
   .data-table {
@@ -598,46 +604,11 @@ h1 {
   #map {
     height: 200px;
   }
-}
-
-/* === Інформаційна панель IP / ISP ======================================= */
-.info {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 10px;   /* збігається з gpsInfo */
-  padding: 5px;          /* компактний відступ */
-  margin: 5px 0;
-  font-size: 0.9em;
-  backdrop-filter: blur(10px);
-}
-
-
-/* ------------------------- Mobile ≤ 768 px ----------------------------- */
-@media (max-width: 768px) {
-  .info {
-    width: 100%;
-    padding: 15px 18px;
-    font-size: 0.85em;
-    margin-top: 15px;
-    grid-template-columns: 1fr;          /* стовпчик підпис+значення */
-    row-gap: 10px;
-  }
-  
-  .info-row span {
-    display: inline;                     /* підпис і значення в один рядок */
-  }
-}
-
-/* -------------------------- Mobile ≤ 480 px ---------------------------- */
-@media (max-width: 480px) {
   .info {
     padding: 12px 14px;
     font-size: 0.8em;
   }
 }
-
-
-
 .mb-20 { margin-bottom: 20px; }
 .mb-10 { margin-bottom: 10px; }
 .text-center { text-align: center; }
