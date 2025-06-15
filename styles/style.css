@@ -490,12 +490,6 @@ h1 {
 
   .stats {
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
-    margin: 5px 0;
-  }
-
-  .stat-item {
-    padding: 5px;
   }
 
   .stat-value {
