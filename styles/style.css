@@ -628,3 +628,9 @@ h1 {
 
 
 
+.mb-20 { margin-bottom: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.text-center { text-align: center; }
+.p-20 { padding: 20px; }
+.opacity-60 { opacity: 0.6; }
+.fw-bold { font-weight: bold; }
