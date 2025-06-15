@@ -52,6 +52,7 @@ let isFullscreen = false;
 let testInProgress = false;
 let pendingRun = false;
 let activeDownloadController = null;
+let isDownloading = false;
 
 // Дані та налаштування
 let speedData = [];
@@ -726,13 +727,19 @@ function replaceSpacesWithUnderscore(str) {
 }
 
 function downloadData() {
-    let dateStr = '';
-    let timeStr = ''; 
+    if (isDownloading) return;
 
     if (speedData.length === 0) {
         alert("Немає даних для завантаження");
         return;
     }
+
+    isDownloading = true;
+    const downloadBtn = document.getElementById('downloadBtn');
+    if (downloadBtn) downloadBtn.disabled = true;
+
+    let dateStr = '';
+    let timeStr = '';
 
     // ✨  Додали три нові заголовки після "Час"
     const headers =
@@ -800,6 +807,9 @@ function downloadData() {
     document.body.removeChild(link);
 
     showNotification("Дані завантажено!");
+
+    if (downloadBtn) downloadBtn.disabled = false;
+    isDownloading = false;
 }
 
 
