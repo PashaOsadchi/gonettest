@@ -79,6 +79,24 @@ body {
   transition: all 0.3s ease;
 }
 
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .main-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 h1 {
   font-size: 2.5em;
   margin-bottom: 30px;
@@ -111,6 +129,12 @@ h1 {
   padding: 0 0.5rem; /* за потреби невеликий відступ всередині */
   overflow: hidden; /* на випадок мінімальних хромових артефактів */
   height: 400px; /* Базова висота для десктопів */
+}
+
+.chart-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* 2) Зробимо сам <canvas> 100% ширини і автоматично розрахуємо висоту */
