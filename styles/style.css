@@ -190,7 +190,7 @@ h1 {
 
 /* Truncate operator text to at most 10 characters */
 #operator {
-  max-width: 10ch;
+  max-width: 20ch;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
