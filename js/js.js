@@ -1198,8 +1198,8 @@ function loadSettings() {
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
 }
 
-// Ініціалізація при завантаженні
-window.addEventListener("load", () => {
+// Ініціалізація після побудови DOM
+window.addEventListener("DOMContentLoaded", () => {
     initChart();
     initMap();
     loadSettings();
