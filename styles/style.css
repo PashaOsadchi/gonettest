@@ -609,3 +609,11 @@ h1 {
 .p-20 { padding: 20px; }
 .opacity-60 { opacity: 0.6; }
 .fw-bold { font-weight: bold; }
+.placeholder {
+  text-align: center;
+  padding: 20px;
+  opacity: 0.6;
+}
+.error-message {
+  color: var(--warning-color);
+}

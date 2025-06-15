@@ -153,7 +153,7 @@ async function detectISP() {
         }
     } catch (e) {
         document.getElementById('info').innerHTML =
-            '<div style="color:red;">Не вдалося отримати інформацію про з’єднання</div>';
+            '<div class="error-message">Не вдалося отримати інформацію про з’єднання</div>';
         addLog('detectISP error: ' + e.message);
     }
 }
@@ -687,7 +687,7 @@ function updateDataDisplay() {
 
     if (lastRecords.length === 0) {
         dataDisplay.innerHTML =
-            '<div style="text-align: center; padding: 20px; opacity: 0.6;">Немає даних</div>';
+            '<div class="placeholder">Немає даних</div>';
         return;
     }
 
