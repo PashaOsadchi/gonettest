@@ -193,7 +193,7 @@ h1 {
   display: block;          /* occupy its own line */
   text-align: center;      /* center horizontally */
   margin: 70px auto 5px;   /* leave room for fixed controls */
-  max-width: 20ch;
+  max-width: 40ch;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
