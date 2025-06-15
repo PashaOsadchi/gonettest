@@ -188,6 +188,16 @@ h1 {
   opacity: 0.9;
 }
 
+/* Colored variations for status text */
+.status-accent { color: var(--accent-color); }
+.status-success { color: var(--success-color); }
+.status-warning { color: var(--warning-color); }
+
+/* Operator-specific colors */
+.operator-vodafone { color: var(--warning-color); }
+.operator-kyivstar { color: var(--accent-color); }
+.operator-lifecell { color: var(--success-color); }
+
 /* Operator name styling */
 #operator {
   display: block;          /* occupy its own line */
