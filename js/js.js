@@ -143,12 +143,13 @@ async function detectISP() {
         // Відображаємо знайдений оператор
         const operatorEl = document.getElementById('operator');
         operatorEl.textContent = operator || '-';
+        operatorEl.classList.remove('operator-vodafone', 'operator-kyivstar', 'operator-lifecell');
         if (data.org === 'AS21497 PrJSC VF UKRAINE') {
-            operatorEl.style.color = 'red';
+            operatorEl.classList.add('operator-vodafone');
         } else if (data.org === 'AS15895 "Kyivstar" PJSC') {
-            operatorEl.style.color = 'blue';
+            operatorEl.classList.add('operator-kyivstar');
         } else if (data.org === 'AS34058 Limited Liability Company "lifecell"') {
-            operatorEl.style.color = 'yellow';
+            operatorEl.classList.add('operator-lifecell');
         }
     } catch (e) {
         document.getElementById('info').innerHTML =
@@ -449,7 +450,8 @@ function updateGPSInfo() {
 
     if (currentGPSData.latitude && currentGPSData.longitude) {
         gpsStatusEl.textContent = "Активний";
-        gpsStatusEl.style.color = "#4facfe";
+        gpsStatusEl.classList.remove('status-warning', 'status-success', 'status-accent');
+        gpsStatusEl.classList.add('status-accent');
         currentCoordsEl.textContent = `${currentGPSData.latitude.toFixed(
             6
         )}, ${currentGPSData.longitude.toFixed(6)}`;
@@ -459,12 +461,13 @@ function updateGPSInfo() {
             gpsAccuracyEl.textContent = `±${currentGPSData.accuracy.toFixed(
                 1
             )} м`;
+            gpsAccuracyEl.classList.remove('status-warning', 'status-success', 'status-accent');
             if (currentGPSData.accuracy < 10) {
-                gpsAccuracyEl.style.color = "#4facfe";
+                gpsAccuracyEl.classList.add('status-accent');
             } else if (currentGPSData.accuracy < 50) {
-                gpsAccuracyEl.style.color = "#a8e6cf";
+                gpsAccuracyEl.classList.add('status-success');
             } else {
-                gpsAccuracyEl.style.color = "#ff6b6b";
+                gpsAccuracyEl.classList.add('status-warning');
             }
         } else {
             gpsAccuracyEl.textContent = "N/A";
@@ -519,14 +522,16 @@ function updateGPSInfo() {
             );
             distanceInfoEl.textContent = `${distance.toFixed(1)} м`;
 
+            distanceInfoEl.classList.remove('status-warning', 'status-success', 'status-accent');
             if (distance > settings.gpsDistance) {
-                distanceInfoEl.style.color = "#4facfe";
+                distanceInfoEl.classList.add('status-accent');
             } else {
-                distanceInfoEl.style.color = "#ff6b6b";
+                distanceInfoEl.classList.add('status-warning');
             }
         } else {
             distanceInfoEl.textContent = "Перша точка";
-            distanceInfoEl.style.color = "#a8e6cf";
+            distanceInfoEl.classList.remove('status-warning', 'status-accent');
+            distanceInfoEl.classList.add('status-success');
         }
 
         // Загальна відстань
@@ -535,7 +540,8 @@ function updateGPSInfo() {
         )} км`;
     } else {
         gpsStatusEl.textContent = "Очікування сигналу";
-        gpsStatusEl.style.color = "#ff6b6b";
+        gpsStatusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+        gpsStatusEl.classList.add('status-warning');
         currentCoordsEl.textContent = "N/A";
         distanceInfoEl.textContent = "N/A";
         gpsAccuracyEl.textContent = "N/A";
@@ -577,8 +583,10 @@ function initGPS() {
         },
         (error) => {
             addLog(`GPS помилка: ${error.message}`);
-            document.getElementById("gpsStatus").textContent = "Помилка GPS";
-            document.getElementById("gpsStatus").style.color = "#ff6b6b";
+            const statusEl = document.getElementById("gpsStatus");
+            statusEl.textContent = "Помилка GPS";
+            statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+            statusEl.classList.add('status-warning');
         },
         options
     );
@@ -588,8 +596,9 @@ function stopGPS() {
     if (gpsWatchId) {
         navigator.geolocation.clearWatch(gpsWatchId);
         gpsWatchId = null;
-        document.getElementById("gpsStatus").textContent = "Не активний";
-        document.getElementById("gpsStatus").style.color = "white";
+        const statusEl = document.getElementById("gpsStatus");
+        statusEl.textContent = "Не активний";
+        statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
         addLog("GPS зупинено");
     }
 }
@@ -656,9 +665,10 @@ function saveDataPoint() {
         longitude: currentGPSData.longitude,
     };
 
-    document.getElementById("lastSaveInfo").textContent =
-        now.toLocaleTimeString();
-    document.getElementById("lastSaveInfo").style.color = "#4facfe";
+    const lastSaveEl = document.getElementById("lastSaveInfo");
+    lastSaveEl.textContent = now.toLocaleTimeString();
+    lastSaveEl.classList.remove('status-warning', 'status-success', 'status-accent');
+    lastSaveEl.classList.add('status-accent');
 
     updateDataDisplay();
     updateRecordsCount();
@@ -827,8 +837,9 @@ function clearData() {
         updateRecordsCount();
         updateGPSInfo();
 
-        document.getElementById("lastSaveInfo").textContent = "Немає даних";
-        document.getElementById("lastSaveInfo").style.color = "white";
+        const lastSaveEl = document.getElementById("lastSaveInfo");
+        lastSaveEl.textContent = "Немає даних";
+        lastSaveEl.classList.remove('status-accent', 'status-success', 'status-warning');
         document.getElementById("avgSpeed").textContent = "0.00";
         document.getElementById("maxSpeed").textContent = "0.00";
         document.getElementById("minSpeed").textContent = "0.00 ";
