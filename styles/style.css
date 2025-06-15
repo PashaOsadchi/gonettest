@@ -60,9 +60,16 @@ body {
   max-height: none;
   max-width: none;
   border-radius: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  grid-template-areas:
+    "settings speed"
+    "settings chart"
+    "gps provider"
+    "map map"
+    "table table"
+    "actions actions";
   overflow-y: auto;
 }
 
@@ -77,6 +84,16 @@ body {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid var(--glass-border);
   transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  grid-template-areas:
+    "settings speed"
+    "settings chart"
+    "gps provider"
+    "map map"
+    "table table"
+    "actions actions";
 }
 
 h1 {
@@ -91,6 +108,7 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  grid-area: speed;
 }
 
 .speed-display {
@@ -111,6 +129,7 @@ h1 {
   padding: 0 0.5rem; /* за потреби невеликий відступ всередині */
   overflow: hidden; /* на випадок мінімальних хромових артефактів */
   height: 400px; /* Базова висота для десктопів */
+  grid-area: chart;
 }
 
 /* 2) Зробимо сам <canvas> 100% ширини і автоматично розрахуємо висоту */
@@ -150,6 +169,10 @@ h1 {
   justify-content: center;
   flex-wrap: wrap;
   margin: 5px 0;
+}
+
+#actionButtons {
+  grid-area: actions;
 }
 
 .btn {
@@ -219,6 +242,14 @@ h1 {
   backdrop-filter: blur(10px);
 }
 
+#gpsInfo {
+  grid-area: gps;
+}
+
+#info {
+  grid-area: provider;
+}
+
 .info-row {
   display: flex;
   justify-content: space-between;
@@ -250,6 +281,7 @@ h1 {
   margin: 5px 0;
   border: 1px solid var(--glass-border);
   display: none;
+  grid-area: settings;
 }
 
 .settings-panel.active {
@@ -330,6 +362,7 @@ h1 {
 
 .data-section {
   margin-top: 30px;
+  grid-area: table;
 }
 .data-header {
   display: flex;
@@ -379,6 +412,7 @@ h1 {
 
 .map-section {
   margin-top: 30px;
+  grid-area: map;
 }
 
 #map {
@@ -445,8 +479,16 @@ h1 {
     margin: 0;
     border-radius: 15px;
     min-height: calc(100vh - 20px);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    grid-template-areas:
+      "settings settings"
+      "speed chart"
+      "gps provider"
+      "map map"
+      "table table"
+      "actions actions";
   }
 
   h1 {
@@ -576,6 +618,16 @@ h1 {
   .container {
     padding: 10px;
     border-radius: 10px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "settings"
+      "speed"
+      "chart"
+      "gps"
+      "provider"
+      "map"
+      "table"
+      "actions";
   }
 
   h1 {
