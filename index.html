@@ -146,6 +146,8 @@
         </button>
       </div>
 
+      <div class="main-grid">
+
       <div class="speed-section">
         <div class="speed-display">
           <span id="speedValue">0.00</span>
@@ -187,14 +189,15 @@
         </div>
       </div>
 
-      <div class="chart-container">
-        <canvas id="speedChart"></canvas>
-      </div>
-
-      <div class="controls">
-        <button class="btn btn-secondary btn-small" onclick="exportChart()">
-          Експорт графіка
-        </button>
+      <div class="chart-section">
+        <div class="chart-container">
+          <canvas id="speedChart"></canvas>
+        </div>
+        <div class="controls">
+          <button class="btn btn-secondary btn-small" onclick="exportChart()">
+            Експорт графіка
+          </button>
+        </div>
       </div>
 
       <!-- Розширена GPS інформація -->
@@ -282,6 +285,8 @@
           </div>
         </div>
       </div>
+
+      </div> <!-- end main-grid -->
 
       <div class="controls">
         <button class="btn btn-secondary" onclick="downloadData()">
