@@ -188,8 +188,11 @@ h1 {
   opacity: 0.9;
 }
 
-/* Truncate operator text to at most 10 characters */
+/* Operator name styling */
 #operator {
+  display: block;          /* occupy its own line */
+  text-align: center;      /* center horizontally */
+  margin: 70px auto 5px;   /* leave room for fixed controls */
   max-width: 20ch;
   overflow: hidden;
   white-space: nowrap;
@@ -456,6 +459,10 @@ h1 {
     width: 100%;
     padding: 5px;
     font-size: 1em;
+  }
+
+  #operator {
+    margin-top: 10px; /* controls are stacked, so reduce spacing */
   }
 
 
