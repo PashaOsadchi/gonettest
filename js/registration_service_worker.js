@@ -8,7 +8,7 @@
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-        navigator.serviceWorker.register("sw.js", { scope: "/gonettest/" }).then((registration) => console.log(registration.scope), (err) => console.log(err));
+        navigator.serviceWorker.register("sw.js", { scope: "/" }).then((registration) => console.log(registration.scope), (err) => console.log(err));
     });
 }
 

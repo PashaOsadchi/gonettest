@@ -22,8 +22,8 @@
             "purpose": "any maskable"
         }
     ],
-    "scope": "./",
-    "start_url": "./index.html",
+    "scope": "https://www.gonettest.com/",
+    "start_url": "https://www.gonettest.com/index.html",
     "display": "fullscreen",
     "theme_color": "#696969",
     "background_color": "#696969"
