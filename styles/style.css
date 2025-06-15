@@ -188,6 +188,14 @@ h1 {
   opacity: 0.9;
 }
 
+/* Truncate operator text to at most 10 characters */
+#operator {
+  max-width: 10ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .info {
   background: var(--glass-bg);
   border-radius: 10px;
