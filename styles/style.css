@@ -86,17 +86,6 @@ body {
   gap: 20px;
 }
 
-@media (min-width: 768px) {
-  .main-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1200px) {
-  .main-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 h1 {
   font-size: 2.5em;
