@@ -1,6 +1,6 @@
 {
-    "name": "gonettest",
-    "short_name": "gonettest",
+    "name": "GoNetTest",
+    "short_name": "GoNetTest",
     "description": "A minimal browser-based speed test app.",
     "icons": [
         {
