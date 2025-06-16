@@ -555,6 +555,8 @@ h1 {
   .data-row {
     gap: 5px;
     font-size: 0.7em;
+    min-width: 100%;
+    grid-template-columns: repeat(7, minmax(70px, 1fr));
   }
 
   .data-header-row {
