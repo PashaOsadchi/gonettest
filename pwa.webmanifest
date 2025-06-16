@@ -22,8 +22,8 @@
             "purpose": "any maskable"
         }
     ],
-    "scope": "/",
-    "start_url": "/index.html",
+    "scope": "./",
+    "start_url": "./index.html",
     "display": "fullscreen",
     "theme_color": "#696969",
     "background_color": "#696969"
