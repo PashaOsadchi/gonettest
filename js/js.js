@@ -446,6 +446,8 @@ function addMapMarker(point) {
         fillOpacity: 0.8,
     }).addTo(map);
     mapMarkers.push(marker);
+    // Center map on the newly added marker
+    map.setView([point.latitude, point.longitude], map.getZoom());
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
