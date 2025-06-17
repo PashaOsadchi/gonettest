@@ -909,9 +909,7 @@ function updateUI() {
         totalBytes /
         (1024 * 1024)
     ).toFixed(2)}`;
-    document.getElementById("timeValue").textContent = `${Math.floor(
-        elapsed
-    )}`;
+    document.getElementById("timeValue").textContent = formatSeconds(Math.floor(elapsed));
 
     updateGPSInfo();
     updateChart();
