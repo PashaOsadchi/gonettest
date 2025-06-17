@@ -363,13 +363,13 @@ h1 {
 }
 
 .data-section {
-  margin-top: 30px;
+  margin-top: 5px;
 }
 .data-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   flex-wrap: wrap;
   gap: 10px;
 }
