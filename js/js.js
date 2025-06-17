@@ -189,7 +189,7 @@ function formatSeconds(totalSeconds) {
     
     // Додаємо секунди, якщо є або якщо це єдина частина
     if (seconds > 0 || timeParts.length === 0) {
-        timeParts.push(`${seconds} сек`);
+        timeParts.push(`${seconds} с`);
     }
     
     // З'єднуємо частини через пробіл
