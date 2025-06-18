@@ -309,7 +309,7 @@ function initChart() {
             labels: [],
             datasets: [
                 {
-                    label: "Швидкість (Мбіт/с)",
+                    label: "Графік швидкості завантаження Мбіт/с",
                     data: [],
                     borderColor: "#4facfe",
                     backgroundColor: "rgba(79, 172, 254, 0.1)",
