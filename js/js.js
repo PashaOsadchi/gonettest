@@ -1137,13 +1137,6 @@ async function waitForReconnect() {
       speedStats = { min: Infinity, max: 0, sum: 0, count: 0 };
       chartData = [];
 
-      // Оновлюємо залежні елементи інтерфейсу
-      document.getElementById('downloadedValue').textContent = '0.00';
-      document.getElementById('timeValue').textContent = '0';
-      document.getElementById('speedValue').textContent = '0.00';
-      document.getElementById('avgSpeed').textContent = '0.00';
-      document.getElementById('maxSpeed').textContent = '0.00';
-      document.getElementById('minSpeed').textContent = '0.00';
       if (speedChart) {
         speedChart.data.labels = [];
         speedChart.data.datasets[0].data = [];
