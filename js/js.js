@@ -871,6 +871,62 @@ function downloadData() {
     isDownloading = false;
 }
 
+function downloadKML() {
+    if (speedData.length === 0) {
+        alert("Немає даних для завантаження");
+        return;
+    }
+
+    let dateStr = '';
+    let timeStr = '';
+
+    let kmlContent =
+        '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<kml xmlns="http://www.opengis.net/kml/2.2">\n' +
+        '<Document>\n' +
+        '<name>Speed Measurements</name>\n';
+
+    speedData.forEach((record, idx) => {
+        if (record.latitude == null || record.longitude == null) return;
+        const ts =
+            record.fullTimestamp instanceof Date
+                ? record.fullTimestamp
+                : new Date(record.fullTimestamp);
+        dateStr = ts.toLocaleDateString('uk-UA', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+        timeStr = ts.toLocaleTimeString('uk-UA', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+
+        const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
+        kmlContent +=
+            `<Placemark>` +
+            `<name>${idx + 1}</name>` +
+            `<description>Швидкість: ${record.speed.toFixed(2)} Мбіт/с</description>` +
+            `<Point><coordinates>${record.longitude},${record.latitude},${altitude}</coordinates></Point>` +
+            `</Placemark>\n`;
+    });
+
+    kmlContent += '</Document>\n</kml>';
+
+    const blob = new Blob([kmlContent], {
+        type: 'application/vnd.google-earth.kml+xml',
+    });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.kml`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showNotification('KML файл завантажено!');
+}
+
 
 
 function exportChart() {
