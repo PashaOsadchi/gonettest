@@ -911,10 +911,41 @@ function downloadKML() {
         if (record.latitude == null || record.longitude == null) return;
 
         const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
+
+        const ts =
+            record.fullTimestamp instanceof Date
+                ? record.fullTimestamp
+                : new Date(record.fullTimestamp);
+        const dateStr = ts.toLocaleDateString('uk-UA', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+        const timeStr = ts.toLocaleTimeString('uk-UA', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+
+        const description =
+            `Часова мітка (мс): ${ts.getTime()}<br>` +
+            `Дата: ${dateStr}<br>` +
+            `Час: ${timeStr}<br>` +
+            `Оператор: ${operator}<br>` +
+            `Швидкість (Мбіт/с): ${record.speed.toFixed(2)}<br>` +
+            `Завантажено (МБ): ${record.downloaded.toFixed(2)}<br>` +
+            `Тривалість (с): ${record.elapsed ?? ''}<br>` +
+            `Широта: ${record.latitude}<br>` +
+            `Довгота: ${record.longitude}<br>` +
+            `Висота (м): ${altitude}<br>` +
+            `GPS Швидкість (км/год): ${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ''}<br>` +
+            `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
+            `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
+
         kmlContent +=
             `<Placemark>` +
             `<name>${idx + 1}</name>` +
-            `<description>Швидкість: ${record.speed.toFixed(2)} Мбіт/с</description>` +
+            `<description><![CDATA[${description}]]></description>` +
             `<Point><coordinates>${record.longitude},${record.latitude},${altitude}</coordinates></Point>` +
             `</Placemark>\n`;
     });
