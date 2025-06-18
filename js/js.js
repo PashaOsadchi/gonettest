@@ -414,6 +414,15 @@ function initMap() {
         attribution: '© OpenStreetMap'
     }).addTo(map);
     mapInitialized = true;
+
+    // Add previously stored markers without centering on each
+    if (speedData.length > 0) {
+        speedData.forEach((pt) => addMapMarker(pt, false));
+        const last = speedData[speedData.length - 1];
+        if (last.latitude != null && last.longitude != null) {
+            map.setView([last.latitude, last.longitude], map.getZoom());
+        }
+    }
 }
 
 function initMapIfNeeded() {
@@ -436,7 +445,7 @@ function setupMapObserver() {
     observer.observe(mapEl);
 }
 
-function addMapMarker(point) {
+function addMapMarker(point, centerOnAdd = true) {
     if (!map || point.latitude == null || point.longitude == null) return;
     const color = getColorBySpeed(point.speed);
     const marker = L.circleMarker([point.latitude, point.longitude], {
@@ -446,8 +455,9 @@ function addMapMarker(point) {
         fillOpacity: 0.8,
     }).addTo(map);
     mapMarkers.push(marker);
-    // Center map on the newly added marker
-    map.setView([point.latitude, point.longitude], map.getZoom());
+    if (centerOnAdd) {
+        map.setView([point.latitude, point.longitude], map.getZoom());
+    }
 }
 
 function calculateDistance(lat1, lon1, lat2, lon2) {
