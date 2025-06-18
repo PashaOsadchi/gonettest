@@ -20,6 +20,13 @@ const MAX_DATA_POINTS = 60; // Максимальна кількість точ�
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 const STORAGE_KEY = 'speedData';
 
+const ICON_RED =
+    'http://maps.google.com/mapfiles/kml/paddle/red-circle.png';
+const ICON_YELLOW =
+    'http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
+const ICON_GREEN =
+    'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
+
 // Wake Lock
 let wakeLock = null;
 
@@ -905,7 +912,10 @@ function downloadKML() {
         '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<kml xmlns="http://www.opengis.net/kml/2.2">\n' +
         '<Document>\n' +
-        `<name>${baseFileName}</name>\n`;
+        `<name>${baseFileName}</name>\n` +
+        `<Style id="red"><IconStyle><Icon><href>${ICON_RED}</href></Icon></IconStyle></Style>\n` +
+        `<Style id="yellow"><IconStyle><Icon><href>${ICON_YELLOW}</href></Icon></IconStyle></Style>\n` +
+        `<Style id="green"><IconStyle><Icon><href>${ICON_GREEN}</href></Icon></IconStyle></Style>\n`;
 
     speedData.forEach((record, idx) => {
         if (record.latitude == null || record.longitude == null) return;
@@ -942,9 +952,17 @@ function downloadKML() {
             `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
             `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
 
+        let style = '#green';
+        if (record.speed === 0) {
+            style = '#red';
+        } else if (record.speed > 0 && record.speed <= 2) {
+            style = '#yellow';
+        }
+
         kmlContent +=
             `<Placemark>` +
             `<name>${idx + 1}</name>` +
+            `<styleUrl>${style}</styleUrl>` +
             `<description><![CDATA[${description}]]></description>` +
             `<Point><coordinates>${record.longitude},${record.latitude},${altitude}</coordinates></Point>` +
             `</Placemark>\n`;
