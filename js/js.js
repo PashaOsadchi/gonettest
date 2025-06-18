@@ -18,6 +18,7 @@ const RUN_LOOP_PAUSE = 500; // Пауза в циклі тесту (мс)
 const ORIENTATION_DELAY = 100; // Затримка після зміни орієнтації (мс)
 const MAX_DATA_POINTS = 60; // Максимальна кількість точок графіка
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
+const STORAGE_KEY = 'speedData';
 
 // Wake Lock
 let wakeLock = null;
@@ -120,6 +121,23 @@ let ipinfo = {
     'AS15895 "Kyivstar" PJSC': 'Kyivstar',
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
  }
+
+function saveSpeedDataToStorage() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(speedData));
+}
+
+function loadSpeedDataFromStorage() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+        try {
+            speedData = JSON.parse(stored);
+            chartData = speedData.slice(-maxDataPoints).map(d => ({ time: d.timestamp, speed: d.speed }));
+        } catch (e) {
+            speedData = [];
+            chartData = [];
+        }
+    }
+}
 
 // Визначення провайдера
 async function detectISP() {
@@ -699,6 +717,7 @@ function saveDataPoint() {
     };
 
     speedData.push(dataPoint);
+    saveSpeedDataToStorage();
     addMapMarker(dataPoint);
 
     lastSavedGPSData = {
@@ -872,6 +891,7 @@ function clearData() {
 
     if (confirm("Ви впевнені, що хочете очистити всі дані?")) {
         speedData = [];
+        saveSpeedDataToStorage();
         chartData = [];
         lastSavedGPSData = { latitude: null, longitude: null };
         totalDistance = 0;
@@ -1276,11 +1296,14 @@ function loadSettings() {
 
 // Ініціалізація після побудови DOM
 window.addEventListener("DOMContentLoaded", () => {
+    loadSpeedDataFromStorage();
     initChart();
     loadSettings();
     updateGPSInfo();
     requestWakeLock();
     setupMapObserver();
+    updateDataDisplay();
+    updateRecordsCount();
 
     // Обробка виходу з повноекранного режиму
     document.addEventListener("fullscreenchange", () => {
