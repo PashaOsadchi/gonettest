@@ -880,18 +880,13 @@ function downloadKML() {
     let dateStr = '';
     let timeStr = '';
 
-    let kmlContent =
-        '<?xml version="1.0" encoding="UTF-8"?>\n' +
-        '<kml xmlns="http://www.opengis.net/kml/2.2">\n' +
-        '<Document>\n' +
-        '<name>Speed Measurements</name>\n';
-
-    speedData.forEach((record, idx) => {
-        if (record.latitude == null || record.longitude == null) return;
+    // Use timestamp of the last record to build file and layer names
+    const lastRecord = speedData[speedData.length - 1];
+    if (lastRecord && lastRecord.fullTimestamp) {
         const ts =
-            record.fullTimestamp instanceof Date
-                ? record.fullTimestamp
-                : new Date(record.fullTimestamp);
+            lastRecord.fullTimestamp instanceof Date
+                ? lastRecord.fullTimestamp
+                : new Date(lastRecord.fullTimestamp);
         dateStr = ts.toLocaleDateString('uk-UA', {
             day: '2-digit',
             month: '2-digit',
@@ -902,6 +897,18 @@ function downloadKML() {
             minute: '2-digit',
             second: '2-digit',
         });
+    }
+
+    const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
+
+    let kmlContent =
+        '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<kml xmlns="http://www.opengis.net/kml/2.2">\n' +
+        '<Document>\n' +
+        `<name>${baseFileName}</name>\n`;
+
+    speedData.forEach((record, idx) => {
+        if (record.latitude == null || record.longitude == null) return;
 
         const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
         kmlContent +=
@@ -919,7 +926,7 @@ function downloadKML() {
     });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.download = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.kml`;
+    link.download = `${baseFileName}.kml`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
