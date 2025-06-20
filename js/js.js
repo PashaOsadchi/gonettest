@@ -9,6 +9,7 @@ const BEEP_DURATION = 200; // Тривалість сигналу за замо�
 const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
+const MAX_GPS_ACCURACY = 5; // meters
 const DEFAULT_FETCH_TIMEOUT = 1000; // Таймаут запиту за замовчуванням (мс)
 const STREAM_READ_TIMEOUT = 500000; // Таймаут читання потоку (мс, 5 с)
 const UI_UPDATE_INTERVAL = 1000; // Інтервал оновлення UI (мс)
@@ -671,6 +672,16 @@ function stopGPS() {
 
 function shouldSaveDataPoint() {
     if (!currentGPSData.latitude || !currentGPSData.longitude) {
+        return false;
+    }
+
+    if (
+        currentGPSData.accuracy !== null &&
+        currentGPSData.accuracy > MAX_GPS_ACCURACY
+    ) {
+        addLog(
+            `GPS accuracy ${currentGPSData.accuracy} > ${MAX_GPS_ACCURACY}, skipping`
+        );
         return false;
     }
 
