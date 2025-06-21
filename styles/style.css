@@ -10,14 +10,14 @@
 }
 
 [data-theme="dark"] {
-  --primary-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  --container-bg: rgba(0, 0, 0, 0.3);
+  --primary-bg: rgb(0, 0, 0);
+  --container-bg: rgb(0, 0, 0);
   --text-color: #e0e0e0;
   --accent-color: #64b5f6;
   --success-color: #81c784;
   --warning-color: #e57373;
-  --glass-bg: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgb(0, 0, 0);
+  --glass-border: rgb(0, 0, 0);
 }
 
 * {
