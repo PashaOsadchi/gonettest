@@ -664,11 +664,8 @@ h1 {
 }
 
 .speed-stats-block {
-  background: var(--glass-bg);
   border-radius: 15px;
   padding: 10px;
-  border: 1px solid var(--glass-border);
-  margin-top: 10px;
   width: 100%;
 }
 
