@@ -237,7 +237,7 @@ h1 {
 #operator {
   display: block;          /* occupy its own line */
   text-align: center;      /* center horizontally */
-  margin: 70px auto 5px;   /* leave room for fixed controls */
+  margin: 30px auto 5px;   /* leave room for fixed controls */
   max-width: 30ch;
   overflow: hidden;
   white-space: nowrap;
