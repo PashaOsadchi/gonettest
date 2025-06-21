@@ -42,6 +42,8 @@
           as="script">
 
     <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   </head>
 
 <body data-theme="dark">
@@ -55,33 +57,20 @@
       <img src="icon/logo.png" alt="Логотип" class="logo" width="50" height="50" />
       
       <div class="theme-controls">
-        <button
-          class="icon-btn"
-          onclick="toggleFullscreen()"
-          title="Повноекранний режим"
-        >
-          ⛶
+        <button class="icon-btn" onclick="toggleTheme()" aria-label="Перемкнути тему">
+          <i data-lucide="moon"></i> 
         </button>
-        <button
-          class="icon-btn"
-          onclick="toggleTheme()"
-          title="Перемкнути тему"
-        >
-          🌓
+      
+        <button class="icon-btn" onclick="toggleFullscreen()" aria-label="Повноекранний">
+          <i data-lucide="maximize-2"></i>
         </button>
-        <button
-          class="icon-btn"
-          onclick="toggleSettings()"
-          title="Налаштування"
-        >
-          🛠️
+      
+        <button class="icon-btn" onclick="toggleSettings()" aria-label="Налаштування">
+          <i data-lucide="settings"></i>
         </button>
-        <button
-          class="icon-btn"
-          onclick="refreshPage()"
-          title="Оновити сторінку"
-        >
-          ⟳
+      
+        <button class="icon-btn" onclick="refreshPage()" aria-label="Оновити">
+          <i data-lucide="rotate-ccw"></i>
         </button>
       </div>
 
