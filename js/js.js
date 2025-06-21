@@ -222,6 +222,19 @@ function formatSeconds(totalSeconds) {
     return timeParts.join(' ');
 }
 
+function formatDownloaded(bytes) {
+    const MB = 1024 * 1024;
+    const GB = MB * 1024;
+    if (bytes >= GB) {
+        const gb = Math.floor(bytes / GB);
+        const mb = Math.floor((bytes % GB) / MB);
+        return `${gb} ГБ ${mb} МБ`;
+    } else {
+        const mb = Math.floor(bytes / MB);
+        return `${mb} МБ`;
+    }
+}
+
 function showNotification(message, duration = NOTIFICATION_DURATION) {
     const notification = document.getElementById("notification");
     notification.textContent = message;
@@ -273,13 +286,13 @@ function speak(text) {
 
 function logTestSummary() {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    const downloadedMB = (totalBytes / (1024 * 1024)).toFixed(2);
+    const downloadedFormatted = formatDownloaded(totalBytes);
     const avg = speedStats.count
         ? (speedStats.sum / speedStats.count).toFixed(2)
         : "0.00";
     const min = speedStats.min === Infinity ? 0 : speedStats.min;
     addLog(
-        `Результати тесту: час ${elapsed} с, дані ${downloadedMB} МБ, ` +
+        `Результати тесту: час ${elapsed} с, дані ${downloadedFormatted}, ` +
             `середня швидкість ${avg} Мбіт/с, ` +
             `макс ${speedStats.max.toFixed(2)} Мбіт/с, ` +
             `мін ${min === 0 ? "0.00" : min.toFixed(2)} Мбіт/с`
@@ -1060,10 +1073,7 @@ function updateUI() {
         document.getElementById("alertIndicator").style.display = "none";
     }
 
-    document.getElementById("downloadedValue").textContent = `${(
-        totalBytes /
-        (1024 * 1024)
-    ).toFixed(2)}`;
+    document.getElementById("downloadedValue").textContent = formatDownloaded(totalBytes);
     document.getElementById("timeValue").textContent = formatSeconds(Math.floor(elapsed));
 
     updateGPSInfo();
@@ -1196,9 +1206,9 @@ async function runTest() {
 
       const errorMsg = e.name === "AbortError" ? "Timeout" : e.message;
       const elapsedErr = ((Date.now() - startTime) / 1000).toFixed(1);
-      const downloadedErr = (totalBytes / (1024 * 1024)).toFixed(2);
+      const downloadedErr = formatDownloaded(totalBytes);
       addLog(
-        `Помилка з'єднання: ${errorMsg}; передано ${downloadedErr} МБ за ${elapsedErr} с ` +
+        `Помилка з'єднання: ${errorMsg}; передано ${downloadedErr} за ${elapsedErr} с ` +
         `(${consecutiveErrors}/${MAX_CONSECUTIVE_ERRORS})`
       );
       playBeep(300, 500);
