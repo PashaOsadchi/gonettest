@@ -662,3 +662,50 @@ h1 {
 .error-message {
   color: var(--warning-color);
 }
+
+.speed-stats-block {
+  background: var(--glass-bg);
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid var(--glass-border);
+  margin-top: 10px;
+  width: 100%;
+}
+
+.speed-stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 15px;
+}
+
+.speed-stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.speed-stat-label {
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.min-speed {
+  font-size: 1.3em;
+  color: var(--warning-color);
+  font-weight: 600;
+}
+
+.avg-speed {
+  font-size: 1.3em;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.max-speed {
+  font-size: 1.3em;
+  color: var(--success-color);
+  font-weight: 600;
+}
