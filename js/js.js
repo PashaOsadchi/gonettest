@@ -1320,6 +1320,7 @@ function toggleTheme() {
     const currentTheme = body.getAttribute("data-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     body.setAttribute("data-theme", newTheme);
+    localStorage.setItem('theme', newTheme);
 
     // Update theme color meta tag
     const themeColorMeta = document.getElementById('themeColorMeta');
@@ -1341,6 +1342,18 @@ function toggleTheme() {
     showNotification(
         `Переключено на ${newTheme === "dark" ? "темну" : "світлу"} тему`
     );
+}
+
+function loadTheme() {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+        document.body.setAttribute('data-theme', storedTheme);
+        const themeColorMeta = document.getElementById('themeColorMeta');
+        if (themeColorMeta) {
+            themeColorMeta.content =
+                storedTheme === 'dark' ? '#1a1a2e' : '#667eea';
+        }
+    }
 }
 
 function toggleFullscreen() {
@@ -1417,6 +1430,7 @@ function loadSettings() {
 
 // Ініціалізація після побудови DOM
 window.addEventListener("DOMContentLoaded", () => {
+    loadTheme();
     loadSpeedDataFromStorage();
     initChart();
     loadSettings();
