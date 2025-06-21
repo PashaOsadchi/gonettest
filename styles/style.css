@@ -468,7 +468,6 @@ h1 {
 
 @media (max-width: 768px) {
   body {
-    padding: 10px;
     align-items: flex-start;
     justify-content: center;
     min-height: 100vh;
