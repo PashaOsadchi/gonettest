@@ -44,7 +44,6 @@ body {
   align-items: center;
   justify-content: center;
   color: var(--text-color);
-  padding: 20px;
   overscroll-behavior: none;
   overflow-x: hidden; /* Prevent content from spilling horizontally */
   transition: all 0.3s ease;
