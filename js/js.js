@@ -788,7 +788,6 @@ function updateDataDisplay() {
                 <div class="data-row">
                     <div>${record.timestamp}</div>
                     <div>${record.speed.toFixed(2)}</div>
-                    <div>${record.downloaded.toFixed(2)}</div>
                     <div>${record.latitude ? record.latitude.toFixed(6) : "N/A"
                 }</div>
                     <div>${record.longitude ? record.longitude.toFixed(6) : "N/A"
