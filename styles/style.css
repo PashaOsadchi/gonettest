@@ -22,7 +22,7 @@
   --success-color: #81c784;
   --warning-color: #e57373;
   --glass-bg: rgb(0, 0, 0);
-  --glass-border: rgb(0, 0, 0);
+  --glass-border: rgb(51, 51, 51);
 }
 
 * {
