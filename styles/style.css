@@ -191,6 +191,17 @@ h1 {
   margin: 5px 0;
 }
 
+/* Ensure buttons inside controls use a consistent font size */
+.controls > .btn {
+  font-size: 1.1em;
+}
+
+@media (min-width: 769px) {
+  .controls > .btn {
+    flex: 1;
+  }
+}
+
 .btn {
   background: linear-gradient(135deg, var(--warning-color), #ee5a24);
   border: none;
