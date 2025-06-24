@@ -63,5 +63,9 @@ window.i18n.en = {
   orgLabel: "Provider:",
   postalLabel: "Postal code:",
   timezoneLabel: "Timezone:",
+  stopTest: "Stop Test",
+  statusActive: "Test active",
+  statusNoConnection: "No connection",
+  statusStopped: "Test stopped",
   logoAlt: "Logo"
 };
