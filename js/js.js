@@ -31,6 +31,11 @@ const ICON_GREEN =
 // i18n
 let currentLang = localStorage.getItem('lang') || 'uk';
 
+function t(key, fallback = '') {
+    const dict = window.i18n && window.i18n[currentLang];
+    return (dict && dict[key]) || fallback;
+}
+
 function applyTranslations() {
     const dict = window.i18n && window.i18n[currentLang];
     if (!dict) return;
@@ -56,6 +61,13 @@ function setLanguage(lang) {
     applyTranslations();
     const select = document.getElementById('languageSelect');
     if (select) select.value = lang;
+    if (speedChart && window.i18n && window.i18n[currentLang]) {
+        speedChart.data.datasets[0].label =
+            window.i18n[currentLang].speedChartLabel ||
+            speedChart.data.datasets[0].label;
+        speedChart.update();
+    }
+    updateGPSInfo();
     updateRecordsCount();
 }
 
@@ -358,7 +370,7 @@ function initChart() {
             labels: [],
             datasets: [
                 {
-                    label: "Графік швидкості завантаження Мбіт/с",
+                    label: t('speedChartLabel', 'Графік швидкості завантаження Мбіт/с'),
                     data: [],
                     borderColor: "#4facfe",
                     backgroundColor: "rgba(79, 172, 254, 0.1)",
@@ -564,7 +576,7 @@ function updateGPSInfo() {
         document.getElementById("totalDistanceInfo");
 
     if (currentGPSData.latitude && currentGPSData.longitude) {
-        gpsStatusEl.textContent = "Активний";
+        gpsStatusEl.textContent = t('gpsActive', 'Активний');
         gpsStatusEl.classList.remove('status-warning', 'status-success', 'status-accent');
         gpsStatusEl.classList.add('status-accent');
         currentCoordsEl.textContent = `${currentGPSData.latitude.toFixed(
@@ -654,7 +666,7 @@ function updateGPSInfo() {
             2
         )} км`;
     } else {
-        gpsStatusEl.textContent = "Очікування сигналу";
+        gpsStatusEl.textContent = t('gpsWaiting', 'Очікування сигналу');
         gpsStatusEl.classList.remove('status-accent', 'status-success', 'status-warning');
         gpsStatusEl.classList.add('status-warning');
         currentCoordsEl.textContent = "N/A";
@@ -669,7 +681,7 @@ function updateGPSInfo() {
 function initGPS() {
     if (!navigator.geolocation) {
         addLog("GPS не підтримується браузером");
-        document.getElementById("gpsStatus").textContent = "Не підтримується";
+        document.getElementById("gpsStatus").textContent = t('gpsNotSupported', 'Не підтримується');
         return;
     }
 
@@ -699,7 +711,7 @@ function initGPS() {
         (error) => {
             addLog(`GPS помилка: ${error.message}`);
             const statusEl = document.getElementById("gpsStatus");
-            statusEl.textContent = "Помилка GPS";
+            statusEl.textContent = t('gpsError', 'Помилка GPS');
             statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
             statusEl.classList.add('status-warning');
         },
@@ -712,7 +724,7 @@ function stopGPS() {
         navigator.geolocation.clearWatch(gpsWatchId);
         gpsWatchId = null;
         const statusEl = document.getElementById("gpsStatus");
-        statusEl.textContent = "Не активний";
+        statusEl.textContent = t('gpsInactive', 'Не активний');
         statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
         addLog("GPS зупинено");
     }
@@ -793,6 +805,7 @@ function saveDataPoint() {
 
     const lastSaveEl = document.getElementById("lastSaveInfo");
     lastSaveEl.textContent = now.toLocaleTimeString();
+    lastSaveEl.removeAttribute('data-i18n');
     lastSaveEl.classList.remove('status-warning', 'status-success', 'status-accent');
     lastSaveEl.classList.add('status-accent');
 
@@ -813,7 +826,7 @@ function updateDataDisplay() {
 
     if (lastRecords.length === 0) {
         dataDisplay.innerHTML =
-            '<div class="placeholder">Немає даних</div>';
+            `<div class="placeholder">${t('noData', 'Немає даних')}</div>`;
         return;
     }
 
@@ -1077,7 +1090,8 @@ function clearData() {
         updateGPSInfo();
 
         const lastSaveEl = document.getElementById("lastSaveInfo");
-        lastSaveEl.textContent = "Немає даних";
+        lastSaveEl.textContent = t('noData', 'Немає даних');
+        lastSaveEl.setAttribute('data-i18n', 'noData');
         lastSaveEl.classList.remove('status-accent', 'status-success', 'status-warning');
         document.getElementById("avgSpeed").textContent = "0.00";
         document.getElementById("maxSpeed").textContent = "0.00";
