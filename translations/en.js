@@ -67,5 +67,16 @@ window.i18n.en = {
   statusActive: "Test active",
   statusNoConnection: "No connection",
   statusStopped: "Test stopped",
-  logoAlt: "Logo"
+  logoAlt: "Logo",
+  dataDownloaded: "Data downloaded!",
+  kmlDownloaded: "KML file downloaded!",
+  chartExported: "Chart exported!",
+  dataCleared: "Data cleared!",
+  testStarted: "Test started!",
+  testStopped: "Test stopped!",
+  settingsSaved: "Settings saved!",
+  fullscreenEnabled: "Fullscreen enabled",
+  fullscreenDisabled: "Fullscreen disabled",
+  themeSwitchedDark: "Switched to dark theme",
+  themeSwitchedLight: "Switched to light theme"
 };
