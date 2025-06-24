@@ -67,5 +67,16 @@ window.i18n.uk = {
   statusActive: "Тест активний",
   statusNoConnection: "Відсутнє з'єднання",
   statusStopped: "Тест зупинено",
-  logoAlt: "Логотип"
+  logoAlt: "Логотип",
+  dataDownloaded: "Дані завантажено!",
+  kmlDownloaded: "KML файл завантажено!",
+  chartExported: "Графік експортовано!",
+  dataCleared: "Дані очищено!",
+  testStarted: "Тест запущено!",
+  testStopped: "Тест зупинено!",
+  settingsSaved: "Налаштування збережено!",
+  fullscreenEnabled: "Повноекранний режим увімкнено",
+  fullscreenDisabled: "Повноекранний режим вимкнено",
+  themeSwitchedDark: "Переключено на темну тему",
+  themeSwitchedLight: "Переключено на світлу тему"
 };

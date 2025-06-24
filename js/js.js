@@ -942,7 +942,7 @@ function downloadData() {
     link.click();
     document.body.removeChild(link);
 
-    showNotification("Дані завантажено!");
+    showNotification(t('dataDownloaded', 'Дані завантажено!'));
 
     if (downloadBtn) downloadBtn.disabled = false;
     isDownloading = false;
@@ -1050,7 +1050,7 @@ function downloadKML() {
     link.click();
     document.body.removeChild(link);
 
-    showNotification('KML файл завантажено!');
+    showNotification(t('kmlDownloaded', 'KML файл завантажено!'));
 }
 
 
@@ -1065,7 +1065,7 @@ function exportChart() {
     link.href = speedChart.toBase64Image();
     link.click();
 
-    showNotification("Графік експортовано!");
+    showNotification(t('chartExported', 'Графік експортовано!'));
 }
 
 function clearData() {
@@ -1098,7 +1098,7 @@ function clearData() {
         document.getElementById("minSpeed").textContent = "0.00 ";
         document.getElementById("totalDistanceInfo").textContent = "0.00";
 
-        showNotification("Дані очищено!");
+        showNotification(t('dataCleared', 'Дані очищено!'));
     }
 }
 
@@ -1260,7 +1260,7 @@ async function runTest() {
       );
       playBeep(300, 500);
       if (consecutiveErrors === 1) {
-        showNotification("Втрачено з'єднання!");
+        showNotification(t('alertConnectionLost', "Втрачено з'єднання!"));
         speak("Втрачено з'єднання з інтернетом");
       }
 
@@ -1345,7 +1345,7 @@ async function toggleTest() {
         }
         document.getElementById("startBtn").textContent = t('startTest', 'Почати тест');
         addLog("Зупинка тесту...");
-        showNotification("Тест зупинено!");
+        showNotification(t('testStopped', 'Тест зупинено!'));
         return;
     }
 
@@ -1353,7 +1353,7 @@ async function toggleTest() {
         testActive = true;
         document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
         addLog("Старт тесту");
-        showNotification("Тест запущено!");
+        showNotification(t('testStarted', 'Тест запущено!'));
         initMapIfNeeded();
 
         isConnected = await checkRealConnection();
@@ -1387,7 +1387,9 @@ function toggleTheme() {
     }
 
     showNotification(
-        `Переключено на ${newTheme === "dark" ? "темну" : "світлу"} тему`
+        newTheme === 'dark'
+            ? t('themeSwitchedDark', 'Переключено на темну тему')
+            : t('themeSwitchedLight', 'Переключено на світлу тему')
     );
 }
 
@@ -1414,7 +1416,7 @@ function toggleFullscreen() {
         } else if (document.documentElement.requestFullscreen) {
             document.documentElement.requestFullscreen();
         }
-        showNotification("Повноекранний режим увімкнено");
+        showNotification(t('fullscreenEnabled', 'Повноекранний режим увімкнено'));
         setTimeout(() => {
             if (speedChart) {
                 speedChart.resize();
@@ -1425,7 +1427,7 @@ function toggleFullscreen() {
         if (document.exitFullscreen) {
             document.exitFullscreen();
         }
-        showNotification("Повноекранний режим вимкнено");
+        showNotification(t('fullscreenDisabled', 'Повноекранний режим вимкнено'));
         setTimeout(() => {
             if (speedChart) {
                 speedChart.resize();
@@ -1464,7 +1466,7 @@ function saveSettings() {
         );
     }
 
-    showNotification("Налаштування збережено!");
+    showNotification(t('settingsSaved', 'Налаштування збережено!'));
     toggleSettings();
 }
 
