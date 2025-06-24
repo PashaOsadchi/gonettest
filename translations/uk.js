@@ -63,5 +63,9 @@ window.i18n.uk = {
   orgLabel: "Провайдер:",
   postalLabel: "Поштовий індекс:",
   timezoneLabel: "Часовий пояс:",
+  stopTest: "Зупинити тест",
+  statusActive: "Тест активний",
+  statusNoConnection: "Відсутнє з'єднання",
+  statusStopped: "Тест зупинено",
   logoAlt: "Логотип"
 };

@@ -1114,7 +1114,7 @@ function updateUI() {
     if (isConnected) {
         document.getElementById("speedValue").textContent =
             speedMbps.toFixed(2);
-        document.getElementById("status").textContent = "Тест активний";
+        document.getElementById("status").textContent = t('statusActive', 'Тест активний');
 
         // Ховаємо індикатор помилки
         document.getElementById("alertIndicator").style.display = "none";
@@ -1248,7 +1248,7 @@ async function runTest() {
       isConnected = false;
       consecutiveErrors++;
       document.getElementById("speedValue").textContent = "0.00";
-      document.getElementById("status").textContent = "Відсутнє з'єднання";
+      document.getElementById("status").textContent = t('statusNoConnection', 'Відсутнє з\'єднання');
       document.getElementById("alertIndicator").style.display = "block";
 
       const errorMsg = e.name === "AbortError" ? "Timeout" : e.message;
@@ -1277,7 +1277,7 @@ async function runTest() {
   // Коли юзер натисне «Стоп», виходимо із зовнішнього циклу:
   clearInterval(updateInterval);
   clearInterval(dataInterval);
-  document.getElementById("status").textContent = "Тест зупинено";
+  document.getElementById("status").textContent = t('statusStopped', 'Тест зупинено');
   document.getElementById("alertIndicator").style.display = "none";
   testInProgress = false;
   if (pendingRun && testActive) {
@@ -1343,7 +1343,7 @@ async function toggleTest() {
         if (activeDownloadController) {
             activeDownloadController.abort();
         }
-        document.getElementById("startBtn").textContent = "Почати тест";
+        document.getElementById("startBtn").textContent = t('startTest', 'Почати тест');
         addLog("Зупинка тесту...");
         showNotification("Тест зупинено!");
         return;
@@ -1351,7 +1351,7 @@ async function toggleTest() {
 
     if (!testInProgress) {
         testActive = true;
-        document.getElementById("startBtn").textContent = "Зупинити тест";
+        document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
         addLog("Старт тесту");
         showNotification("Тест запущено!");
         initMapIfNeeded();
