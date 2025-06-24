@@ -86,8 +86,8 @@ let totalDistance = 0;
 // Налаштування
 let settings = {
     saveInterval: DEFAULT_SAVE_INTERVAL,
-    gpsDistance: 1,
-    speedThreshold: 1,
+    gpsDistance: 10,
+    speedThreshold: 5,
     soundAlerts: true,
     voiceAlerts: false,
 };
