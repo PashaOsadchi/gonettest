@@ -28,6 +28,41 @@ const ICON_YELLOW =
 const ICON_GREEN =
     'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
 
+// i18n
+let currentLang = localStorage.getItem('lang') || 'uk';
+
+function applyTranslations() {
+    const dict = window.i18n && window.i18n[currentLang];
+    if (!dict) return;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+            el.textContent = dict[key];
+        }
+    });
+    document.documentElement.lang = currentLang;
+    if (dict.appTitle) {
+        document.title = dict.appTitle;
+    }
+    const logo = document.querySelector('img.logo');
+    if (logo && dict.logoAlt) {
+        logo.alt = dict.logoAlt;
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    applyTranslations();
+    const select = document.getElementById('languageSelect');
+    if (select) select.value = lang;
+    updateRecordsCount();
+}
+
+function initLanguage() {
+    setLanguage(currentLang);
+}
+
 // Wake Lock
 let wakeLock = null;
 
@@ -806,9 +841,8 @@ function updateDataDisplay() {
 
 function updateRecordsCount() {
     document.getElementById("recordsCount").textContent = speedData.length;
-    document.getElementById(
-        "recordsInfo"
-    ).textContent = `Записів: ${speedData.length}`;
+    const label = (window.i18n && window.i18n[currentLang] && window.i18n[currentLang].recordsCount) || 'Записів:';
+    document.getElementById("recordsInfo").textContent = `${label} ${speedData.length}`;
 }
 
 function replaceSpacesWithUnderscore(str) {
@@ -1404,6 +1438,8 @@ function saveSettings() {
         parseFloat(document.getElementById("speedThreshold").value) || 5;
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
+    const langSelect = document.getElementById("languageSelect");
+    if (langSelect) setLanguage(langSelect.value);
 
     // Перезапускаємо інтервал збереження якщо тест активний
     if (testActive && dataInterval) {
@@ -1425,10 +1461,13 @@ function loadSettings() {
         settings.speedThreshold;
     document.getElementById("soundAlerts").checked = settings.soundAlerts;
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
+    const langSelect = document.getElementById("languageSelect");
+    if (langSelect) langSelect.value = currentLang;
 }
 
 // Ініціалізація після побудови DOM
 window.addEventListener("DOMContentLoaded", () => {
+    initLanguage();
     loadTheme();
     loadSpeedDataFromStorage();
     initChart();

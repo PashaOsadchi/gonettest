@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Streaming data download speed test on the way">
     <meta id="themeColorMeta" name="theme-color" content="#1a1a2e" />
-    <title>Тест швидкості інтернету</title>
+    <title data-i18n="appTitle">Тест швидкості інтернету</title>
 
     <link rel="canonical" href="https://www.gonettest.com/" />
     <!-- Для iOS -->
@@ -33,6 +33,8 @@
 
     <script defer src="js/registration_service_worker.js"></script>
 
+    <script defer src="translations/en.js"></script>
+    <script defer src="translations/uk.js"></script>
     <script defer src="js/js.js"></script>
 
     <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -48,7 +50,7 @@
 
 <body data-theme="dark">
     
-    <div class="alert-indicator" id="alertIndicator">Втрачено з'єднання!</div>
+    <div class="alert-indicator" id="alertIndicator" data-i18n="alertConnectionLost">Втрачено з'єднання!</div>
 
     <div class="notification" id="notification"></div>
 
@@ -79,11 +81,11 @@
       </script>
 
       <!-- Налаштування -->
-      <div class="settings-panel" id="settingsPanel">
-        <h3 class="mb-20">Налаштування</h3>
+        <div class="settings-panel" id="settingsPanel">
+          <h3 class="mb-20" data-i18n="settingsTitle">Налаштування</h3>
         <div class="setting-group">
-          <label class="setting-label" for="saveInterval"
-            >Інтервал збереження даних (секунди):</label
+            <label class="setting-label" for="saveInterval" data-i18n="saveIntervalLabel"
+              >Інтервал збереження даних (секунди):</label
           >
           <input
             type="number"
@@ -95,8 +97,8 @@
           />
         </div>
         <div class="setting-group">
-          <label class="setting-label" for="gpsDistance"
-            >Мінімальна відстань для збереження GPS (метри):</label
+            <label class="setting-label" for="gpsDistance" data-i18n="gpsDistanceLabel"
+              >Мінімальна відстань для збереження GPS (метри):</label
           >
           <input
             type="number"
@@ -108,8 +110,8 @@
           />
         </div>
         <div class="setting-group">
-          <label class="setting-label" for="speedThreshold"
-            >Поріг швидкості для сповіщення (Мбіт/с):</label
+            <label class="setting-label" for="speedThreshold" data-i18n="speedThresholdLabel"
+              >Поріг швидкості для сповіщення (Мбіт/с):</label
           >
           <input
             type="number"
@@ -123,26 +125,33 @@
         <div class="setting-group">
           <div class="checkbox-group">
             <input type="checkbox" id="soundAlerts" checked />
-            <label class="setting-label" for="soundAlerts">Звукові сповіщення</label>
+              <label class="setting-label" for="soundAlerts" data-i18n="soundAlertsLabel">Звукові сповіщення</label>
           </div>
         </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="voiceAlerts" />
-            <label class="setting-label" for="voiceAlerts">Голосові сповіщення</label>
+          <div class="setting-group">
+            <div class="checkbox-group">
+              <input type="checkbox" id="voiceAlerts" />
+              <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові сповіщення</label>
+            </div>
           </div>
-        </div>
-        <button class="btn btn-success" onclick="saveSettings()">
-          Зберегти налаштування
-        </button>
+          <div class="setting-group">
+            <label class="setting-label" for="languageSelect" data-i18n="languageLabel">Мова</label>
+            <select id="languageSelect" class="setting-input" onchange="setLanguage(this.value)">
+              <option value="uk">Українська</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <button class="btn btn-success" onclick="saveSettings()" data-i18n="saveSettingsButton">
+            Зберегти налаштування
+          </button>
       </div>
 
       <div class="status" id="operator"></div>
       
       <div class="main-grid">
 
-      <div class="speed-section">
-        <div class="stat-label">Поточна швидкість завантаження Мбіт/с</div>
+        <div class="speed-section">
+          <div class="stat-label" data-i18n="currentSpeedLabel">Поточна швидкість завантаження Мбіт/с</div>
         <div class="speed-display">
           <span id="speedValue">0.00</span>
         </div>
@@ -150,21 +159,21 @@
         <div class="speed-stats-block">
           <div class="speed-stats-row">
             <div class="speed-stat-item">
-              <span class="speed-stat-label">Мінімальна</span>
+              <span class="speed-stat-label" data-i18n="minLabel">Мінімальна</span>
               <div class="min-speed">
                 <span id="minSpeed">0.00</span>
               </div>
             </div>
         
             <div class="speed-stat-item">
-              <span class="speed-stat-label">Середня</span>
+              <span class="speed-stat-label" data-i18n="avgLabel">Середня</span>
               <div class="avg-speed">
                 <span id="avgSpeed">0.00</span>
               </div>
             </div>
         
             <div class="speed-stat-item">
-              <span class="speed-stat-label">Максимальна</span>
+              <span class="speed-stat-label" data-i18n="maxLabel">Максимальна</span>
               <div class="max-speed">
                 <span id="maxSpeed">0.00</span>
               </div>
@@ -172,25 +181,25 @@
           </div>
         </div>
 
-        <div class="status" id="status">Натисніть "Почати тест"</div>
+          <div class="status" id="status" data-i18n="statusReady">Натисніть "Почати тест"</div>
 
         <div class="controls">
-          <button class="btn" id="startBtn" onclick="toggleTest()">
+          <button class="btn" id="startBtn" onclick="toggleTest()" data-i18n="startTest">
             Почати тест
           </button>
         </div>
 
         <div class="stats">
           <div class="stat-item">
-            <div class="stat-label">Завантажено даних</div>
+              <div class="stat-label" data-i18n="downloadedDataLabel">Завантажено даних</div>
             <div class="stat-value" id="downloadedValue">0.00</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Час роботи тесту</div>
+              <div class="stat-label" data-i18n="testDurationLabel">Час роботи тесту</div>
             <div class="stat-value" id="timeValue">0</div>
           </div>
           <div class="stat-item">
-            <div class="stat-label">Збережено записів</div>
+              <div class="stat-label" data-i18n="recordsSavedLabel">Збережено записів</div>
             <div class="stat-value" id="recordsCount">0</div>
           </div>
         </div>
@@ -202,85 +211,86 @@
         </div>
       </div>
 
-      <!-- Розширена GPS інформація -->
-      <div class="info" id="gpsInfo">
-        <div class="fw-bold mb-10">
-          Детальний GPS статус
-        </div>
-        <div class="info-row">
-          <span>Статус:</span>
+        <!-- Розширена GPS інформація -->
+        <div class="info" id="gpsInfo">
+          <div class="fw-bold mb-10" data-i18n="gpsInfoTitle">
+            Детальний GPS статус
+          </div>
+          <div class="info-row">
+          <span data-i18n="gpsStatusLabel">Статус:</span>
           <span id="gpsStatus">Не активний</span>
-        </div>
-        <div class="info-row">
-          <span>Точність:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="gpsAccuracyLabel">Точність:</span>
           <span id="gpsAccuracy">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Поточні координати:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="currentCoordsLabel">Поточні координати:</span>
           <span id="currentCoords">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Висота:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="altitudeLabel">Висота:</span>
           <span id="altitudeInfo">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Швидкість:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="gpsSpeedLabel">Швидкість:</span>
           <span id="gpsSpeedInfo">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Напрямок руху:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="headingLabel">Напрямок руху:</span>
           <span id="headingInfo">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Відстань від попередньої точки:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="distanceFromPrevLabel">Відстань від попередньої точки:</span>
           <span id="distanceInfo">N/A</span>
-        </div>
-        <div class="info-row">
-          <span>Загальна відстань:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="totalDistanceLabel">Загальна відстань:</span>
           <span id="totalDistanceInfo">0.00 км</span>
-        </div>
-        <div class="info-row">
-          <span>Час останнього збереження даних:</span>
+          </div>
+          <div class="info-row">
+          <span data-i18n="lastSaveLabel">Час останнього збереження даних:</span>
           <span id="lastSaveInfo">Немає даних</span>
+          </div>
         </div>
-      </div>
 
-       <div class="info" id="info">
-        <div class="fw-bold mb-10">
-          Детальна інформація про провайдера
+        <div class="info" id="info">
+          <div class="fw-bold mb-10" data-i18n="providerInfoTitle">
+            Детальна інформація про провайдера
+          </div>
+          <div class="info-row"><span>IP:</span><span id="ip">-</span></div>
+          <div class="info-row"><span data-i18n="ipLabel">IP:</span><span id="ip">-</span></div>
+          <div class="info-row"><span data-i18n="hostnameLabel">Хост:</span><span id="hostname">-</span></div>
+          <div class="info-row"><span data-i18n="cityLabel">Місто:</span><span id="city">-</span></div>
+          <div class="info-row"><span data-i18n="regionLabel">Регіон:</span><span id="region">-</span></div>
+          <div class="info-row"><span data-i18n="countryLabel">Країна:</span><span id="country">-</span></div>
+          <div class="info-row"><span data-i18n="locLabel">Координати:</span><span id="loc">-</span></div>
+          <div class="info-row"><span data-i18n="orgLabel">Провайдер:</span><span id="org">-</span></div>
+          <div class="info-row"><span data-i18n="postalLabel">Поштовий індекс:</span><span id="postal">-</span></div>
+          <div class="info-row"><span data-i18n="timezoneLabel">Часовий пояс:</span><span id="timezone">-</span></div>
         </div>
-        <div class="info-row"><span>IP:</span><span id="ip">-</span></div>
-        <div class="info-row"><span>Хост:</span><span id="hostname">-</span></div>
-        <div class="info-row"><span>Місто:</span><span id="city">-</span></div>
-        <div class="info-row"><span>Регіон:</span><span id="region">-</span></div>
-        <div class="info-row"><span>Країна:</span><span id="country">-</span></div>
-        <div class="info-row"><span>Координати:</span><span id="loc">-</span></div>
-        <div class="info-row"><span>Провайдер:</span><span id="org">-</span></div>
-        <div class="info-row"><span>Поштовий індекс:</span><span id="postal">-</span></div>
-        <div class="info-row"><span>Часовий пояс:</span><span id="timezone">-</span></div>
-      </div>
 
       <div class="map-section">
-        <h3>Карта вимірювань</h3>
+        <h3 data-i18n="mapTitle">Карта вимірювань</h3>
         <div id="map"></div>
       </div>
 
       <div class="data-section">
         <div class="data-header">
-          <h3>Останні вимірювання</h3>
-          <div class="records-count" id="recordsInfo">Записів: 0</div>
+          <h3 data-i18n="latestMeasurementsTitle">Останні вимірювання</h3>
+          <div class="records-count" id="recordsInfo" data-i18n="recordsCount">Записів: 0</div>
         </div>
         <div class="data-table">
           <div class="data-row data-header-row">
-            <div>Час</div>
-            <div>Швидкість завантаження Мбіт/с</div>
-            <div>Широта</div>
-            <div>Довгота</div>
-            <div>Висота</div>
-            <div>Швидкість руху км/год</div>
+            <div data-i18n="timeColumn">Час</div>
+            <div data-i18n="speedColumn">Швидкість завантаження Мбіт/с</div>
+            <div data-i18n="latColumn">Широта</div>
+            <div data-i18n="lonColumn">Довгота</div>
+            <div data-i18n="altColumn">Висота</div>
+            <div data-i18n="moveSpeedColumn">Швидкість руху км/год</div>
           </div>
           <div id="dataDisplay">
-            <div class="text-center p-20 opacity-60">
+            <div class="text-center p-20 opacity-60" data-i18n="noData">
               Немає даних
             </div>
           </div>
@@ -290,16 +300,16 @@
       </div> <!-- end main-grid -->
 
       <div class="controls">
-        <button id="downloadBtn" class="btn btn-secondary" onclick="downloadData()">
+        <button id="downloadBtn" class="btn btn-secondary" onclick="downloadData()" data-i18n="downloadCSV">
           Завантажити CSV
         </button>
-        <button id="kmlBtn" class="btn btn-secondary" onclick="downloadKML()">
+        <button id="kmlBtn" class="btn btn-secondary" onclick="downloadKML()" data-i18n="downloadKML">
           Завантажити KML
         </button>
-        <button class="btn btn-secondary btn-small" onclick="exportChart()">
+        <button class="btn btn-secondary btn-small" onclick="exportChart()" data-i18n="downloadChart">
           Завантажити графік швидкості
         </button>
-        <button class="btn btn-success" onclick="clearData()">
+        <button class="btn btn-success" onclick="clearData()" data-i18n="clearData">
           Очистити дані
         </button>
       </div>
