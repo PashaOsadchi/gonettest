@@ -1,12 +1,12 @@
+import { showNotification, playBeep, speak } from "./audio.js";
+import { initMap, initMapIfNeeded, setupMapObserver, addMapMarker, calculateDistance } from "./map.js";
+import { downloadData, downloadKML, downloadHTML, exportChart } from "./export.js";
+
 // Конфігурація
 const TARGET = 100 * 1024 * 1024; // * 1024; // Обсяг для тестового завантаження (байт)
 const MAX_CONSECUTIVE_ERRORS = 1000; // Максимальна кількість помилок поспіль
 const RECONNECT_TIMEOUT = 1000; // Таймаут перевірки підключення (мс)
 const BIG_FETCH_TIMEOUT = 30000; // Таймаут великого запиту (мс, 30 с)
-const NOTIFICATION_DURATION = 3000; // Тривалість сповіщення (мс)
-const BEEP_FREQUENCY = 800; // Частота сигналу за замовчуванням (Гц)
-const BEEP_DURATION = 200; // Тривалість сигналу за замовчуванням (мс)
-const SPEECH_RATE = 0.8; // Швидкість синтезу мовлення
 const GPS_TIMEOUT = 5000; // Таймаут GPS (мс)
 const GPS_MAX_AGE = 1000; // Максимальний вік GPS-даних (мс)
 const MAX_GPS_ACCURACY = 5; // meters
@@ -21,15 +21,6 @@ const MAX_DATA_POINTS = 60; // Максимальна кількість точ�
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 const STORAGE_KEY = 'speedData';
 
-const ICON_RED =
-    'http://maps.google.com/mapfiles/kml/paddle/red-circle.png';
-const ICON_YELLOW =
-    'http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
-const ICON_GREEN =
-    'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
-
-// i18n
-let currentLang = localStorage.getItem('lang') || 'uk';
 
 function t(key, fallback = '') {
     const dict = window.i18n && window.i18n[currentLang];
@@ -144,6 +135,7 @@ let settings = {
     voiceAlerts: false,
 };
 
+window.settings = settings;
 // Графік
 let speedChart = null;
 let chartData = [];
@@ -287,7 +279,6 @@ function formatDownloaded(bytes) {
     }
 }
 
-function showNotification(message, duration = NOTIFICATION_DURATION) {
     const notification = document.getElementById("notification");
     notification.textContent = message;
     notification.style.display = "block";
@@ -296,7 +287,6 @@ function showNotification(message, duration = NOTIFICATION_DURATION) {
     }, duration);
 }
 
-function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
     if (!settings.soundAlerts) return;
 
     try {
@@ -332,7 +322,6 @@ function speak(text) {
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "uk-UA";
-    utterance.rate = SPEECH_RATE;
     speechSynthesis.speak(utterance);
 }
 
@@ -493,81 +482,6 @@ function updateSpeedPerSecond(speedMbps) {
 
 function getColorBySpeed(speed) {
     if (speed <= 0) return 'red';
-    if (speed <= 2) return 'yellow';
-    return 'green';
-}
-
-function initMap() {
-    if (mapInitialized) return;
-    map = L.map('map').setView([48.3794, 31.1656], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-    mapInitialized = true;
-
-    // Add previously stored markers without centering on each
-    if (speedData.length > 0) {
-        speedData.forEach((pt) => addMapMarker(pt, false));
-        const last = speedData[speedData.length - 1];
-        if (last.latitude != null && last.longitude != null) {
-            map.setView([last.latitude, last.longitude], map.getZoom());
-        }
-    }
-}
-
-function initMapIfNeeded() {
-    if (!mapInitialized) {
-        initMap();
-    }
-}
-
-function setupMapObserver() {
-    const mapEl = document.getElementById('map');
-    if (!mapEl || !('IntersectionObserver' in window)) return;
-    const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                initMapIfNeeded();
-                obs.disconnect();
-            }
-        });
-    });
-    observer.observe(mapEl);
-}
-
-function addMapMarker(point, centerOnAdd = true) {
-    if (!map || point.latitude == null || point.longitude == null) return;
-    const color = getColorBySpeed(point.speed);
-    const marker = L.circleMarker([point.latitude, point.longitude], {
-        radius: 6,
-        color,
-        fillColor: color,
-        fillOpacity: 0.8,
-    }).addTo(map);
-    mapMarkers.push(marker);
-    if (centerOnAdd) {
-        map.setView([point.latitude, point.longitude], map.getZoom());
-    }
-}
-
-function calculateDistance(lat1, lon1, lat2, lon2) {
-    if (lat1 === null || lon1 === null || lat2 === null || lon2 === null) {
-        return null;
-    }
-
-    const R = 6371000;
-    const dLat = ((lat2 - lat1) * Math.PI) / 180;
-    const dLon = ((lon2 - lon1) * Math.PI) / 180;
-    const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-}
 
 function updateGPSInfo() {
     const gpsStatusEl = document.getElementById("gpsStatus");
@@ -856,288 +770,6 @@ function updateRecordsCount() {
     document.getElementById("recordsInfo").textContent = `${label} ${speedData.length}`;
 }
 
-function replaceSpacesWithUnderscore(str) {
-  return str.replace(/ /g, '_');
-}
-
-function downloadData() {
-    if (isDownloading) return;
-
-    if (speedData.length === 0) {
-        showNotification(t('noData', 'Немає даних для завантаження'));
-        return;
-    }
-
-    isDownloading = true;
-    const downloadBtn = document.getElementById('downloadBtn');
-    if (downloadBtn) downloadBtn.disabled = true;
-
-    let dateStr = '';
-    let timeStr = '';
-
-    // ✨  Додали три нові заголовки після "Час"
-    const headers =
-        "Часова мітка (мс);" +
-        "Дата;" +
-        "Час;" +
-        "Оператор;" +
-        "Швидкість (Мбіт/с);" +
-        "Завантажено (МБ);" +
-        "Тривалість (с);" +
-        "Широта;" +
-        "Довгота;" +
-        "Висота (м);" +
-        "GPS Швидкість (км/год);" +
-        "Точність (м);" +
-        "Напрямок (°)\n";
-
-    const csvContent =
-        headers +
-        speedData
-            .map((record) => {
-                // Перевірка, якщо зберігали Date – використовуємо напряму, інакше створюємо об’єкт Date
-                const ts =
-                    record.fullTimestamp instanceof Date
-                        ? record.fullTimestamp
-                        : new Date(record.fullTimestamp);
-
-                // Формати дати й часу з 2-цифровими компонентами
-                dateStr = ts.toLocaleDateString("uk-UA", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                });
-                timeStr = ts.toLocaleTimeString("uk-UA", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                });
-
-                return (
-                    `${ts.getTime()};` +                       // Часова мітка (мс)
-                    `${dateStr};` +                           // Дата
-                    `${timeStr};` +                           // Час (HH:MM:SS)
-                    `${operator};` +
-                    `${record.speed.toFixed(2)};` +
-                    `${record.downloaded.toFixed(2)};` +
-                    `${record.elapsed || ""};` +
-                    `${record.latitude || ""};` +
-                    `${record.longitude || ""};` +
-                    `${record.altitude ? record.altitude.toFixed(0) : ""};` +
-                    `${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ""};` +
-                    `${record.accuracy ? record.accuracy.toFixed(1) : ""};` +
-                    `${record.heading ? record.heading.toFixed(1) : ""};`
-                );
-            })
-            .join("\n");
-
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.csv`;
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    showNotification(t('dataDownloaded', 'Дані завантажено!'));
-
-    if (downloadBtn) downloadBtn.disabled = false;
-    isDownloading = false;
-}
-
-function downloadKML() {
-    if (speedData.length === 0) {
-        showNotification(t('noData', 'Немає даних для завантаження'));
-        return;
-    }
-
-    let dateStr = '';
-    let timeStr = '';
-
-    // Use timestamp of the last record to build file and layer names
-    const lastRecord = speedData[speedData.length - 1];
-    if (lastRecord && lastRecord.fullTimestamp) {
-        const ts =
-            lastRecord.fullTimestamp instanceof Date
-                ? lastRecord.fullTimestamp
-                : new Date(lastRecord.fullTimestamp);
-        dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
-    }
-
-    const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
-
-    let kmlContent =
-        '<?xml version="1.0" encoding="UTF-8"?>\n' +
-        '<kml xmlns="http://www.opengis.net/kml/2.2">\n' +
-        '<Document>\n' +
-        `<name>${baseFileName}</name>\n` +
-        `<Style id="red"><IconStyle><Icon><href>${ICON_RED}</href></Icon></IconStyle></Style>\n` +
-        `<Style id="yellow"><IconStyle><Icon><href>${ICON_YELLOW}</href></Icon></IconStyle></Style>\n` +
-        `<Style id="green"><IconStyle><Icon><href>${ICON_GREEN}</href></Icon></IconStyle></Style>\n`;
-
-    speedData.forEach((record, idx) => {
-        if (record.latitude == null || record.longitude == null) return;
-
-        const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
-
-        const ts =
-            record.fullTimestamp instanceof Date
-                ? record.fullTimestamp
-                : new Date(record.fullTimestamp);
-        const dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        const timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
-
-        const description =
-            `Часова мітка (мс): ${ts.getTime()}<br>` +
-            `Дата: ${dateStr}<br>` +
-            `Час: ${timeStr}<br>` +
-            `Оператор: ${operator}<br>` +
-            `Швидкість (Мбіт/с): ${record.speed.toFixed(2)}<br>` +
-            `Завантажено (МБ): ${record.downloaded.toFixed(2)}<br>` +
-            `Тривалість (с): ${record.elapsed ?? ''}<br>` +
-            `Широта: ${record.latitude}<br>` +
-            `Довгота: ${record.longitude}<br>` +
-            `Висота (м): ${altitude}<br>` +
-            `GPS Швидкість (км/год): ${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ''}<br>` +
-            `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
-            `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
-
-        let style = '#green';
-        if (record.speed === 0) {
-            style = '#red';
-        } else if (record.speed > 0 && record.speed <= 2) {
-            style = '#yellow';
-        }
-
-        kmlContent +=
-            `<Placemark>` +
-            `<name>${idx + 1}</name>` +
-            `<styleUrl>${style}</styleUrl>` +
-            `<description><![CDATA[${description}]]></description>` +
-            `<Point><coordinates>${record.longitude},${record.latitude},${altitude}</coordinates></Point>` +
-            `</Placemark>\n`;
-    });
-
-    kmlContent += '</Document>\n</kml>';
-
-    const blob = new Blob([kmlContent], {
-        type: 'application/vnd.google-earth.kml+xml',
-    });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${baseFileName}.kml`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    showNotification(t('kmlDownloaded', 'KML файл завантажено!'));
-}
-
-function downloadHTML() {
-    if (speedData.length === 0) {
-        alert('Немає даних для завантаження');
-        return;
-    }
-
-    let dateStr = '';
-    let timeStr = '';
-    const lastRecord = speedData[speedData.length - 1];
-    if (lastRecord && lastRecord.fullTimestamp) {
-        const ts =
-            lastRecord.fullTimestamp instanceof Date
-                ? lastRecord.fullTimestamp
-                : new Date(lastRecord.fullTimestamp);
-        dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
-    }
-
-    const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
-
-    let center = [48.3794, 31.1656];
-    for (let i = speedData.length - 1; i >= 0; i--) {
-        const pt = speedData[i];
-        if (pt.latitude != null && pt.longitude != null) {
-            center = [pt.latitude, pt.longitude];
-            break;
-        }
-    }
-
-    const htmlContent = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>${baseFileName}</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <style>#map{height:100vh;width:100%;margin:0;}</style>
-</head>
-<body>
-  <div id="map"></div>
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script>
-    const data = ${JSON.stringify(speedData)};
-    function getColor(s){ if(s <= 0) return 'red'; if(s <= 2) return 'yellow'; return 'green'; }
-    const map = L.map('map').setView([${center[0]}, ${center[1]}], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
-    data.forEach(pt => {
-      if(pt.latitude == null || pt.longitude == null) return;
-      const color = getColor(pt.speed);
-      L.circleMarker([pt.latitude, pt.longitude], {radius:6, color, fillColor:color, fillOpacity:0.8}).addTo(map);
-    });
-  </script>
-</body>
-</html>`;
-
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${baseFileName}.html`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
-}
-
-
-
-function exportChart() {
-    if (!speedChart) return;
-
-    const link = document.createElement("a");
-    link.download = `speed_chart_${new Date()
-        .toISOString()
-        .slice(0, 10)}.png`;
-    link.href = speedChart.toBase64Image();
-    link.click();
-
-    showNotification(t('chartExported', 'Графік експортовано!'));
-}
 
 function clearData() {
     if (speedData.length === 0) return;
@@ -1528,7 +1160,7 @@ function saveSettings() {
     const langSelect = document.getElementById("languageSelect");
     if (langSelect) setLanguage(langSelect.value);
 
-    // Перезапускаємо інтервал збереження якщо тест активний
+    window.settings = settings;
     if (testActive && dataInterval) {
         clearInterval(dataInterval);
         dataInterval = setInterval(
@@ -1581,4 +1213,21 @@ window.addEventListener("orientationchange", () => {
         }
     }, ORIENTATION_DELAY);
 });
+
+
+// Expose functions for inline event handlers
+window.downloadData = () => downloadData(speedData, operator);
+window.downloadKML = () => downloadKML(speedData, operator);
+window.downloadHTML = () => downloadHTML(speedData, operator);
+window.exportChart = () => exportChart(speedChart);
+window.toggleTest = toggleTest;
+window.toggleTheme = toggleTheme;
+window.toggleFullscreen = toggleFullscreen;
+window.toggleSettings = toggleSettings;
+window.refreshPage = refreshPage;
+window.saveSettings = saveSettings;
+window.clearData = clearData;
+window.showNotification = showNotification;
+window.playBeep = playBeep;
+window.speak = speak;
 
