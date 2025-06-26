@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v3';
+const CACHE_NAME = 'v4';
 const urlsToCache = [
   '.',
   'index.html',
@@ -11,7 +11,9 @@ const urlsToCache = [
   'icon/icon_144.png',
   'icon/icon_192.png',
   'icon/icon_512.png',
-  'pwa.webmanifest'
+  'pwa.webmanifest',
+  'translations/en.js',
+  'translations/uk.js'
 ];
 
 self.addEventListener('install', event => {
