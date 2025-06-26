@@ -604,7 +604,7 @@ function updateGPSInfo() {
         if (currentGPSData.altitude !== null) {
             altitudeInfoEl.textContent = `${currentGPSData.altitude.toFixed(
                 1
-            )} м`;
+            )}`;
         } else {
             altitudeInfoEl.textContent = "N/A";
         }
@@ -613,7 +613,7 @@ function updateGPSInfo() {
         if (currentGPSData.speed !== null && currentGPSData.speed > 0) {
             gpsSpeedInfoEl.textContent = `${(
                 currentGPSData.speed * 3.6
-            ).toFixed(1)} км/год`;
+            ).toFixed(1)}`;
         } else {
             gpsSpeedInfoEl.textContent = "N/A";
         }
@@ -647,7 +647,7 @@ function updateGPSInfo() {
                 currentGPSData.latitude,
                 currentGPSData.longitude
             );
-            distanceInfoEl.textContent = `${distance.toFixed(1)} м`;
+            distanceInfoEl.textContent = `${distance.toFixed(1)}`;
 
             distanceInfoEl.classList.remove('status-warning', 'status-success', 'status-accent');
             if (distance > settings.gpsDistance) {
@@ -664,7 +664,7 @@ function updateGPSInfo() {
         // Загальна відстань
         totalDistanceInfoEl.textContent = `${(totalDistance / 1000).toFixed(
             2
-        )} км`;
+        )}`;
     } else {
         gpsStatusEl.textContent = t('gpsWaiting', 'Очікування сигналу');
         gpsStatusEl.classList.remove('status-accent', 'status-success', 'status-warning');
