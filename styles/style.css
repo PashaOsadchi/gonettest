@@ -83,7 +83,6 @@ body {
 .container {
   background: var(--container-bg);
   backdrop-filter: blur(10px);
-  border-radius: 20px;
   padding: 40px;
   width: 90%;
   max-width: 1200px;
