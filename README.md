@@ -7,8 +7,6 @@ A minimal browser-based network speed test. The app runs entirely in the browser
 - Streaming download speed measurement with realtime charting
 - Optional upload test and ping statistics
 - Ability to select a test server
-4. The JavaScript uses ES6 modules. No build step is required; modern browsers load `js/main.js` automatically.
-
 - GPS tracking with map view and recorded route
 - Sound and voice alerts
 - Works offline and can be installed as a PWA
@@ -23,8 +21,7 @@ A minimal browser-based network speed test. The app runs entirely in the browser
    python3 -m http.server 8000
    ```
 3. Open `http://localhost:8000/index.html` in your browser.
-4. The JavaScript uses ES6 modules and runs directly in modern browsers.
-5. (Optional) Install the app when prompted to enable offline use.
+4. (Optional) Install the app when prompted to enable offline use.
 
 ## Usage
 
