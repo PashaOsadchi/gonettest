@@ -47,7 +47,7 @@ window.i18n.en = {
   speedColumn: "Download speed Mbps",
   latColumn: "Latitude",
   lonColumn: "Longitude",
-  altColumn: "Altitude m",
+  altColumn: "Altitude (m)",
   moveSpeedColumn: "Movement speed km/h",
   noData: "No data",
   downloadCSV: "Download CSV",
