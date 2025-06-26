@@ -78,5 +78,9 @@ window.i18n.uk = {
   fullscreenEnabled: "Повноекранний режим увімкнено",
   fullscreenDisabled: "Повноекранний режим вимкнено",
   themeSwitchedDark: "Переключено на темну тему",
-  themeSwitchedLight: "Переключено на світлу тему"
+  themeSwitchedLight: "Переключено на світлу тему",
+  naValue: "Н/Д",
+  firstPoint: "Перша точка",
+  unitMeters: "м",
+  directionLabels: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"]
 };

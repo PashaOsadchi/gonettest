@@ -75,6 +75,11 @@ function initLanguage() {
     setLanguage(currentLang);
 }
 
+const DEFAULT_DIRECTION_LABELS = {
+    uk: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"],
+    en: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
+};
+
 // Wake Lock
 let wakeLock = null;
 
@@ -575,6 +580,10 @@ function updateGPSInfo() {
     const totalDistanceInfoEl =
         document.getElementById("totalDistanceInfo");
 
+    const naText = t('naValue', 'N/A');
+    const unitM = t('unitMeters', 'м');
+    const directions = t('directionLabels', DEFAULT_DIRECTION_LABELS[currentLang]);
+
     if (currentGPSData.latitude && currentGPSData.longitude) {
         gpsStatusEl.textContent = t('gpsActive', 'Активний');
         gpsStatusEl.classList.remove('status-warning', 'status-success', 'status-accent');
@@ -587,7 +596,7 @@ function updateGPSInfo() {
         if (currentGPSData.accuracy) {
             gpsAccuracyEl.textContent = `±${currentGPSData.accuracy.toFixed(
                 1
-            )} м`;
+            )} ${unitM}`;
             gpsAccuracyEl.classList.remove('status-warning', 'status-success', 'status-accent');
             if (currentGPSData.accuracy < 10) {
                 gpsAccuracyEl.classList.add('status-accent');
@@ -597,7 +606,7 @@ function updateGPSInfo() {
                 gpsAccuracyEl.classList.add('status-warning');
             }
         } else {
-            gpsAccuracyEl.textContent = "N/A";
+            gpsAccuracyEl.textContent = naText;
         }
 
         // Висота
@@ -606,7 +615,7 @@ function updateGPSInfo() {
                 1
             )}`;
         } else {
-            altitudeInfoEl.textContent = "N/A";
+            altitudeInfoEl.textContent = naText;
         }
 
         // GPS швидкість
@@ -615,28 +624,18 @@ function updateGPSInfo() {
                 currentGPSData.speed * 3.6
             ).toFixed(1)}`;
         } else {
-            gpsSpeedInfoEl.textContent = "N/A";
+            gpsSpeedInfoEl.textContent = naText;
         }
 
         // Напрямок
         if (currentGPSData.heading !== null) {
-            const directions = [
-                "Пн",
-                "ПнСх",
-                "Сх",
-                "ПдСх",
-                "Пд",
-                "ПдЗх",
-                "Зх",
-                "ПнЗх",
-            ];
             const directionIndex =
                 Math.round(currentGPSData.heading / 45) % directions.length;
             headingInfoEl.textContent = `${currentGPSData.heading.toFixed(
                 0
             )}° (${directions[directionIndex]})`;
         } else {
-            headingInfoEl.textContent = "N/A";
+            headingInfoEl.textContent = naText;
         }
 
         // Відстань від попередньої точки
@@ -656,7 +655,7 @@ function updateGPSInfo() {
                 distanceInfoEl.classList.add('status-warning');
             }
         } else {
-            distanceInfoEl.textContent = "Перша точка";
+            distanceInfoEl.textContent = t('firstPoint', 'Перша точка');
             distanceInfoEl.classList.remove('status-warning', 'status-accent');
             distanceInfoEl.classList.add('status-success');
         }
@@ -669,12 +668,12 @@ function updateGPSInfo() {
         gpsStatusEl.textContent = t('gpsWaiting', 'Очікування сигналу');
         gpsStatusEl.classList.remove('status-accent', 'status-success', 'status-warning');
         gpsStatusEl.classList.add('status-warning');
-        currentCoordsEl.textContent = "N/A";
-        distanceInfoEl.textContent = "N/A";
-        gpsAccuracyEl.textContent = "N/A";
-        altitudeInfoEl.textContent = "N/A";
-        gpsSpeedInfoEl.textContent = "N/A";
-        headingInfoEl.textContent = "N/A";
+        currentCoordsEl.textContent = naText;
+        distanceInfoEl.textContent = naText;
+        gpsAccuracyEl.textContent = naText;
+        altitudeInfoEl.textContent = naText;
+        gpsSpeedInfoEl.textContent = naText;
+        headingInfoEl.textContent = naText;
     }
 }
 
