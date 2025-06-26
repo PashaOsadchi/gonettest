@@ -596,7 +596,7 @@ function updateGPSInfo() {
         if (currentGPSData.accuracy) {
             gpsAccuracyEl.textContent = `±${currentGPSData.accuracy.toFixed(
                 1
-            )} ${unitM}`;
+            )}`;
             gpsAccuracyEl.classList.remove('status-warning', 'status-success', 'status-accent');
             if (currentGPSData.accuracy < 10) {
                 gpsAccuracyEl.classList.add('status-accent');
