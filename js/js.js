@@ -839,11 +839,10 @@ function updateDataDisplay() {
                 }</div>
                     <div>${record.longitude ? record.longitude.toFixed(6) : "N/A"
                 }</div>
-                    <div>${record.altitude ? record.altitude.toFixed(1) + "m" : "N/A"
+                    <div>${record.altitude ? record.altitude.toFixed(1) : "N/A"
                 }</div>
                     <div>${record.gpsSpeed
-                    ? record.gpsSpeed.toFixed(1) + " км/год"
-                    : "N/A"
+                    ? record.gpsSpeed.toFixed(1) : "N/A"
                 }</div>
                 </div>
             `
