@@ -11,7 +11,7 @@ A minimal browser-based network speed test. The app runs entirely in the browser
 - Sound and voice alerts
 - Works offline and can be installed as a PWA
 - Language selection
-- Export data to **CSV** or **KML**, or save the speed chart as an image
+- Export data to **CSV** or **KML**, download an **HTML** map, or save the speed chart as an image
 
 ## Running locally
 
@@ -27,7 +27,7 @@ A minimal browser-based network speed test. The app runs entirely in the browser
 
 Click **"Почати тест"** to start the measurement. Use the controls to pause or resume the test and to toggle settings. The results table and map are updated as data is collected.
 
-Use the **Завантажити CSV** or **Завантажити KML** buttons to export your data. The **Завантажити графік швидкості** button saves the current chart image.
+Use the **Завантажити CSV**, **Завантажити KML**, or **Завантажити HTML** buttons to export your data. The **Завантажити графік швидкості** button saves the current chart image.
 
 Visit [https://www.gonettest.com](https://www.gonettest.com) for the hosted version.
 
