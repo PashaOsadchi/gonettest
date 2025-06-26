@@ -232,6 +232,13 @@ h1 {
   font-size: 0.9em;
 }
 
+@media (min-width: 769px) {
+  #startBtn {
+    flex: 0 1 auto;
+    max-width: 250px;
+  }
+}
+
 .status {
   margin: 5px 0;
   font-size: 1.1em;
