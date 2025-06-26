@@ -275,10 +275,10 @@ function formatDownloaded(bytes) {
     if (bytes >= GB) {
         const gb = Math.floor(bytes / GB);
         const mb = Math.floor((bytes % GB) / MB);
-        return `${gb} ГБ ${mb} МБ`;
+        return `${gb} GB ${mb} MB`;
     } else {
         const mb = Math.floor(bytes / MB);
-        return `${mb} МБ`;
+        return `${mb} MB`;
     }
 }
 
