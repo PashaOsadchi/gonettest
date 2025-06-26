@@ -78,5 +78,9 @@ window.i18n.en = {
   fullscreenEnabled: "Fullscreen enabled",
   fullscreenDisabled: "Fullscreen disabled",
   themeSwitchedDark: "Switched to dark theme",
-  themeSwitchedLight: "Switched to light theme"
+  themeSwitchedLight: "Switched to light theme",
+  naValue: "N/A",
+  firstPoint: "First point",
+  unitMeters: "m",
+  directionLabels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 };
