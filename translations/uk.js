@@ -47,7 +47,7 @@ window.i18n.uk = {
   speedColumn: "Швидкість завантаження Мбіт/с",
   latColumn: "Широта",
   lonColumn: "Довгота",
-  altColumn: "Висота",
+  altColumn: "Висота м",
   moveSpeedColumn: "Швидкість руху км/год",
   noData: "Немає даних",
   downloadCSV: "Завантажити CSV",
