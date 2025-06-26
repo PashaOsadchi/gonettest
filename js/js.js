@@ -252,17 +252,17 @@ function formatSeconds(totalSeconds) {
     
     // Додаємо години, якщо є
     if (hours > 0) {
-        timeParts.push(`${hours} год`);
+        timeParts.push(`${hours}h`);
     }
     
     // Додаємо хвилини, якщо є
     if (minutes > 0) {
-        timeParts.push(`${minutes} хв`);
+        timeParts.push(`${minutes}m`);
     }
     
     // Додаємо секунди, якщо є або якщо це єдина частина
     if (seconds > 0 || timeParts.length === 0) {
-        timeParts.push(`${seconds} с`);
+        timeParts.push(`${seconds}s`);
     }
     
     // З'єднуємо частини через пробіл
