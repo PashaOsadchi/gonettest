@@ -45,8 +45,26 @@ function setupMapObserver() {
 
 function getMarkerPopupContent(point) {
     const na = t('naValue', 'N/A');
+    const ts =
+        point.fullTimestamp instanceof Date
+            ? point.fullTimestamp
+            : new Date(point.fullTimestamp);
+    const dateStr = ts.toLocaleDateString('uk-UA', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+    });
+    const timeStr = ts.toLocaleTimeString('uk-UA', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    });
+
     const rows = [
-        [t('timeColumn', 'Час'), point.timestamp],
+        [t('timestampMsLabel', 'Часова мітка (мс)'), ts.getTime()],
+        [t('dateLabel', 'Дата'), dateStr],
+        [t('timeLabel', 'Час'), timeStr],
+        [t('operatorLabel', 'Оператор'), operator || na],
         [t('speedColumn', 'Швидкість завантаження Мбіт/с'), point.speed.toFixed(2)],
         [t('latColumn', 'Широта'),
             point.latitude != null ? point.latitude.toFixed(6) : na],
