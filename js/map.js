@@ -43,6 +43,29 @@ function setupMapObserver() {
     observer.observe(mapEl);
 }
 
+function getMarkerPopupContent(point) {
+    const na = t('naValue', 'N/A');
+    const rows = [
+        [t('timeColumn', 'Час'), point.timestamp],
+        [t('speedColumn', 'Швидкість завантаження Мбіт/с'), point.speed.toFixed(2)],
+        [t('latColumn', 'Широта'),
+            point.latitude != null ? point.latitude.toFixed(6) : na],
+        [t('lonColumn', 'Довгота'),
+            point.longitude != null ? point.longitude.toFixed(6) : na],
+        [t('altColumn', 'Висота (м)'),
+            point.altitude != null ? point.altitude.toFixed(1) : na],
+        [t('moveSpeedColumn', 'Швидкість руху (км/год)'),
+            point.gpsSpeed != null ? point.gpsSpeed.toFixed(1) : na],
+        [t('gpsAccuracyLabel', 'Точність (м):'),
+            point.accuracy != null ? point.accuracy.toFixed(1) : na],
+        [t('headingLabel', 'Напрямок руху:'),
+            point.heading != null ? point.heading.toFixed(0) : na],
+    ];
+    return rows
+        .map(r => `<div><strong>${r[0]}</strong> ${r[1]}</div>`)
+        .join('');
+}
+
 function addMapMarker(point, centerOnAdd = true) {
     if (!map || point.latitude == null || point.longitude == null) return;
     const color = getColorBySpeed(point.speed);
@@ -52,6 +75,9 @@ function addMapMarker(point, centerOnAdd = true) {
         fillColor: color,
         fillOpacity: 0.8,
     }).addTo(map);
+    if (typeof marker.bindPopup === 'function') {
+        marker.bindPopup(getMarkerPopupContent(point));
+    }
     mapMarkers.push(marker);
     if (centerOnAdd) {
         map.setView([point.latitude, point.longitude], map.getZoom());
