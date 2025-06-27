@@ -8,6 +8,19 @@ function updateRecordsCount() {
         navigator.storage.estimate().then(({ usage, quota }) => {
             const percent = quota ? Math.round((usage / quota) * 100) : 0;
             infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
+            const thresholds = [50, 90, 95, 99];
+            window.lastStoragePercent = window.lastStoragePercent || 0;
+            thresholds.forEach(th => {
+                if (percent >= th && window.lastStoragePercent < th) {
+                    showNotification(
+                        t(
+                            `storage${th}`,
+                            `Локальне сховище заповнене на ${th}%`
+                        )
+                    );
+                }
+            });
+            window.lastStoragePercent = percent;
         });
     }
 }
