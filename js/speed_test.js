@@ -38,6 +38,20 @@ async function fetchWithTimeout(url, options = {}, timeout = DEFAULT_FETCH_TIMEO
     }
 }
 
+async function readWithTimeout(reader, timeout = STREAM_READ_TIMEOUT) {
+    let timer;
+    try {
+        return await Promise.race([
+            reader.read(),
+            new Promise((_, reject) => {
+                timer = setTimeout(() => reject(new Error('Stream read timeout')), timeout);
+            })
+        ]);
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
 async function checkRealConnection() {
     try {
         await fetchWithTimeout(
@@ -65,7 +79,14 @@ async function measureDownloadSpeed() {
         let lastUpdate = start;
 
     while (true) {
-        const { done, value } = await reader.read();
+        let chunk;
+        try {
+            chunk = await readWithTimeout(reader, STREAM_READ_TIMEOUT);
+        } catch (e) {
+            activeDownloadController.abort();
+            throw e;
+        }
+        const { done, value } = chunk;
         if (done) break;
         if (!testActive) {
             activeDownloadController.abort();
