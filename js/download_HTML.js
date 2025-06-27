@@ -52,6 +52,7 @@ function downloadHTML() {
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     function t(key, fallback = '') { return fallback; }
+    const operator = ${JSON.stringify(operator)};
     const data = ${JSON.stringify(speedData)};
     ${getColorSrc}
     ${popupSrc}
