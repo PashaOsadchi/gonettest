@@ -35,6 +35,13 @@ function downloadHTML() {
         }
     }
 
+    const escapeForTemplate = (s) =>
+        s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
+
+    const addMapMarkerSrc = escapeForTemplate(window.addMapMarker.toString());
+    const getColorSrc = escapeForTemplate(window.getColorBySpeed.toString());
+    const popupSrc = escapeForTemplate(window.getMarkerPopupContent.toString());
+
     const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
@@ -47,15 +54,15 @@ function downloadHTML() {
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
+    function t(key, fallback = '') { return fallback; }
     const data = ${JSON.stringify(speedData)};
-    function getColor(s){ if(s <= 0) return 'red'; if(s <= 2) return 'yellow'; return 'green'; }
+    ${getColorSrc}
+    ${popupSrc}
+    ${addMapMarkerSrc}
+    let mapMarkers = [];
     const map = L.map('map').setView([${center[0]}, ${center[1]}], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
-    data.forEach(pt => {
-      if(pt.latitude == null || pt.longitude == null) return;
-      const color = getColor(pt.speed);
-      L.circleMarker([pt.latitude, pt.longitude], {radius:6, color, fillColor:color, fillOpacity:0.8}).addTo(map);
-    });
+    data.forEach(pt => addMapMarker(pt, false));
   </script>
 </body>
 </html>`;
