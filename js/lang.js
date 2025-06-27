@@ -12,6 +12,12 @@ function applyTranslations() {
             el.textContent = dict[key];
         }
     });
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+        const key = el.getAttribute('data-i18n-aria');
+        if (dict[key]) {
+            el.setAttribute('aria-label', dict[key]);
+        }
+    });
     document.documentElement.lang = currentLang;
     if (dict.appTitle) {
         document.title = dict.appTitle;
