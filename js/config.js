@@ -21,9 +21,9 @@ const MAX_DATA_POINTS = 60;
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 const STORAGE_KEY = 'speedData';
 
-const ICON_RED = 'http://maps.google.com/mapfiles/kml/paddle/red-circle.png';
-const ICON_YELLOW = 'http://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
-const ICON_GREEN = 'http://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
+const ICON_RED = 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
+const ICON_YELLOW = 'https://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
+const ICON_GREEN = 'https://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
 
 const DEFAULT_DIRECTION_LABELS = {
     uk: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"],
