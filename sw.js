@@ -3,6 +3,7 @@ const urlsToCache = [
   '.',
   'index.html',
   'styles/style.css',
+  'styles/leaflet.css',
   'js/add_event_listener.js',
   'js/audio_notification.js',
   'js/chart.js',
