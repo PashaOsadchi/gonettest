@@ -31,7 +31,8 @@
   box-sizing: border-box;
 }
 
-*:not(html):not(body) {
+img,
+table {
   max-width: 100%;
 }
 html,
