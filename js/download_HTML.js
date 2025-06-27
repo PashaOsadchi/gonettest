@@ -1,6 +1,6 @@
 function downloadHTML() {
     if (speedData.length === 0) {
-        alert('Немає даних для завантаження');
+        showNotification(t('noData', 'Немає даних для завантаження'));
         return;
     }
 
