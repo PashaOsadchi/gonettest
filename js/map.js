@@ -60,23 +60,27 @@ function getMarkerPopupContent(point) {
         second: '2-digit',
     });
 
+    function ensureColon(label) {
+        return label.endsWith(':') ? label : label + ':';
+    }
+
     const rows = [
-        [t('timestampMsLabel', 'Часова мітка (мс):'), ts.getTime()],
-        [t('dateLabel', 'Дата:'), dateStr],
-        [t('timeLabel', 'Час:'), timeStr],
-        [t('operatorLabel', 'Оператор:'), operator || na],
-        [t('speedColumn', 'Швидкість завантаження Мбіт/с:'), point.speed.toFixed(2)],
-        [t('latColumn', 'Широта:'),
+        [ensureColon(t('timestampMsLabel', 'Часова мітка (мс)')), ts.getTime()],
+        [ensureColon(t('dateLabel', 'Дата')), dateStr],
+        [ensureColon(t('timeLabel', 'Час')), timeStr],
+        [ensureColon(t('operatorLabel', 'Оператор')), operator || na],
+        [ensureColon(t('speedColumn', 'Швидкість завантаження Мбіт/с')), point.speed.toFixed(2)],
+        [ensureColon(t('latColumn', 'Широта')),
             point.latitude != null ? point.latitude.toFixed(6) : na],
-        [t('lonColumn', 'Довгота:'),
+        [ensureColon(t('lonColumn', 'Довгота')),
             point.longitude != null ? point.longitude.toFixed(6) : na],
-        [t('altColumn', 'Висота (м):'),
+        [ensureColon(t('altColumn', 'Висота (м)')),
             point.altitude != null ? point.altitude.toFixed(1) : na],
-        [t('moveSpeedColumn', 'Швидкість руху (км/год):'),
+        [ensureColon(t('moveSpeedColumn', 'Швидкість руху (км/год)')),
             point.gpsSpeed != null ? point.gpsSpeed.toFixed(1) : na],
-        [t('gpsAccuracyLabel', 'Точність (м):'),
+        [ensureColon(t('gpsAccuracyLabel', 'Точність (м)')),
             point.accuracy != null ? point.accuracy.toFixed(1) : na],
-        [t('headingLabel', 'Напрямок руху:'),
+        [ensureColon(t('headingLabel', 'Напрямок руху')),
             point.heading != null ? point.heading.toFixed(0) : na],
     ];
     return rows
