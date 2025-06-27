@@ -35,12 +35,9 @@ function downloadHTML() {
         }
     }
 
-    const escapeForTemplate = (s) =>
-        s.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
-
-    const addMapMarkerSrc = escapeForTemplate(window.addMapMarker.toString());
-    const getColorSrc = escapeForTemplate(window.getColorBySpeed.toString());
-    const popupSrc = escapeForTemplate(window.getMarkerPopupContent.toString());
+    const addMapMarkerSrc = window.addMapMarker.toString();
+    const getColorSrc = window.getColorBySpeed.toString();
+    const popupSrc = window.getMarkerPopupContent.toString();
 
     const htmlContent = `<!DOCTYPE html>
 <html>
