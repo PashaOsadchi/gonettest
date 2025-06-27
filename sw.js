@@ -47,12 +47,14 @@ const urlsToCache = [
 ];
 self.addEventListener('install', event => {
   // Pre-cache required resources and activate the service worker immediately
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
-      // Force waiting service worker to become active
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    const requests = urlsToCache.map(url =>
+      url.startsWith("http") ? new Request(url, { mode: "no-cors" }) : url
+    );
+    await Promise.allSettled(requests.map(req => cache.add(req)));
+    await self.skipWaiting();
+  })());
 });
 
 self.addEventListener('activate', event => {
