@@ -101,3 +101,8 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 }
+
+// Expose helper functions for reuse in other modules or generated HTML
+window.getColorBySpeed = getColorBySpeed;
+window.getMarkerPopupContent = getMarkerPopupContent;
+window.addMapMarker = addMapMarker;
