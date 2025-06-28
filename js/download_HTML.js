@@ -58,9 +58,18 @@ function downloadHTML() {
     ${popupSrc}
     ${addMapMarkerSrc}
     let mapMarkers = [];
-    const map = L.map('map').setView([${center[0]}, ${center[1]}], 13);
+    const map = L.map('map');
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19, attribution:'© OpenStreetMap'}).addTo(map);
     data.forEach(pt => addMapMarker(pt, false));
+    const coords = data
+      .filter(pt => pt.latitude != null && pt.longitude != null)
+      .map(pt => [pt.latitude, pt.longitude]);
+    if (coords.length > 0) {
+      const bounds = L.latLngBounds(coords);
+      map.fitBounds(bounds.pad(0.05));
+    } else {
+      map.setView([${center[0]}, ${center[1]}], 13);
+    }
   </script>
 </body>
 </html>`;
