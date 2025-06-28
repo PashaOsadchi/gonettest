@@ -35,7 +35,12 @@ function downloadHTML() {
         }
     }
 
-    const addMapMarkerSrc = window.addMapMarker.toString();
+    // Use the current map marker function but enlarge the marker radius
+    // for the exported HTML map. This keeps the in-app markers unchanged
+    // while producing larger markers in the downloaded file.
+    let addMapMarkerSrc = window.addMapMarker
+        .toString()
+        .replace(/radius:\s*6/, 'radius: 18');
     const getColorSrc = window.getColorBySpeed.toString();
     const popupSrc = window.getMarkerPopupContent.toString();
 
