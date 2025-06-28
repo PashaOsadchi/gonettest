@@ -12,6 +12,10 @@
         this._zoom = zoom;
         return this;
       },
+      fitBounds(bounds) {
+        this._bounds = bounds;
+        return this;
+      },
       addLayer(layer) {
         if (layer && typeof layer.addTo === 'function') {
           layer.addTo(this);
@@ -36,6 +40,13 @@
         console.log('Stub circleMarker added to map', map);
         return this;
       }
+    };
+  };
+
+  L.latLngBounds = function(coords) {
+    return {
+      _coords: coords,
+      pad() { return this; }
     };
   };
 
