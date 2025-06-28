@@ -15,6 +15,10 @@ function clearData() {
             speedChart.update();
         }
 
+        if (typeof map !== 'undefined' && map && mapMarkers.length) {
+            mapMarkers.forEach(marker => map.removeLayer(marker));
+            mapMarkers = [];
+        }
         updateDataDisplay();
         updateRecordsCount();
         updateGPSInfo();
