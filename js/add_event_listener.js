@@ -2,6 +2,7 @@
 window.addEventListener("DOMContentLoaded", () => {
     initLanguage();
     loadTheme();
+    loadSettingsFromStorage();
     loadSpeedDataFromStorage();
     initChart();
     loadSettings();
