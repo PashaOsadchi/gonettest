@@ -3,6 +3,19 @@ function toggleSettings() {
     panel.classList.toggle("active");
 }
 
+const SETTINGS_STORAGE_KEY = 'settings';
+
+function loadSettingsFromStorage() {
+    const stored = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (!stored) return;
+    try {
+        const loaded = JSON.parse(stored);
+        Object.assign(settings, loaded);
+    } catch (e) {
+        console.error('Failed to parse stored settings', e);
+    }
+}
+
 function saveSettings() {
     settings.saveInterval =
         parseInt(document.getElementById("saveInterval").value) || 1;
@@ -23,6 +36,8 @@ function saveSettings() {
             settings.saveInterval * 1000
         );
     }
+
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
 
     showNotification(t('settingsSaved', 'Налаштування збережено!'));
     toggleSettings();
