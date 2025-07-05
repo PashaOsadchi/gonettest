@@ -92,5 +92,8 @@ window.i18n.uk = {
   naValue: "Н/Д",
   firstPoint: "Перша точка",
   unitMeters: "м",
+  hoursShort: "г",
+  minutesShort: "хв",
+  secondsShort: "с",
   directionLabels: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"]
 };
