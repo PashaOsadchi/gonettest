@@ -13,17 +13,17 @@ function formatSeconds(totalSeconds) {
 
     // Додаємо години, якщо є
     if (hours > 0) {
-        timeParts.push(`${hours}${hLabel}`);
+        timeParts.push(`${hours} ${hLabel}`);
     }
 
     // Додаємо хвилини, якщо є
     if (minutes > 0) {
-        timeParts.push(`${minutes}${mLabel}`);
+        timeParts.push(`${minutes} ${mLabel}`);
     }
 
     // Додаємо секунди, якщо є або якщо це єдина частина
     if (seconds > 0 || timeParts.length === 0) {
-        timeParts.push(`${seconds}${sLabel}`);
+        timeParts.push(`${seconds} ${sLabel}`);
     }
     
     // З'єднуємо частини через пробіл
