@@ -22,5 +22,19 @@ function updateRecordsCount() {
             });
             window.lastStoragePercent = percent;
         });
+    } else {
+        const percent = estimateLocalStoragePercent();
+        infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
     }
+}
+
+function estimateLocalStoragePercent() {
+    let total = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        const val = localStorage.getItem(key);
+        total += new Blob([key]).size + new Blob([val]).size;
+    }
+    const quota = 5 * 1024 * 1024; // 5MB fallback
+    return Math.round((total / quota) * 100);
 }
