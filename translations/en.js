@@ -92,5 +92,8 @@ window.i18n.en = {
   naValue: "N/A",
   firstPoint: "First point",
   unitMeters: "m",
+  hoursShort: "h",
+  minutesShort: "m",
+  secondsShort: "s",
   directionLabels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 };
