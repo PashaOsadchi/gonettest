@@ -5,23 +5,30 @@ function updateRecordsCount() {
     infoEl.textContent = `${label} ${speedData.length}`;
 
     if (navigator.storage && navigator.storage.estimate) {
-        navigator.storage.estimate().then(({ usage, quota }) => {
-            const percent = quota ? Math.round((usage / quota) * 100) : 0;
-            infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
-            const thresholds = [50, 90, 95, 99];
-            window.lastStoragePercent = window.lastStoragePercent || 0;
-            thresholds.forEach(th => {
-                if (percent >= th && window.lastStoragePercent < th) {
-                    showNotification(
-                        t(
-                            `storage${th}`,
-                            `Локальне сховище заповнене на ${th}%`
-                        )
-                    );
-                }
+        navigator.storage
+            .estimate()
+            .then(({ usage, quota }) => {
+                const percent = quota ? Math.round((usage / quota) * 100) : 0;
+                infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
+                const thresholds = [50, 90, 95, 99];
+                window.lastStoragePercent = window.lastStoragePercent || 0;
+                thresholds.forEach(th => {
+                    if (percent >= th && window.lastStoragePercent < th) {
+                        showNotification(
+                            t(
+                                `storage${th}`,
+                                `Локальне сховище заповнене на ${th}%`
+                            )
+                        );
+                    }
+                });
+                window.lastStoragePercent = percent;
+            })
+            .catch(err => {
+                console.warn("storage estimate failed", err);
+                const percent = estimateLocalStoragePercent();
+                infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
             });
-            window.lastStoragePercent = percent;
-        });
     } else {
         const percent = estimateLocalStoragePercent();
         infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
