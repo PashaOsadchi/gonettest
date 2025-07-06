@@ -1,5 +1,6 @@
 function saveSpeedDataToStorage() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(speedData));
+    updateRecordsCount();
 }
 
 function loadSpeedDataFromStorage() {
