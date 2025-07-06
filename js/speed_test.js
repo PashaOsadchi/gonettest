@@ -266,6 +266,9 @@ async function toggleTest() {
     if (!testInProgress) {
         testActive = true;
         document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
+
+        await detectISP();
+
         addLog("Старт тесту");
         showNotification(t('testStarted', 'Тест запущено!'));
         initMapIfNeeded();
