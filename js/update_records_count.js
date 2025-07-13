@@ -26,14 +26,9 @@ function updateRecordsCount() {
 }
 
 function estimateLocalStoragePercent() {
-    let total = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const val = localStorage.getItem(key);
-        total += new Blob([key]).size + new Blob([val]).size;
-    }
+    const dataSize = new Blob([JSON.stringify(speedData)]).size;
     const quota = 5 * 1024 * 1024; // 5MB fallback
-    return Math.round((total / quota) * 100);
+    return Math.round((dataSize / quota) * 100);
 }
 
 function notifyStorageThreshold(percent) {

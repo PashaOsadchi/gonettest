@@ -1,9 +1,9 @@
 // Ініціалізація після побудови DOM
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
     initLanguage();
     loadTheme();
     loadSettingsFromStorage();
-    loadSpeedDataFromStorage();
+    await loadSpeedDataFromStorage();
     initChart();
     loadSettings();
     updateGPSInfo();

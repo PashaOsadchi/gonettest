@@ -10,6 +10,7 @@ A minimal browser-based network speed test. The app runs entirely in the browser
 - GPS tracking with map view and recorded route
 - Sound and voice alerts
 - Works offline and can be installed as a PWA
+- Stores measurements locally using IndexedDB
 - Language selection
 - Export data to **CSV** or **KML**, download an **HTML** map, or save the speed chart as an image
 
