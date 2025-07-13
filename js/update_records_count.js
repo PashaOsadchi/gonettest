@@ -1,6 +1,6 @@
 function updateRecordsCount() {
     document.getElementById("recordsCount").textContent = speedData.length;
-    const label = (window.i18n && window.i18n[currentLang] && window.i18n[currentLang].recordsCount) || 'Записів:';
+    const label = t('recordsCount', 'Записів:');
     const infoEl = document.getElementById("recordsInfo");
     infoEl.textContent = `${label} ${speedData.length}`;
 
