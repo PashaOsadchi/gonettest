@@ -1,5 +1,6 @@
 // Ініціалізація після побудови DOM
 window.addEventListener("DOMContentLoaded", async () => {
+    initStorageQuota();
     initLanguage();
     loadTheme();
     loadSettingsFromStorage();
