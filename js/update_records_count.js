@@ -1,3 +1,28 @@
+window.cachedDataSize = 0;
+window.cachedDataLength = 0;
+window.cachedQuota = 0;
+
+function initStorageQuota() {
+    if (navigator.storage && navigator.storage.estimate) {
+        navigator.storage
+            .estimate()
+            .then(({ quota }) => {
+                if (quota) window.cachedQuota = quota;
+            })
+            .catch(() => {});
+    } else if (
+        navigator.webkitTemporaryStorage &&
+        navigator.webkitTemporaryStorage.queryUsageAndQuota
+    ) {
+        navigator.webkitTemporaryStorage.queryUsageAndQuota(
+            (_usage, quota) => {
+                if (quota) window.cachedQuota = quota;
+            },
+            () => {}
+        );
+    }
+}
+
 function updateRecordsCount() {
     document.getElementById("recordsCount").textContent = speedData.length;
     const label = t('recordsCount', 'Записів:');
@@ -26,9 +51,12 @@ function updateRecordsCount() {
 }
 
 function estimateLocalStoragePercent() {
-    const dataSize = new Blob([JSON.stringify(speedData)]).size;
-    const quota = 5 * 1024 * 1024; // 5MB fallback
-    return Math.round((dataSize / quota) * 100);
+    if (window.cachedDataLength !== speedData.length) {
+        window.cachedDataSize = new Blob([JSON.stringify(speedData)]).size;
+        window.cachedDataLength = speedData.length;
+    }
+    const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
+    return Math.round((window.cachedDataSize / quota) * 100);
 }
 
 function notifyStorageThreshold(percent) {
