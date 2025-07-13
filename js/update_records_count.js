@@ -27,25 +27,35 @@ function updateRecordsCount() {
     document.getElementById("recordsCount").textContent = speedData.length;
     const label = t('recordsCount', 'Записів:');
     const infoEl = document.getElementById("recordsInfo");
-    infoEl.textContent = `${label} ${speedData.length}`;
+
+    const setInfo = sizeBytes => {
+        const sizeStr = formatDownloaded(sizeBytes);
+        infoEl.textContent = `${label} ${speedData.length} (${sizeStr})`;
+    };
 
     if (navigator.storage && navigator.storage.estimate) {
         navigator.storage
             .estimate()
             .then(({ usage, quota }) => {
-                const percent = quota ? Math.round((usage / quota) * 100) : 0;
-                infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
-                notifyStorageThreshold(percent);
+                setInfo(usage);
+                if (quota) {
+                    const percent = Math.round((usage / quota) * 100);
+                    notifyStorageThreshold(percent);
+                }
             })
             .catch(err => {
                 console.warn("storage estimate failed", err);
-                const percent = estimateLocalStoragePercent();
-                infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
+                const size = estimateLocalStoragePercent();
+                setInfo(size);
+                const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
+                const percent = quota ? Math.round((size / quota) * 100) : 0;
                 notifyStorageThreshold(percent);
             });
     } else {
-        const percent = estimateLocalStoragePercent();
-        infoEl.textContent = `${label} ${speedData.length} (${percent}%)`;
+        const size = estimateLocalStoragePercent();
+        setInfo(size);
+        const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
+        const percent = quota ? Math.round((size / quota) * 100) : 0;
         notifyStorageThreshold(percent);
     }
 }
@@ -55,8 +65,7 @@ function estimateLocalStoragePercent() {
         window.cachedDataSize = new Blob([JSON.stringify(speedData)]).size;
         window.cachedDataLength = speedData.length;
     }
-    const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
-    return Math.round((window.cachedDataSize / quota) * 100);
+    return window.cachedDataSize;
 }
 
 function notifyStorageThreshold(percent) {
