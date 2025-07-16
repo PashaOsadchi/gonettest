@@ -1,5 +1,24 @@
 // Global variable to hold the GeoJSON data for hromady (communities)
 let hromadyData = null;
+let hromadyDataPromise = null;
+
+// Fetches hromady GeoJSON once and caches it in hromadyData.
+// Returns a promise that resolves when the data is loaded.
+function loadHromadyData() {
+    if (!hromadyDataPromise) {
+        hromadyDataPromise = fetch('data/ukraine_hromady.geojson')
+            .then(r => r.json())
+            .then(data => {
+                hromadyData = data;
+                return hromadyData;
+            })
+            .catch(err => {
+                console.error('Failed to load hromady data', err);
+                throw err;
+            });
+    }
+    return hromadyDataPromise;
+}
 
 /**
  * Checks if a point is inside a polygon using the ray-casting algorithm.
