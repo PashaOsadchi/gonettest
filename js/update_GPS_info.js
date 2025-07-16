@@ -104,4 +104,41 @@ function updateGPSInfo() {
         gpsSpeedInfoEl.textContent = naText;
         headingInfoEl.textContent = naText;
     }
+
+    updateAdminInfo();
+}
+
+async function updateAdminInfo() {
+    const oblastEl = document.getElementById('oblast');
+    const raionEl = document.getElementById('raion');
+    const hromadaEl = document.getElementById('hromada');
+
+    if (!currentGPSData.latitude || !currentGPSData.longitude) {
+        oblastEl.textContent = '-';
+        raionEl.textContent = '-';
+        hromadaEl.textContent = '-';
+        return;
+    }
+
+    try {
+        await loadHromadyData();
+    } catch (e) {
+        console.error('Failed to load hromady data', e);
+        oblastEl.textContent = '-';
+        raionEl.textContent = '-';
+        hromadaEl.textContent = '-';
+        return;
+    }
+
+    const info = find_admin_unit(currentGPSData.longitude, currentGPSData.latitude);
+
+    if (info) {
+        oblastEl.textContent = info.region || '-';
+        raionEl.textContent = info.rayon || '-';
+        hromadaEl.textContent = info.hromada || '-';
+    } else {
+        oblastEl.textContent = '-';
+        raionEl.textContent = '-';
+        hromadaEl.textContent = '-';
+    }
 }
