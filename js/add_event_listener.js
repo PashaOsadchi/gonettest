@@ -2,6 +2,7 @@
 window.addEventListener("DOMContentLoaded", async () => {
     initStorageQuota();
     initLanguage();
+    loadHromadyData();
     loadTheme();
     loadSettingsFromStorage();
     await loadSpeedDataFromStorage();
