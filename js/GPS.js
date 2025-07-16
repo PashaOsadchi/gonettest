@@ -21,6 +21,7 @@ function initGPS() {
                 accuracy: position.coords.accuracy,
                 heading: position.coords.heading,
             };
+            updateAdminInfo();
             updateGPSInfo();
             addLog(
                 `GPS оновлено: ${currentGPSData.latitude.toFixed(
