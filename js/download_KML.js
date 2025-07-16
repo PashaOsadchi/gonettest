@@ -68,6 +68,9 @@ function downloadKML() {
             `Широта: ${record.latitude}<br>` +
             `Довгота: ${record.longitude}<br>` +
             `Висота (м): ${altitude}<br>` +
+            `Область: ${record.region}<br>` +
+            `Район: ${record.rayon}<br>` +
+            `Громада: ${record.hromada}<br>` +
             `GPS Швидкість (км/год): ${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ''}<br>` +
             `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
             `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
