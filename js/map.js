@@ -12,6 +12,7 @@ function initMap() {
         attribution: '© OpenStreetMap'
     }).addTo(map);
     mapInitialized = true;
+    updateHromadyLayer();
 
     // Add previously stored markers without centering on each
     if (speedData.length > 0) {
@@ -106,6 +107,24 @@ function addMapMarker(point, centerOnAdd = true) {
     }
 }
 
+function updateHromadyLayer() {
+    if (!mapInitialized) return;
+    if (settings.showHromady) {
+        if (hromadyLayer) {
+            hromadyLayer.addTo(map);
+        } else {
+            fetch('data/ukraine_hromady.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    hromadyLayer = L.geoJSON(data, { style: { color: '#555', weight: 1 } }).addTo(map);
+                })
+                .catch(err => console.error('GeoJSON load failed', err));
+        }
+    } else if (hromadyLayer) {
+        map.removeLayer(hromadyLayer);
+    }
+}
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
     if (lat1 === null || lon1 === null || lat2 === null || lon2 === null) {
         return null;
@@ -128,3 +147,4 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 window.getColorBySpeed = getColorBySpeed;
 window.getMarkerPopupContent = getMarkerPopupContent;
 window.addMapMarker = addMapMarker;
+window.updateHromadyLayer = updateHromadyLayer;
