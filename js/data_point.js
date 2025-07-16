@@ -27,12 +27,23 @@ function shouldSaveDataPoint() {
     return distance > settings.gpsDistance;
 }
 
-function saveDataPoint() {
+async function saveDataPoint() {
     if (!testActive) return;
 
     if (!shouldSaveDataPoint()) {
         return;
     }
+
+    try {
+        await loadHromadyData();
+    } catch (e) {
+        console.error('Failed to load hromady data', e);
+    }
+
+    const adminInfo = find_admin_unit(
+        currentGPSData.longitude,
+        currentGPSData.latitude
+    ) || {};
 
     const now = new Date();
     const elapsed = (Date.now() - startTime) / 1000;
@@ -60,6 +71,9 @@ function saveDataPoint() {
         gpsSpeed: currentGPSData.speed ? currentGPSData.speed * 3.6 : null,
         accuracy: currentGPSData.accuracy,
         heading: currentGPSData.heading,
+        region: adminInfo.region || null,
+        rayon: adminInfo.rayon || null,
+        hromada: adminInfo.hromada || null,
     };
 
     speedData.push(dataPoint);
