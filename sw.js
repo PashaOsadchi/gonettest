@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v5';
+const CACHE_NAME = 'v6';
 const urlsToCache = [
   '.',
   'index.html',
@@ -37,6 +37,7 @@ const urlsToCache = [
   'js/wake_lock.js', 
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
   'js/registration_service_worker.js',
   'icon/icon.png',
   'icon/icon_144.png',
