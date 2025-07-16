@@ -25,6 +25,7 @@ function saveSettings() {
         parseFloat(document.getElementById("speedThreshold").value) || 5;
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
+    settings.showHromady = document.getElementById("showHromady").checked;
     const langSelect = document.getElementById("languageSelect");
     if (langSelect) setLanguage(langSelect.value);
 
@@ -39,6 +40,10 @@ function saveSettings() {
 
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
 
+    if (typeof updateHromadyLayer === 'function') {
+        updateHromadyLayer();
+    }
+
     showNotification(t('settingsSaved', 'Налаштування збережено!'));
     toggleSettings();
 }
@@ -50,6 +55,7 @@ function loadSettings() {
         settings.speedThreshold;
     document.getElementById("soundAlerts").checked = settings.soundAlerts;
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
+    document.getElementById("showHromady").checked = settings.showHromady;
     const langSelect = document.getElementById("languageSelect");
     if (langSelect) langSelect.value = currentLang;
 }
