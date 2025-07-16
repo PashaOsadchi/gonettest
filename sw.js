@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v6';
+const CACHE_NAME = 'v7';
 const urlsToCache = [
   '.',
   'index.html',
@@ -44,6 +44,7 @@ const urlsToCache = [
   'icon/icon_192.png',
   'icon/icon_512.png',
   'icon/logo.png',
+  'data/ukraine_hromady.geojson',
   'pwa.webmanifest',
   'translations/en.js',
   'translations/uk.js'
