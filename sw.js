@@ -43,6 +43,7 @@ const urlsToCache = [
   'icon/icon_144.png',
   'icon/icon_192.png',
   'icon/icon_512.png',
+  'icon/logo.png',
   'pwa.webmanifest',
   'translations/en.js',
   'translations/uk.js'
