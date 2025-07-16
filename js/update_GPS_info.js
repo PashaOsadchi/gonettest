@@ -10,7 +10,6 @@ function updateGPSInfo() {
         document.getElementById("totalDistanceInfo");
 
     const naText = t('naValue', 'N/A');
-    const unitM = t('unitMeters', 'м');
     const directions = t('directionLabels', DEFAULT_DIRECTION_LABELS[currentLang]);
 
     if (currentGPSData.latitude && currentGPSData.longitude) {
