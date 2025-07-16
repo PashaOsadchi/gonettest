@@ -60,6 +60,7 @@ window.i18n.uk = {
   downloadHTML: "Завантажити HTML",
   downloadChart: "Завантажити графік швидкості",
   clearData: "Очистити дані",
+  clearDataConfirm: "Ви впевнені, що хочете очистити всі дані?",
   ipLabel: "IP:",
   hostnameLabel: "Хост:",
   cityLabel: "Місто:",

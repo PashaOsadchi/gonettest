@@ -60,6 +60,7 @@ window.i18n.en = {
   downloadHTML: "Download HTML",
   downloadChart: "Download speed chart",
   clearData: "Clear data",
+  clearDataConfirm: "Are you sure you want to clear all data?",
   ipLabel: "IP:",
   hostnameLabel: "Host:",
   cityLabel: "City:",

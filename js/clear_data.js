@@ -1,7 +1,7 @@
 function clearData() {
     if (speedData.length === 0) return;
 
-    if (confirm("Ви впевнені, що хочете очистити всі дані?")) {
+    if (confirm(t('clearDataConfirm', 'Ви впевнені, що хочете очистити всі дані?'))) {
         speedData = [];
         saveSpeedDataToStorage();
         chartData = [];
