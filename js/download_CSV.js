@@ -18,6 +18,9 @@ function downloadCSV() {
         "Часова мітка (мс);" +
         "Дата;" +
         "Час;" +
+        "Область;" +
+        "Район;" +
+        "Громада;" +
         "Оператор;" +
         "Швидкість (Мбіт/с);" +
         "Завантажено (МБ);" +
@@ -55,6 +58,9 @@ function downloadCSV() {
                     `${ts.getTime()};` +                       // Часова мітка (мс)
                     `${dateStr};` +                           // Дата
                     `${timeStr};` +                           // Час (HH:MM:SS)
+                    `${record.region || ""};` +
+                    `${record.rayon || ""};` +
+                    `${record.hromada || ""};` +
                     `${operator};` +
                     `${record.speed.toFixed(2)};` +
                     `${record.downloaded.toFixed(2)};` +
