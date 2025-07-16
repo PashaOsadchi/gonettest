@@ -12,6 +12,7 @@ window.i18n.en = {
   speedThresholdLabel: "Speed threshold for alert (Mbps):",
   soundAlertsLabel: "Sound alerts",
   voiceAlertsLabel: "Voice alerts",
+  showHromadyLabel: "Show community boundaries",
   languageLabel: "Language",
   saveSettingsButton: "Save settings",
   currentSpeedLabel: "Current download speed Mbps",

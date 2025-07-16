@@ -73,6 +73,7 @@ let settings = {
     speedThreshold: 5,
     soundAlerts: true,
     voiceAlerts: false,
+    showHromady: false,
 };
 
 // Графік
@@ -84,6 +85,7 @@ let maxDataPoints = MAX_DATA_POINTS; // Показуємо останні 60 т�
 let map = null;
 let mapMarkers = [];
 let mapInitialized = false;
+let hromadyLayer = null;
 
 // Статистика
 let speedStats = {
