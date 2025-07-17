@@ -82,6 +82,8 @@ function getMarkerPopupContent(point) {
             point.rayon != null ? point.rayon : na],
         [ensureColon(t('hromadaLabel', 'Громада')),
             point.hromada != null ? point.hromada : na],
+        [ensureColon(t('roadRefLabel', 'Номер дороги')),
+            point.roadRef != null ? point.roadRef : na],
         [ensureColon(t('altColumn', 'Висота (м)')),
             point.altitude != null ? point.altitude.toFixed(1) : na],
         [ensureColon(t('moveSpeedColumn', 'Швидкість руху (км/год)')),

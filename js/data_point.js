@@ -40,10 +40,18 @@ async function saveDataPoint() {
         console.error('Failed to load hromady data', e);
     }
 
-    const adminInfo = find_admin_unit(
+    try {
+        await loadAllRoadData();
+    } catch (e) {
+        console.error('Failed to load road data', e);
+    }
+
+    const adminInfo =
+        find_admin_unit(currentGPSData.longitude, currentGPSData.latitude) || {};
+    const roadInfo = find_road(
         currentGPSData.longitude,
         currentGPSData.latitude
-    ) || {};
+    );
 
     const now = new Date();
     const elapsed = (Date.now() - startTime) / 1000;
@@ -74,6 +82,7 @@ async function saveDataPoint() {
         region: adminInfo.region || null,
         rayon: adminInfo.rayon || null,
         hromada: adminInfo.hromada || null,
+        roadRef: roadInfo && roadInfo.ref ? roadInfo.ref : null,
     };
 
     speedData.push(dataPoint);

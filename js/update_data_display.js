@@ -21,6 +21,7 @@ function updateDataDisplay() {
                     <div>${record.region || 'N/A'}</div>
                     <div>${record.rayon || 'N/A'}</div>
                     <div>${record.hromada || 'N/A'}</div>
+                    <div>${record.roadRef || 'N/A'}</div>
                 </div>
             `
         )

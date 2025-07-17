@@ -57,6 +57,7 @@ window.i18n.uk = {
   oblastColumn: "Область",
   raionColumn: "Район",
   hromadaColumn: "Громада",
+  roadColumn: "Дорога",
   timestampMsLabel: "Часова мітка (мс)",
   dateLabel: "Дата",
   timeLabel: "Час",
