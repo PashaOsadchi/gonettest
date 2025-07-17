@@ -78,6 +78,7 @@ window.i18n.uk = {
   postalLabel: "Поштовий індекс:",
   timezoneLabel: "Часовий пояс:",
   adminInfoTitle: "Адміністративні одиниці",
+  roadInfoTitle: "Автомобільна дорога",
   oblastLabel: "Область:",
   raionLabel: "Район:",
   hromadaLabel: "Громада:",

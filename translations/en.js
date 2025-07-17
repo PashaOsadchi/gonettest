@@ -78,6 +78,7 @@ window.i18n.en = {
   postalLabel: "Postal code:",
   timezoneLabel: "Timezone:",
   adminInfoTitle: "Administrative units",
+  roadInfoTitle: "Road",
   oblastLabel: "Oblast:",
   raionLabel: "District:",
   hromadaLabel: "Community:",
