@@ -44,6 +44,8 @@ function downloadHTML() {
     const getColorSrc = window.getColorBySpeed.toString();
     const popupSrc = window.getMarkerPopupContent.toString();
 
+    const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
+
     const htmlContent = `<!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +60,7 @@ function downloadHTML() {
   <script>
     function t(key, fallback = '') { return fallback; }
     const operator = ${JSON.stringify(operator)};
-    const data = ${JSON.stringify(speedData)};
+    const data = ${safeData};
     ${getColorSrc}
     ${popupSrc}
     ${addMapMarkerSrc}
