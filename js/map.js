@@ -13,6 +13,7 @@ function initMap() {
     }).addTo(map);
     mapInitialized = true;
     updateHromadyLayer();
+    updateRoadLayers();
 
     // Add previously stored markers without centering on each
     if (speedData.length > 0) {
@@ -131,6 +132,82 @@ function updateHromadyLayer() {
     }
 }
 
+function updateRoadLayers() {
+    if (!mapInitialized) return;
+    updateInternationalRoadLayer();
+    updateNationalRoadLayer();
+    updateRegionalRoadLayer();
+    updateTerritorialRoadLayer();
+}
+
+function updateInternationalRoadLayer() {
+    if (settings.showInternationalRoads) {
+        if (internationalRoadLayer) {
+            internationalRoadLayer.addTo(map);
+        } else {
+            fetch('data/international_road_ua_m.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    internationalRoadLayer = L.geoJSON(data, { style: { color: 'blue', weight: 2 } }).addTo(map);
+                })
+                .catch(err => console.error('GeoJSON load failed', err));
+        }
+    } else if (internationalRoadLayer) {
+        map.removeLayer(internationalRoadLayer);
+    }
+}
+
+function updateNationalRoadLayer() {
+    if (settings.showNationalRoads) {
+        if (nationalRoadLayer) {
+            nationalRoadLayer.addTo(map);
+        } else {
+            fetch('data/national_road_ua_h.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    nationalRoadLayer = L.geoJSON(data, { style: { color: 'green', weight: 2 } }).addTo(map);
+                })
+                .catch(err => console.error('GeoJSON load failed', err));
+        }
+    } else if (nationalRoadLayer) {
+        map.removeLayer(nationalRoadLayer);
+    }
+}
+
+function updateRegionalRoadLayer() {
+    if (settings.showRegionalRoads) {
+        if (regionalRoadLayer) {
+            regionalRoadLayer.addTo(map);
+        } else {
+            fetch('data/regional_road_ua_p.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    regionalRoadLayer = L.geoJSON(data, { style: { color: 'orange', weight: 2 } }).addTo(map);
+                })
+                .catch(err => console.error('GeoJSON load failed', err));
+        }
+    } else if (regionalRoadLayer) {
+        map.removeLayer(regionalRoadLayer);
+    }
+}
+
+function updateTerritorialRoadLayer() {
+    if (settings.showTerritorialRoads) {
+        if (territorialRoadLayer) {
+            territorialRoadLayer.addTo(map);
+        } else {
+            fetch('data/territorial_road_ua_t.geojson')
+                .then(r => r.json())
+                .then(data => {
+                    territorialRoadLayer = L.geoJSON(data, { style: { color: 'red', weight: 2 } }).addTo(map);
+                })
+                .catch(err => console.error('GeoJSON load failed', err));
+        }
+    } else if (territorialRoadLayer) {
+        map.removeLayer(territorialRoadLayer);
+    }
+}
+
 function calculateDistance(lat1, lon1, lat2, lon2) {
     if (lat1 === null || lon1 === null || lat2 === null || lon2 === null) {
         return null;
@@ -154,3 +231,4 @@ window.getColorBySpeed = getColorBySpeed;
 window.getMarkerPopupContent = getMarkerPopupContent;
 window.addMapMarker = addMapMarker;
 window.updateHromadyLayer = updateHromadyLayer;
+window.updateRoadLayers = updateRoadLayers;

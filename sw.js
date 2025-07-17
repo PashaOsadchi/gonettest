@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v7';
+const CACHE_NAME = 'v8';
 const urlsToCache = [
   '.',
   'index.html',
@@ -45,6 +45,10 @@ const urlsToCache = [
   'icon/icon_512.png',
   'icon/logo.png',
   'data/ukraine_hromady.geojson',
+  'data/international_road_ua_m.geojson',
+  'data/national_road_ua_h.geojson',
+  'data/regional_road_ua_p.geojson',
+  'data/territorial_road_ua_t.geojson',
   'pwa.webmanifest',
   'translations/en.js',
   'translations/uk.js'

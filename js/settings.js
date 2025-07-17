@@ -26,6 +26,10 @@ function saveSettings() {
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
     settings.showHromady = document.getElementById("showHromady").checked;
+    settings.showInternationalRoads = document.getElementById("showInternationalRoads").checked;
+    settings.showNationalRoads = document.getElementById("showNationalRoads").checked;
+    settings.showRegionalRoads = document.getElementById("showRegionalRoads").checked;
+    settings.showTerritorialRoads = document.getElementById("showTerritorialRoads").checked;
     const langSelect = document.getElementById("languageSelect");
     if (langSelect) setLanguage(langSelect.value);
 
@@ -43,6 +47,9 @@ function saveSettings() {
     if (typeof updateHromadyLayer === 'function') {
         updateHromadyLayer();
     }
+    if (typeof updateRoadLayers === 'function') {
+        updateRoadLayers();
+    }
 
     showNotification(t('settingsSaved', 'Налаштування збережено!'));
     toggleSettings();
@@ -56,6 +63,10 @@ function loadSettings() {
     document.getElementById("soundAlerts").checked = settings.soundAlerts;
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
     document.getElementById("showHromady").checked = settings.showHromady;
+    document.getElementById("showInternationalRoads").checked = settings.showInternationalRoads;
+    document.getElementById("showNationalRoads").checked = settings.showNationalRoads;
+    document.getElementById("showRegionalRoads").checked = settings.showRegionalRoads;
+    document.getElementById("showTerritorialRoads").checked = settings.showTerritorialRoads;
     const langSelect = document.getElementById("languageSelect");
     if (langSelect) langSelect.value = currentLang;
 }

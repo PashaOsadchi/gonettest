@@ -74,6 +74,10 @@ let settings = {
     soundAlerts: true,
     voiceAlerts: false,
     showHromady: false,
+    showInternationalRoads: false,
+    showNationalRoads: false,
+    showRegionalRoads: false,
+    showTerritorialRoads: false,
 };
 
 // Графік
@@ -86,6 +90,10 @@ let map = null;
 let mapMarkers = [];
 let mapInitialized = false;
 let hromadyLayer = null;
+let internationalRoadLayer = null;
+let nationalRoadLayer = null;
+let regionalRoadLayer = null;
+let territorialRoadLayer = null;
 
 // Статистика
 let speedStats = {
