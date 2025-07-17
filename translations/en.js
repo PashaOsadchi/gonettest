@@ -57,6 +57,7 @@ window.i18n.en = {
   oblastColumn: "Oblast",
   raionColumn: "District",
   hromadaColumn: "Community",
+  roadColumn: "Road",
   timestampMsLabel: "Timestamp (ms)",
   dateLabel: "Date",
   timeLabel: "Time",
