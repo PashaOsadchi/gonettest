@@ -16,13 +16,45 @@ function loadSettingsFromStorage() {
     }
 }
 
+function clampNumber(value, min, max, def) {
+    const num = parseFloat(value);
+    if (isNaN(num)) return { value: def, error: true };
+    if (num < min) return { value: min, error: true };
+    if (num > max) return { value: max, error: true };
+    return { value: num, error: false };
+}
+
 function saveSettings() {
-    settings.saveInterval =
-        parseInt(document.getElementById("saveInterval").value) || 1;
-    settings.gpsDistance =
-        parseFloat(document.getElementById("gpsDistance").value) || 1;
-    settings.speedThreshold =
-        parseFloat(document.getElementById("speedThreshold").value) || 5;
+    let hasError = false;
+    let result = clampNumber(
+        document.getElementById("saveInterval").value,
+        1,
+        60,
+        DEFAULT_SAVE_INTERVAL
+    );
+    settings.saveInterval = result.value;
+    document.getElementById("saveInterval").value = settings.saveInterval;
+    hasError = hasError || result.error;
+
+    result = clampNumber(
+        document.getElementById("gpsDistance").value,
+        0,
+        100,
+        10
+    );
+    settings.gpsDistance = result.value;
+    document.getElementById("gpsDistance").value = settings.gpsDistance;
+    hasError = hasError || result.error;
+
+    result = clampNumber(
+        document.getElementById("speedThreshold").value,
+        0,
+        1000,
+        5
+    );
+    settings.speedThreshold = result.value;
+    document.getElementById("speedThreshold").value = settings.speedThreshold;
+    hasError = hasError || result.error;
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
     settings.showHromady = document.getElementById("showHromady").checked;
@@ -51,7 +83,11 @@ function saveSettings() {
         updateRoadLayers();
     }
 
-    showNotification(t('settingsSaved', 'Налаштування збережено!'));
+    if (hasError) {
+        showNotification(t('settingsInvalid', 'Некоректні значення!'));
+    } else {
+        showNotification(t('settingsSaved', 'Налаштування збережено!'));
+    }
     toggleSettings();
 }
 

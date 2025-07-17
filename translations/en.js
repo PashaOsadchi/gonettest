@@ -96,6 +96,7 @@ window.i18n.en = {
   testStarted: "Test started!",
   testStopped: "Test stopped!",
   settingsSaved: "Settings saved!",
+  settingsInvalid: "Invalid values corrected!",
   fullscreenEnabled: "Fullscreen enabled",
   fullscreenDisabled: "Fullscreen disabled",
   themeSwitchedDark: "Switched to dark theme",
