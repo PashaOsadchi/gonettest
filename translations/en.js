@@ -105,7 +105,7 @@ window.i18n.en = {
   roadRefLabel: "Road number:",
   roadNameLabel: "Road name:",
   roadDistanceLabel: "Length (km):",
-  roadNetworkLabel: "Network type:",
+  roadNetworkLabel: "Type:",
   naValue: "N/A",
   firstPoint: "First point",
   unitMeters: "m",

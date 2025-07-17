@@ -105,7 +105,7 @@ window.i18n.uk = {
   roadRefLabel: "Номер дороги:",
   roadNameLabel: "Назва дороги:",
   roadDistanceLabel: "Довжина (км):",
-  roadNetworkLabel: "Тип мережі:",
+  roadNetworkLabel: "Тип:",
   naValue: "Н/Д",
   firstPoint: "Перша точка",
   unitMeters: "м",

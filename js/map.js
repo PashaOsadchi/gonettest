@@ -129,7 +129,7 @@ function getRoadPopupContent(props) {
         rows.push([ensureColon(t('roadDistanceLabel', 'Довжина (км)')), props.distance]);
     }
     if (props.network) {
-        rows.push([ensureColon(t('roadNetworkLabel', 'Тип мережі')), props.network]);
+        rows.push([ensureColon(t('roadNetworkLabel', 'Тип')), props.network]);
     }
     return rows.map(r => `<div><strong>${r[0]}</strong> ${r[1]}</div>`).join('');
 }
