@@ -114,6 +114,32 @@ function addMapMarker(point, centerOnAdd = true) {
     }
 }
 
+function getRoadPopupContent(props) {
+    const na = t('naValue', 'N/A');
+
+    function ensureColon(label) {
+        return label.endsWith(':') ? label : label + ':';
+    }
+
+    const rows = [
+        [ensureColon(t('roadRefLabel', 'Номер дороги')), props.ref || na],
+        [ensureColon(t('roadNameLabel', 'Назва')), props.official_name || props['name:uk'] || props.name || na],
+    ];
+    if (props.distance) {
+        rows.push([ensureColon(t('roadDistanceLabel', 'Довжина (км)')), props.distance]);
+    }
+    if (props.network) {
+        rows.push([ensureColon(t('roadNetworkLabel', 'Тип мережі')), props.network]);
+    }
+    return rows.map(r => `<div><strong>${r[0]}</strong> ${r[1]}</div>`).join('');
+}
+
+function onEachRoadFeature(feature, layer) {
+    if (feature.properties && typeof layer.bindPopup === 'function') {
+        layer.bindPopup(getRoadPopupContent(feature.properties));
+    }
+}
+
 function updateHromadyLayer() {
     if (!mapInitialized) return;
     if (settings.showHromady) {
@@ -148,7 +174,10 @@ function updateInternationalRoadLayer() {
             fetch('data/international_road_ua_m.geojson')
                 .then(r => r.json())
                 .then(data => {
-                    internationalRoadLayer = L.geoJSON(data, { style: { color: 'blue', weight: 2 } }).addTo(map);
+                    internationalRoadLayer = L.geoJSON(data, {
+                        style: { color: 'blue', weight: 2 },
+                        onEachFeature: onEachRoadFeature,
+                    }).addTo(map);
                 })
                 .catch(err => console.error('GeoJSON load failed', err));
         }
@@ -165,7 +194,10 @@ function updateNationalRoadLayer() {
             fetch('data/national_road_ua_h.geojson')
                 .then(r => r.json())
                 .then(data => {
-                    nationalRoadLayer = L.geoJSON(data, { style: { color: 'green', weight: 2 } }).addTo(map);
+                    nationalRoadLayer = L.geoJSON(data, {
+                        style: { color: 'green', weight: 2 },
+                        onEachFeature: onEachRoadFeature,
+                    }).addTo(map);
                 })
                 .catch(err => console.error('GeoJSON load failed', err));
         }
@@ -182,7 +214,10 @@ function updateRegionalRoadLayer() {
             fetch('data/regional_road_ua_p.geojson')
                 .then(r => r.json())
                 .then(data => {
-                    regionalRoadLayer = L.geoJSON(data, { style: { color: 'orange', weight: 2 } }).addTo(map);
+                    regionalRoadLayer = L.geoJSON(data, {
+                        style: { color: 'orange', weight: 2 },
+                        onEachFeature: onEachRoadFeature,
+                    }).addTo(map);
                 })
                 .catch(err => console.error('GeoJSON load failed', err));
         }
@@ -199,7 +234,10 @@ function updateTerritorialRoadLayer() {
             fetch('data/territorial_road_ua_t.geojson')
                 .then(r => r.json())
                 .then(data => {
-                    territorialRoadLayer = L.geoJSON(data, { style: { color: 'red', weight: 2 } }).addTo(map);
+                    territorialRoadLayer = L.geoJSON(data, {
+                        style: { color: 'red', weight: 2 },
+                        onEachFeature: onEachRoadFeature,
+                    }).addTo(map);
                 })
                 .catch(err => console.error('GeoJSON load failed', err));
         }
