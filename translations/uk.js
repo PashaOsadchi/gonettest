@@ -96,6 +96,7 @@ window.i18n.uk = {
   testStarted: "Тест запущено!",
   testStopped: "Тест зупинено!",
   settingsSaved: "Налаштування збережено!",
+  settingsInvalid: "Вказано некоректні значення!",
   fullscreenEnabled: "Повноекранний режим увімкнено",
   fullscreenDisabled: "Повноекранний режим вимкнено",
   themeSwitchedDark: "Переключено на темну тему",
