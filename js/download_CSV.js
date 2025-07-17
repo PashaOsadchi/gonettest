@@ -21,6 +21,7 @@ function downloadCSV() {
         "Область;" +
         "Район;" +
         "Громада;" +
+        "Дорога;" +
         "Оператор;" +
         "Швидкість (Мбіт/с);" +
         "Завантажено (МБ);" +
@@ -61,6 +62,7 @@ function downloadCSV() {
                     `${record.region || ""};` +
                     `${record.rayon || ""};` +
                     `${record.hromada || ""};` +
+                    `${record.roadRef || ""};` +
                     `${operator};` +
                     `${record.speed.toFixed(2)};` +
                     `${record.downloaded.toFixed(2)};` +
