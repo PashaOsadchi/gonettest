@@ -89,3 +89,106 @@ function find_admin_unit(lon, lat) {
 
     return null; // Point not found in any hromada
 }
+
+// ----- Road lookup functionality -----
+
+const roadFiles = {
+    international: 'data/international_road_ua_m.geojson',
+    national: 'data/national_road_ua_h.geojson',
+    regional: 'data/regional_road_ua_p.geojson',
+    territorial: 'data/territorial_road_ua_t.geojson'
+};
+
+const roadData = {
+    international: null,
+    national: null,
+    regional: null,
+    territorial: null
+};
+
+const roadPromises = {};
+
+function loadRoadData(type) {
+    if (!roadPromises[type]) {
+        roadPromises[type] = fetch(roadFiles[type])
+            .then(r => r.json())
+            .then(data => {
+                roadData[type] = data;
+                return data;
+            })
+            .catch(err => {
+                console.error('Failed to load road data', err);
+                throw err;
+            });
+    }
+    return roadPromises[type];
+}
+
+function loadAllRoadData() {
+    return Promise.all(Object.keys(roadFiles).map(loadRoadData));
+}
+
+function latLonToXY(lat, lon) {
+    const rad = Math.PI / 180;
+    const x = lon * 111320 * Math.cos(lat * rad);
+    const y = lat * 110540;
+    return [x, y];
+}
+
+function distanceToSegment(lat, lon, lat1, lon1, lat2, lon2) {
+    const [x, y] = latLonToXY(lat, lon);
+    const [x1, y1] = latLonToXY(lat1, lon1);
+    const [x2, y2] = latLonToXY(lat2, lon2);
+    const A = x - x1;
+    const B = y - y1;
+    const C = x2 - x1;
+    const D = y2 - y1;
+    const lenSq = C * C + D * D;
+    let param = -1;
+    if (lenSq !== 0) param = (A * C + B * D) / lenSq;
+    let xx, yy;
+    if (param < 0) { xx = x1; yy = y1; }
+    else if (param > 1) { xx = x2; yy = y2; }
+    else { xx = x1 + param * C; yy = y1 + param * D; }
+    const dx = x - xx;
+    const dy = y - yy;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+function isPointNearLineString(lon, lat, coords, threshold) {
+    for (let i = 0; i < coords.length - 1; i++) {
+        const [lon1, lat1] = coords[i];
+        const [lon2, lat2] = coords[i + 1];
+        if (distanceToSegment(lat, lon, lat1, lon1, lat2, lon2) <= threshold) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function isPointNearRoad(lon, lat, feature, threshold) {
+    const geom = feature.geometry;
+    if (!geom) return false;
+    if (geom.type === 'LineString') {
+        return isPointNearLineString(lon, lat, geom.coordinates, threshold);
+    } else if (geom.type === 'MultiLineString') {
+        for (const line of geom.coordinates) {
+            if (isPointNearLineString(lon, lat, line, threshold)) return true;
+        }
+    }
+    return false;
+}
+
+function find_road(lon, lat, threshold = 50) {
+    const types = ['international', 'national', 'regional', 'territorial'];
+    for (const type of types) {
+        const data = roadData[type];
+        if (!data) continue;
+        for (const feature of data.features) {
+            if (isPointNearRoad(lon, lat, feature, threshold)) {
+                return feature.properties;
+            }
+        }
+    }
+    return null;
+}

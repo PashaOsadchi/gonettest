@@ -22,6 +22,7 @@ function initGPS() {
                 heading: position.coords.heading,
             };
             updateAdminInfo();
+            updateRoadInfo();
             updateGPSInfo();
             addLog(
                 `GPS оновлено: ${currentGPSData.latitude.toFixed(

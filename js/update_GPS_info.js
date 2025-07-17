@@ -105,6 +105,7 @@ function updateGPSInfo() {
     }
 
     updateAdminInfo();
+    updateRoadInfo();
 }
 
 async function updateAdminInfo() {
@@ -139,5 +140,45 @@ async function updateAdminInfo() {
         oblastEl.textContent = '-';
         raionEl.textContent = '-';
         hromadaEl.textContent = '-';
+    }
+}
+
+async function updateRoadInfo() {
+    const refEl = document.getElementById('roadRef');
+    const nameEl = document.getElementById('roadName');
+    const distEl = document.getElementById('roadDistance');
+    const networkEl = document.getElementById('roadNetwork');
+
+    if (!currentGPSData.latitude || !currentGPSData.longitude) {
+        refEl.textContent = '-';
+        nameEl.textContent = '-';
+        distEl.textContent = '-';
+        networkEl.textContent = '-';
+        return;
+    }
+
+    try {
+        await loadAllRoadData();
+    } catch (e) {
+        console.error('Failed to load road data', e);
+        refEl.textContent = '-';
+        nameEl.textContent = '-';
+        distEl.textContent = '-';
+        networkEl.textContent = '-';
+        return;
+    }
+
+    const road = find_road(currentGPSData.longitude, currentGPSData.latitude);
+
+    if (road) {
+        refEl.textContent = road.ref || '-';
+        nameEl.textContent = road.official_name || road['name:uk'] || road.name || '-';
+        distEl.textContent = road.distance || '-';
+        networkEl.textContent = road.network || '-';
+    } else {
+        refEl.textContent = '-';
+        nameEl.textContent = '-';
+        distEl.textContent = '-';
+        networkEl.textContent = '-';
     }
 }
