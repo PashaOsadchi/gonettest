@@ -1,4 +1,4 @@
-function downloadHTML() {
+async function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
         console.error('speedData is undefined');
         return;
@@ -53,17 +53,17 @@ function downloadHTML() {
 <!-- Leaflet CSS -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  href="leaflet.css"
 />
 
 <!-- MarkerCluster CSS -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+  href="MarkerCluster.css"
 />
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+  href="MarkerCluster.Default.css"
 />
 
 <style>
@@ -120,9 +120,9 @@ function downloadHTML() {
 <div id="map"></div>
 
 <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="leaflet.js"></script>
 <!-- MarkerCluster JS -->
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="leaflet.markercluster.js"></script>
 
 <script>
 /* ------------------ 1. Параметри ------------------ */
@@ -237,14 +237,38 @@ L.control.layers(null, overlays, { collapsed: true }).addTo(map);
 </body>
 </html>`;
 
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${baseFileName}.html`;
-    document.body.appendChild(link);
-    link.click();
-    URL.revokeObjectURL(link.href);
-    document.body.removeChild(link);
+    const files = [
+        { content: htmlContent, name: `${baseFileName}.html`, type: 'text/html' }
+    ];
+    try {
+        const [leafletJs, leafletCss, mcJs, mcCss, mcDefCss] = await Promise.all([
+            fetch('vendor/leaflet/leaflet.js').then(r => r.text()),
+            fetch('vendor/leaflet/leaflet.css').then(r => r.text()),
+            fetch('vendor/markercluster/leaflet.markercluster.js').then(r => r.text()),
+            fetch('vendor/markercluster/MarkerCluster.css').then(r => r.text()),
+            fetch('vendor/markercluster/MarkerCluster.Default.css').then(r => r.text())
+        ]);
+        files.push(
+            { content: leafletJs, name: 'leaflet.js', type: 'text/javascript' },
+            { content: leafletCss, name: 'leaflet.css', type: 'text/css' },
+            { content: mcJs, name: 'leaflet.markercluster.js', type: 'text/javascript' },
+            { content: mcCss, name: 'MarkerCluster.css', type: 'text/css' },
+            { content: mcDefCss, name: 'MarkerCluster.Default.css', type: 'text/css' }
+        );
+    } catch (err) {
+        console.error('Failed to load local libraries', err);
+    }
+
+    files.forEach(file => {
+        const blob = new Blob([file.content], { type: file.type });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = file.name;
+        document.body.appendChild(link);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        document.body.removeChild(link);
+    });
 
     showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
 }
