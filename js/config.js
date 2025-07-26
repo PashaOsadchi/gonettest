@@ -25,6 +25,9 @@ const ICON_RED = 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
 const ICON_YELLOW = 'https://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
 const ICON_GREEN = 'https://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
 
+// Zoom level at which clustering is disabled on the main map
+const DISABLE_CLUSTER_ZOOM = 18;
+
 const DEFAULT_DIRECTION_LABELS = {
     uk: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"],
     en: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
@@ -94,6 +97,9 @@ let internationalRoadLayer = null;
 let nationalRoadLayer = null;
 let regionalRoadLayer = null;
 let territorialRoadLayer = null;
+let redCluster = null;
+let yellowCluster = null;
+let greenCluster = null;
 
 // Статистика
 let speedStats = {

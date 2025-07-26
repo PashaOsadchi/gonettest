@@ -731,3 +731,34 @@ h1 {
   color: var(--success-color);
   font-weight: 600;
 }
+
+/* Custom cluster icons */
+.speed-cluster {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 12px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35);
+  border: 2px solid #333;
+  color: #fff;
+  user-select: none;
+}
+.speed-cluster.red {
+  background: red;
+  border-color: red;
+  color: black;
+}
+.speed-cluster.yellow {
+  background: yellow;
+  border-color: yellow;
+  color: black;
+}
+.speed-cluster.green {
+  background: green;
+  border-color: green;
+  color: black;
+}
