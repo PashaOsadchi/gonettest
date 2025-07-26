@@ -151,7 +151,7 @@ osm.addTo(map);
 /* ------------------ 5. Функція створення іконки кластера ------------------ */
 const makeClusterIconClass = (className) => cluster =>
   L.divIcon({
-    html: \`<div class="speed-cluster ${className}\">${cluster.getChildCount()}</div>\`,
+    html: \`<div class="speed-cluster \${className}\">\${cluster.getChildCount()}</div>\`,
     className: 'speed-cluster-wrapper',
     iconSize: [34, 34]
   });
@@ -179,8 +179,8 @@ greenCluster.addTo(map);
 function getMarkerPopupContent(point) {
   return \`
     <div style="min-width:150px">
-      <strong>Час:</strong> ${point.fullTimestamp || ''}<br/>
-      <strong>Швидкість:</strong> ${point.speed != null ? point.speed.toFixed(2) : '—'} Мбіт/с
+      <strong>Час:</strong> \${point.fullTimestamp || ''}<br/>
+      <strong>Швидкість:</strong> \${point.speed != null ? point.speed.toFixed(2) : '—'} Мбіт/с
     </div>
   \`;
 }
