@@ -175,7 +175,7 @@ function addMapMarker(point) {
   const color = getColorBySpeed(point.speed);
 
   const marker = L.circleMarker([point.latitude, point.longitude], {
-    radius: 8,
+    radius: 18,
     color: color,
     weight: 2,
     fillColor: color,
