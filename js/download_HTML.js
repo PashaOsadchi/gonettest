@@ -1,5 +1,5 @@
 function downloadHTML() {
-    if (!Array.isArray(speedData)) {
+    if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
         console.error('speedData is undefined');
         return;
     }
