@@ -127,6 +127,9 @@ function downloadHTML() {
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
 <script>
+/* ------------------ 0. Глобальні значення ------------------ */
+const operator = ${JSON.stringify(operator)};
+const t = (key, fallback = '') => fallback;
 /* ------------------ 1. Параметри ------------------ */
 const DISABLE_CLUSTER_ZOOM = 18; // >= цього зума кластери вимикаються
 const COLOR_RED    = 'red';
