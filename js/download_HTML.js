@@ -1,4 +1,17 @@
 function downloadHTML() {
+    if (!Array.isArray(speedData)) {
+        console.error('speedData is undefined');
+        return;
+    }
+    if (typeof operator === 'undefined') {
+        console.error('operator is undefined');
+        return;
+    }
+    if (typeof t !== 'function' || typeof showNotification !== 'function') {
+        console.error('Required helpers are missing');
+        return;
+    }
+
     if (speedData.length === 0) {
         showNotification(t('noData', 'Немає даних для завантаження'));
         return;
@@ -17,11 +30,13 @@ function downloadHTML() {
             month: '2-digit',
             year: 'numeric',
         });
-        timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
+        timeStr = ts
+            .toLocaleTimeString('uk-UA', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            })
+            .replace(/:/g, '-');
     }
 
     const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
@@ -155,6 +170,7 @@ const greenCluster = L.markerClusterGroup({
   iconCreateFunction: makeClusterIconClass('green')
 });
 
+/* ------------------ 7. Додавання кластерів на карту ------------------ */
 redCluster.addTo(map);
 yellowCluster.addTo(map);
 greenCluster.addTo(map);
