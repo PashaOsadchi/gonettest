@@ -43,9 +43,7 @@ function downloadHTML() {
 
     const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
 
-    let addMapMarkerSrc = window.addMapMarker
-        .toString()
-        .replace(/radius:\s*6/, 'radius: 18');
+    let getMarkerPopupContentSrc = window.getMarkerPopupContent.toString();
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -180,7 +178,7 @@ yellowCluster.addTo(map);
 greenCluster.addTo(map);
 
 /* ------------------ 8. Створення popup-контенту ------------------ */
-${addMapMarkerSrc}
+${getMarkerPopupContentSrc}
 
 /* ------------------ 9. Додавання маркерів ------------------ */
 function addMapMarker(point) {
