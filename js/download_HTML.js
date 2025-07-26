@@ -43,12 +43,16 @@ function downloadHTML() {
 
     const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
 
+    let addMapMarkerSrc = window.addMapMarker
+        .toString()
+        .replace(/radius:\s*6/, 'radius: 18');
+
     const htmlContent = `
 <!DOCTYPE html>
 <html lang="uk">
 <head>
 <meta charset="utf-8">
-<title>Кластери швидкості (окремо за кольорами)</title>
+<title>${baseFileName}</title>
 
 <!-- Leaflet CSS -->
 <link
@@ -140,7 +144,7 @@ function getColorBySpeed(speed) {
 
 /* ------------------ 3. Дані ------------------ */
 const data = ${safeData};
-    /* ------------------ 4. Ініціалізація карти ------------------ */
+/* ------------------ 4. Ініціалізація карти ------------------ */
 const map = L.map('map');
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
@@ -176,14 +180,7 @@ yellowCluster.addTo(map);
 greenCluster.addTo(map);
 
 /* ------------------ 8. Створення popup-контенту ------------------ */
-function getMarkerPopupContent(point) {
-  return \`
-    <div style="min-width:150px">
-      <strong>Час:</strong> \${point.fullTimestamp || ''}<br/>
-      <strong>Швидкість:</strong> \${point.speed != null ? point.speed.toFixed(2) : '—'} Мбіт/с
-    </div>
-  \`;
-}
+${addMapMarkerSrc}
 
 /* ------------------ 9. Додавання маркерів ------------------ */
 function addMapMarker(point) {
