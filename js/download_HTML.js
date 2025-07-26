@@ -227,6 +227,7 @@ L.control.layers(null, overlays, { collapsed: true }).addTo(map);
     link.download = `${baseFileName}.html`;
     document.body.appendChild(link);
     link.click();
+    URL.revokeObjectURL(link.href);
     document.body.removeChild(link);
 
     showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
