@@ -11,6 +11,37 @@ function initMap() {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
     }).addTo(map);
+
+    // Initialize clustering groups for different speed ranges
+    const makeClusterIconClass = className => cluster =>
+        L.divIcon({
+            html: `<div class="speed-cluster ${className}">${cluster.getChildCount()}</div>`,
+            className: 'speed-cluster-wrapper',
+            iconSize: [34, 34]
+        });
+
+    redCluster = L.markerClusterGroup({
+        disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+        iconCreateFunction: makeClusterIconClass('red')
+    });
+    yellowCluster = L.markerClusterGroup({
+        disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+        iconCreateFunction: makeClusterIconClass('yellow')
+    });
+    greenCluster = L.markerClusterGroup({
+        disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+        iconCreateFunction: makeClusterIconClass('green')
+    });
+
+    redCluster.addTo(map);
+    yellowCluster.addTo(map);
+    greenCluster.addTo(map);
+
+    L.control.layers(null, {
+        [t('layerRed', 'Швидкість завантаження = 0 Мбіт/с (червоні)')]: redCluster,
+        [t('layerYellow', 'Швидкість завантаження до 2 Мбіт/с (жовті)')]: yellowCluster,
+        [t('layerGreen', 'Швидкість завантаження більше 2 Мбіт/с (зелені)')]: greenCluster
+    }, { collapsed: true }).addTo(map);
     mapInitialized = true;
     updateHromadyLayer();
     updateRoadLayers();
@@ -106,7 +137,17 @@ function addMapMarker(point, centerOnAdd = true) {
         color,
         fillColor: color,
         fillOpacity: 0.8,
-    }).addTo(map);
+    });
+
+    if (color === 'red' && redCluster) {
+        redCluster.addLayer(marker);
+    } else if (color === 'yellow' && yellowCluster) {
+        yellowCluster.addLayer(marker);
+    } else if (greenCluster) {
+        greenCluster.addLayer(marker);
+    } else {
+        marker.addTo(map);
+    }
     if (typeof marker.bindPopup === 'function') {
         marker.bindPopup(getMarkerPopupContent(point));
     }

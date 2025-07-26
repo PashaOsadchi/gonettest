@@ -15,8 +15,10 @@ function clearData() {
             speedChart.update();
         }
 
-        if (typeof map !== 'undefined' && map && mapMarkers.length) {
-            mapMarkers.forEach(marker => map.removeLayer(marker));
+        if (typeof map !== 'undefined' && map) {
+            if (redCluster) redCluster.clearLayers();
+            if (yellowCluster) yellowCluster.clearLayers();
+            if (greenCluster) greenCluster.clearLayers();
             mapMarkers = [];
         }
         updateDataDisplay();
