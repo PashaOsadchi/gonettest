@@ -279,6 +279,7 @@ h1 {
 
 .info-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin: 5px 0;
   padding-bottom: 4px;
