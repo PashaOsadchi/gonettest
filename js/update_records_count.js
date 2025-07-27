@@ -37,7 +37,8 @@ function updateRecordsCount() {
         navigator.storage
             .estimate()
             .then(({ usage, quota }) => {
-                setInfo(usage);
+                const size = estimateLocalStoragePercent();
+                setInfo(size);
                 if (quota) {
                     const percent = Math.round((usage / quota) * 100);
                     notifyStorageThreshold(percent);
