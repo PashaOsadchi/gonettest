@@ -247,10 +247,8 @@
         </div>
       </div>
 
-      <div class="chart-section">
-        <div class="chart-container">
-          <canvas id="speedChart"></canvas>
-        </div>
+      <div class="map-section">
+        <div id="map"></div>
       </div>
 
       <!-- Розширена GPS інформація -->
@@ -293,6 +291,12 @@
         <div class="info-row">
           <span data-i18n="lastSaveLabel">Час останнього збереження даних:</span>
           <span id="lastSaveInfo" data-i18n="noData">Немає даних</span>
+        </div>
+      </div>
+
+      <div class="chart-section">
+        <div class="chart-container">
+          <canvas id="speedChart"></canvas>
         </div>
       </div>
 
@@ -357,15 +361,8 @@
         </div>
       </div>
 
-      <div class="map-section">
-        <h3 data-i18n="mapTitle">Карта вимірювань</h3>
-        <div id="map"></div>
-      </div>
-
       <div class="info">
-        <div class="data-header">
-          <h3 data-i18n="latestMeasurementsTitle">База даних</h3>
-        </div>
+        <div class="fw-bold mb-10" data-i18n="latestMeasurementsTitle">База даних</div>
         <div class="data-table">
           <div class="data-row data-header-row">
             <div data-i18n="timeColumn">Час</div>
