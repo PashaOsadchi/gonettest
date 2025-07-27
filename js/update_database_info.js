@@ -67,6 +67,9 @@ function updateDatabaseInfo() {
     if (typeof updateRoadStats === 'function') {
         updateRoadStats();
     }
+    if (typeof updateAdminStats === "function") {
+        updateAdminStats();
+    }
 }
 
 function estimateLocalStorageSize() {

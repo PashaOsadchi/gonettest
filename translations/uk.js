@@ -53,6 +53,7 @@ window.i18n.uk = {
   dbSizeLabel: "Розмір",
   speedStatsTitle: "Статистика швидкості завантаження",
   roadStatsTitle: "Статистика автомобільних доріг",
+  adminStatsTitle: "Статистика адміністративних одиниць",
   zeroSpeedLabel: "0 Мбіт/с:",
   upTo2SpeedLabel: "До 2 Мбіт/с:",
   above2SpeedLabel: "Більше 2 Мбіт/с:",
