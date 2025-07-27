@@ -45,7 +45,6 @@ window.i18n.en = {
   gpsError: "GPS error",
   speedChartLabel: "Download speed Mbps",
   providerInfoTitle: "Provider details",
-  mapTitle: "Measurement map",
   latestMeasurementsTitle: "Database",
   recordsCount: "Records:",
   dbTitle: "Statistics database",

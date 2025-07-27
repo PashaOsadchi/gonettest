@@ -45,7 +45,6 @@ window.i18n.uk = {
   gpsError: "Помилка GPS",
   speedChartLabel: "Графік швидкості завантаження Мбіт/с",
   providerInfoTitle: "Детальна інформація про провайдера",
-  mapTitle: "Карта вимірювань",
   latestMeasurementsTitle: "База даних",
   recordsCount: "Записів:",
   dbTitle: "Статистика бази даних",
