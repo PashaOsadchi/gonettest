@@ -1,225 +1,199 @@
 <!DOCTYPE html>
 <html lang="uk">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description"
-          content="Streaming data download speed test on the way">
-    <meta id="themeColorMeta" name="theme-color" content="#1a1a2e" />
-    <title data-i18n="appTitle">Тест швидкості інтернету</title>
 
-    <link rel="canonical" href="https://www.gonettest.com/" />
-    <!-- Для iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- Для Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <link rel="apple-touch-icon" href="icon/icon_192.png" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="icon/icon_192.png"
-    />
-    <link rel="manifest" href="pwa.webmanifest" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Streaming data download speed test on the way">
+  <meta id="themeColorMeta" name="theme-color" content="#1a1a2e" />
+  <title data-i18n="appTitle">Тест швидкості інтернету</title>
 
-    <link rel="preconnect" href="https://ipinfo.io" crossorigin>
-    <link rel="preconnect" href="https://speed.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+  <link rel="canonical" href="https://www.gonettest.com/" />
+  <!-- Для iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Для Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" href="icon/icon_192.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icon/icon_192.png" />
+  <link rel="manifest" href="pwa.webmanifest" />
 
-    <link href="styles/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-          onerror="this.onerror=null;this.href='styles/leaflet.css';">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+  <link rel="preconnect" href="https://ipinfo.io" crossorigin>
+  <link rel="preconnect" href="https://speed.cloudflare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
 
-    <script defer src="js/registration_service_worker.js"></script>
+  <link href="styles/style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    onerror="this.onerror=null;this.href='styles/leaflet.css';">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
 
-    <script defer src="translations/en.js"></script>
-    <script defer src="translations/uk.js"></script>
+  <script defer src="js/registration_service_worker.js"></script>
 
-    <script defer src="js/config.js"></script>
-    <script defer src="js/lang.js"></script>
-    <script defer src="js/wake_lock.js"></script>
-    <script defer src="js/storage.js"></script>
-    <script defer src="js/detect_ISP.js"></script>
-    <script defer src="js/format_seconds.js"></script>
-    <script defer src="js/format_downloaded.js"></script>
-    <script defer src="js/audio_notification.js"></script>
-    <script defer src="js/log_test_summary.js"></script>
-    <script defer src="js/chart.js"></script>
-    <script defer src="js/update_stats.js"></script>
-    <script defer src="js/map.js"></script>
-    <script defer src="js/find_admin_unit.js"></script>
-    <script defer src="js/update_GPS_info.js"></script>
-    <script defer src="js/GPS.js"></script>
-    <script defer src="js/data_point.js"></script>
-    <script defer src="js/update_data_display.js"></script>
-    <script defer src="js/update_database_info.js"></script>
-    <script defer src="js/update_speed_distribution.js"></script>
-    <script defer src="js/update_road_stats.js"></script>
-    <script defer src="js/update_admin_stats.js"></script>
-    <script defer src="js/replace_spaces_with_underscore.js"></script>
-    <script defer src="js/download_CSV.js"></script>
-    <script defer src="js/download_KML.js"></script>
-    <script defer src="js/download_HTML.js"></script>
-    <script defer src="js/download_chart.js"></script>
-    <script defer src="js/clear_data.js"></script>
-    <script defer src="js/update_UI.js"></script>
-    <script defer src="js/speed_test.js"></script>
-    <script defer src="js/toggle_theme.js"></script>
-    <script defer src="js/toggle_fullscreen.js"></script>
-    <script defer src="js/refresh_page.js"></script>
-    <script defer src="js/settings.js"></script>
-    <script defer src="js/add_event_listener.js"></script>
+  <script defer src="translations/en.js"></script>
+  <script defer src="translations/uk.js"></script>
 
-    <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" onerror="this.onerror=null;this.src='js/leaflet.stub.js'"></script>
-    <script defer src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/lang.js"></script>
+  <script defer src="js/wake_lock.js"></script>
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/detect_ISP.js"></script>
+  <script defer src="js/format_seconds.js"></script>
+  <script defer src="js/format_downloaded.js"></script>
+  <script defer src="js/audio_notification.js"></script>
+  <script defer src="js/log_test_summary.js"></script>
+  <script defer src="js/chart.js"></script>
+  <script defer src="js/update_stats.js"></script>
+  <script defer src="js/map.js"></script>
+  <script defer src="js/find_admin_unit.js"></script>
+  <script defer src="js/update_GPS_info.js"></script>
+  <script defer src="js/GPS.js"></script>
+  <script defer src="js/data_point.js"></script>
+  <script defer src="js/update_data_display.js"></script>
+  <script defer src="js/update_database_info.js"></script>
+  <script defer src="js/update_speed_distribution.js"></script>
+  <script defer src="js/update_road_stats.js"></script>
+  <script defer src="js/update_admin_stats.js"></script>
+  <script defer src="js/replace_spaces_with_underscore.js"></script>
+  <script defer src="js/download_CSV.js"></script>
+  <script defer src="js/download_KML.js"></script>
+  <script defer src="js/download_HTML.js"></script>
+  <script defer src="js/download_chart.js"></script>
+  <script defer src="js/clear_data.js"></script>
+  <script defer src="js/update_UI.js"></script>
+  <script defer src="js/speed_test.js"></script>
+  <script defer src="js/toggle_theme.js"></script>
+  <script defer src="js/toggle_fullscreen.js"></script>
+  <script defer src="js/refresh_page.js"></script>
+  <script defer src="js/settings.js"></script>
+  <script defer src="js/add_event_listener.js"></script>
 
-    <link rel="preload"
-          href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"
-          as="script">
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    onerror="this.onerror=null;this.src='js/leaflet.stub.js'"></script>
+  <script defer src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" as="script">
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  </head>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
 
 <body data-theme="dark">
-    
-    <div class="alert-indicator" id="alertIndicator" data-i18n="alertConnectionLost">Втрачено з'єднання!</div>
 
-    <div class="notification" id="notification"></div>
+  <div class="alert-indicator" id="alertIndicator" data-i18n="alertConnectionLost">Втрачено з'єднання!</div>
 
-    <div class="container">
+  <div class="notification" id="notification"></div>
 
-      <img src="icon/logo.png" alt="Логотип" class="logo" width="50" height="50" />
-      
-      <div class="theme-controls">
-        <button class="icon-btn" onclick="toggleTheme()" aria-label="Перемкнути тему" data-i18n-aria="toggleThemeAria">
-          <i data-lucide="moon"></i>
-        </button>
+  <div class="container">
 
-        <button class="icon-btn" onclick="toggleFullscreen()" aria-label="Повноекранний" data-i18n-aria="fullscreenAria">
-          <i data-lucide="maximize-2"></i>
-        </button>
+    <img src="icon/logo.png" alt="Логотип" class="logo" width="50" height="50" />
 
-        <button class="icon-btn" onclick="toggleSettings()" aria-label="Налаштування" data-i18n-aria="settingsAria">
-          <i data-lucide="settings"></i>
-        </button>
+    <div class="theme-controls">
+      <button class="icon-btn" onclick="toggleTheme()" aria-label="Перемкнути тему" data-i18n-aria="toggleThemeAria">
+        <i data-lucide="moon"></i>
+      </button>
 
-        <button class="icon-btn" onclick="refreshPage()" aria-label="Оновити" data-i18n-aria="refreshAria">
-          <i data-lucide="rotate-ccw"></i>
-        </button>
+      <button class="icon-btn" onclick="toggleFullscreen()" aria-label="Повноекранний" data-i18n-aria="fullscreenAria">
+        <i data-lucide="maximize-2"></i>
+      </button>
+
+      <button class="icon-btn" onclick="toggleSettings()" aria-label="Налаштування" data-i18n-aria="settingsAria">
+        <i data-lucide="settings"></i>
+      </button>
+
+      <button class="icon-btn" onclick="refreshPage()" aria-label="Оновити" data-i18n-aria="refreshAria">
+        <i data-lucide="rotate-ccw"></i>
+      </button>
+    </div>
+
+    <script>
+      lucide.createIcons({ strokeWidth: 1.5, class: 'h-6 w-6' });
+    </script>
+
+    <!-- Налаштування -->
+    <div class="settings-panel" id="settingsPanel">
+      <h3 class="mb-20" data-i18n="settingsTitle">Налаштування</h3>
+      <div class="setting-group">
+        <label class="setting-label" for="saveInterval" data-i18n="saveIntervalLabel">Інтервал збереження даних
+          (секунди):</label>
+        <input type="number" class="setting-input" id="saveInterval" value="1" min="1" max="60" />
       </div>
-
-      <script>
-        lucide.createIcons({ strokeWidth: 1.5, class: 'h-6 w-6' });
-      </script>
-
-      <!-- Налаштування -->
-        <div class="settings-panel" id="settingsPanel">
-          <h3 class="mb-20" data-i18n="settingsTitle">Налаштування</h3>
-        <div class="setting-group">
-            <label class="setting-label" for="saveInterval" data-i18n="saveIntervalLabel"
-              >Інтервал збереження даних (секунди):</label
-          >
-          <input
-            type="number"
-            class="setting-input"
-            id="saveInterval"
-            value="1"
-            min="1"
-            max="60"
-          />
-        </div>
-        <div class="setting-group">
-            <label class="setting-label" for="gpsDistance" data-i18n="gpsDistanceLabel"
-              >Мінімальна відстань для збереження GPS (метри):</label
-          >
-          <input
-            type="number"
-            class="setting-input"
-            id="gpsDistance"
-            value="10"
-            min="0"
-            max="100"
-          />
-        </div>
-        <div class="setting-group">
-            <label class="setting-label" for="speedThreshold" data-i18n="speedThresholdLabel"
-              >Поріг швидкості для сповіщення (Мбіт/с):</label
-          >
-          <input
-            type="number"
-            class="setting-input"
-            id="speedThreshold"
-            value="5"
-            min="0"
-            max="1000"
-          />
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="soundAlerts" checked />
-              <label class="setting-label" for="soundAlerts" data-i18n="soundAlertsLabel">Звукові сповіщення</label>
-          </div>
-        </div>
-          <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="voiceAlerts" />
-            <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові сповіщення</label>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showHromady" />
-            <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Відображати межі громад</label>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showInternationalRoads" />
-            <label class="setting-label" for="showInternationalRoads" data-i18n="showInternationalRoadsLabel">Відображати міжнародні дороги</label>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showNationalRoads" />
-            <label class="setting-label" for="showNationalRoads" data-i18n="showNationalRoadsLabel">Відображати національні дороги</label>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showRegionalRoads" />
-            <label class="setting-label" for="showRegionalRoads" data-i18n="showRegionalRoadsLabel">Відображати регіональні дороги</label>
-          </div>
-        </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showTerritorialRoads" />
-            <label class="setting-label" for="showTerritorialRoads" data-i18n="showTerritorialRoadsLabel">Відображати територіальні дороги</label>
-          </div>
-        </div>
-        <div class="setting-group">
-            <label class="setting-label" for="languageSelect" data-i18n="languageLabel">Мова</label>
-            <select id="languageSelect" class="setting-input" onchange="setLanguage(this.value)">
-              <option value="uk">Українська</option>
-              <option value="en">English</option>
-            </select>
-          </div>
-          <button class="btn btn-success" onclick="saveSettings()" data-i18n="saveSettingsButton">
-            Зберегти налаштування
-          </button>
+      <div class="setting-group">
+        <label class="setting-label" for="gpsDistance" data-i18n="gpsDistanceLabel">Мінімальна відстань для збереження
+          GPS (метри):</label>
+        <input type="number" class="setting-input" id="gpsDistance" value="10" min="0" max="100" />
       </div>
+      <div class="setting-group">
+        <label class="setting-label" for="speedThreshold" data-i18n="speedThresholdLabel">Поріг швидкості для сповіщення
+          (Мбіт/с):</label>
+        <input type="number" class="setting-input" id="speedThreshold" value="5" min="0" max="1000" />
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="soundAlerts" checked />
+          <label class="setting-label" for="soundAlerts" data-i18n="soundAlertsLabel">Звукові сповіщення</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="voiceAlerts" />
+          <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові сповіщення</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showHromady" />
+          <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Відображати межі громад</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showInternationalRoads" />
+          <label class="setting-label" for="showInternationalRoads" data-i18n="showInternationalRoadsLabel">Відображати
+            міжнародні дороги</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showNationalRoads" />
+          <label class="setting-label" for="showNationalRoads" data-i18n="showNationalRoadsLabel">Відображати
+            національні дороги</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showRegionalRoads" />
+          <label class="setting-label" for="showRegionalRoads" data-i18n="showRegionalRoadsLabel">Відображати
+            регіональні дороги</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showTerritorialRoads" />
+          <label class="setting-label" for="showTerritorialRoads" data-i18n="showTerritorialRoadsLabel">Відображати
+            територіальні дороги</label>
+        </div>
+      </div>
+      <div class="setting-group">
+        <label class="setting-label" for="languageSelect" data-i18n="languageLabel">Мова</label>
+        <select id="languageSelect" class="setting-input" onchange="setLanguage(this.value)">
+          <option value="uk">Українська</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+      <button class="btn btn-success" onclick="saveSettings()" data-i18n="saveSettingsButton">
+        Зберегти налаштування
+      </button>
+    </div>
 
-      <div class="status" id="operator"></div>
-      
-      <div class="main-grid">
+    <div class="status" id="operator"></div>
 
-        <div class="speed-section">
-          <div class="stat-label" data-i18n="currentSpeedLabel">Поточна швидкість завантаження Мбіт/с</div>
+    <div class="main-grid">
+
+      <div class="speed-section">
+        <div class="stat-label" data-i18n="currentSpeedLabel">Поточна швидкість завантаження Мбіт/с</div>
         <div class="speed-display">
           <span id="speedValue">0.00</span>
         </div>
@@ -232,14 +206,14 @@
                 <span id="minSpeed">0.00</span>
               </div>
             </div>
-        
+
             <div class="speed-stat-item">
               <span class="speed-stat-label" data-i18n="avgLabel">Середня</span>
               <div class="avg-speed">
                 <span id="avgSpeed">0.00</span>
               </div>
             </div>
-        
+
             <div class="speed-stat-item">
               <span class="speed-stat-label" data-i18n="maxLabel">Максимальна</span>
               <div class="max-speed">
@@ -249,7 +223,7 @@
           </div>
         </div>
 
-          <div class="status" id="status" data-i18n="statusReady">Натисніть "Почати тест"</div>
+        <div class="status" id="status" data-i18n="statusReady">Натисніть "Почати тест"</div>
 
         <div class="controls">
           <button class="btn" id="startBtn" onclick="toggleTest()" data-i18n="startTest">
@@ -259,15 +233,15 @@
 
         <div class="stats">
           <div class="stat-item">
-              <div class="stat-label" data-i18n="downloadedDataLabel">Завантажено даних</div>
+            <div class="stat-label" data-i18n="downloadedDataLabel">Завантажено даних</div>
             <div class="stat-value" id="downloadedValue">0.00</div>
           </div>
           <div class="stat-item">
-              <div class="stat-label" data-i18n="testDurationLabel">Час роботи тесту</div>
+            <div class="stat-label" data-i18n="testDurationLabel">Час роботи тесту</div>
             <div class="stat-value" id="timeValue">0</div>
           </div>
           <div class="stat-item">
-              <div class="stat-label" data-i18n="recordsSavedLabel">Збережено записів</div>
+            <div class="stat-label" data-i18n="recordsSavedLabel">Збережено записів</div>
             <div class="stat-value" id="recordsCount">0</div>
           </div>
         </div>
@@ -279,122 +253,93 @@
         </div>
       </div>
 
-        <!-- Розширена GPS інформація -->
-        <div class="info" id="gpsInfo">
-          <div class="fw-bold mb-10" data-i18n="gpsInfoTitle">
-            Детальний GPS статус
-          </div>
-          <div class="info-row">
+      <!-- Розширена GPS інформація -->
+      <div class="info" id="gpsInfo">
+        <div class="fw-bold mb-10" data-i18n="gpsInfoTitle">
+          Детальний GPS статус
+        </div>
+        <div class="info-row">
           <span data-i18n="gpsStatusLabel">Статус:</span>
           <span id="gpsStatus">Не активний</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="gpsAccuracyLabel">Точність:</span>
           <span id="gpsAccuracy">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="currentCoordsLabel">Поточні координати:</span>
           <span id="currentCoords">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="altitudeLabel">Висота:</span>
           <span id="altitudeInfo">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="gpsSpeedLabel">Швидкість:</span>
           <span id="gpsSpeedInfo">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="headingLabel">Напрямок руху:</span>
           <span id="headingInfo">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="distanceFromPrevLabel">Відстань від попередньої точки:</span>
           <span id="distanceInfo">N/A</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="totalDistanceLabel">Загальна відстань:</span>
           <span id="totalDistanceInfo">0.00</span>
-          </div>
-          <div class="info-row">
+        </div>
+        <div class="info-row">
           <span data-i18n="lastSaveLabel">Час останнього збереження даних:</span>
           <span id="lastSaveInfo" data-i18n="noData">Немає даних</span>
-          </div>
-        </div>
-
-        <div class="info" id="info">
-          <div class="fw-bold mb-10" data-i18n="providerInfoTitle">
-            Детальна інформація про провайдера
-          </div>
-          <div class="info-row"><span data-i18n="ipLabel">IP:</span><span id="ip">-</span></div>
-          <div class="info-row"><span data-i18n="hostnameLabel">Хост:</span><span id="hostname">-</span></div>
-          <div class="info-row"><span data-i18n="cityLabel">Місто:</span><span id="city">-</span></div>
-          <div class="info-row"><span data-i18n="regionLabel">Регіон:</span><span id="region">-</span></div>
-          <div class="info-row"><span data-i18n="countryLabel">Країна:</span><span id="country">-</span></div>
-          <div class="info-row"><span data-i18n="locLabel">Координати:</span><span id="loc">-</span></div>
-          <div class="info-row"><span data-i18n="orgLabel">Провайдер:</span><span id="org">-</span></div>
-          <div class="info-row"><span data-i18n="postalLabel">Поштовий індекс:</span><span id="postal">-</span></div>
-          <div class="info-row"><span data-i18n="timezoneLabel">Часовий пояс:</span><span id="timezone">-</span></div>
-        </div>
-
-        <div class="info" id="adminInfo">
-          <div class="fw-bold mb-10" data-i18n="adminInfoTitle">Поточні адміністративні одиниці</div>
-          <div class="info-row"><span data-i18n="oblastLabel">Область:</span><span id="oblast">-</span></div>
-          <div class="info-row"><span data-i18n="raionLabel">Район:</span><span id="raion">-</span></div>
-          <div class="info-row"><span data-i18n="hromadaLabel">Громада:</span><span id="hromada">-</span></div>
-        </div>
-        <div class="info" id="adminStats">
-          <div class="fw-bold mb-10" data-i18n="adminStatsTitle">Статистика адміністративних одиниць</div>
-          <div id="adminStatsContent">
-            <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
-          </div>
-        </div>
-
-
-        <div class="info" id="roadInfo">
-          <div class="fw-bold mb-10" data-i18n="roadInfoTitle">Поточна автомобільна дорога</div>
-          <div class="info-row"><span data-i18n="roadRefLabel">Номер дороги:</span><span id="roadRef">-</span></div>
-          <div class="info-row"><span data-i18n="roadNameLabel">Назва дороги:</span><span id="roadName">-</span></div>
-          <div class="info-row"><span data-i18n="roadDistanceLabel">Довжина (км):</span><span id="roadDistance">-</span></div>
-          <div class="info-row"><span data-i18n="roadNetworkLabel">Тип:</span><span id="roadNetwork">-</span></div>
-        </div>
-
-        <div class="info" id="roadStats">
-          <div class="fw-bold mb-10" data-i18n="roadStatsTitle">Статистика автомобільних доріг</div>
-          <div id="roadStatsContent">
-            <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
-          </div>
-        </div>
-
-      <div class="map-section">
-        <h3 data-i18n="mapTitle">Карта вимірювань</h3>
-        <div id="map"></div>
-      </div>
-
-      <div class="data-section">
-        <div class="data-header">
-          <h3 data-i18n="latestMeasurementsTitle">База даних</h3>
-        </div>
-        <div class="data-table">
-          <div class="data-row data-header-row">
-            <div data-i18n="timeColumn">Час</div>
-            <div data-i18n="speedColumn">Швидкість завантаження Мбіт/с</div>
-            <div data-i18n="latColumn">Широта</div>
-            <div data-i18n="lonColumn">Довгота</div>
-            <div data-i18n="altColumn">Висота</div>
-            <div data-i18n="moveSpeedColumn">Швидкість руху км/год</div>
-            <div data-i18n="oblastColumn">Область</div>
-            <div data-i18n="raionColumn">Район</div>
-            <div data-i18n="hromadaColumn">Громада</div>
-            <div data-i18n="roadColumn">Дорога</div>
-          </div>
-      <div id="dataDisplay">
-        <div class="text-center p-20 opacity-60" data-i18n="noData">
-          Немає даних
         </div>
       </div>
-    </div>
-  </div>
+
+      <div class="info" id="info">
+        <div class="fw-bold mb-10" data-i18n="providerInfoTitle">
+          Детальна інформація про провайдера
+        </div>
+        <div class="info-row"><span data-i18n="ipLabel">IP:</span><span id="ip">-</span></div>
+        <div class="info-row"><span data-i18n="hostnameLabel">Хост:</span><span id="hostname">-</span></div>
+        <div class="info-row"><span data-i18n="cityLabel">Місто:</span><span id="city">-</span></div>
+        <div class="info-row"><span data-i18n="regionLabel">Регіон:</span><span id="region">-</span></div>
+        <div class="info-row"><span data-i18n="countryLabel">Країна:</span><span id="country">-</span></div>
+        <div class="info-row"><span data-i18n="locLabel">Координати:</span><span id="loc">-</span></div>
+        <div class="info-row"><span data-i18n="orgLabel">Провайдер:</span><span id="org">-</span></div>
+        <div class="info-row"><span data-i18n="postalLabel">Поштовий індекс:</span><span id="postal">-</span></div>
+        <div class="info-row"><span data-i18n="timezoneLabel">Часовий пояс:</span><span id="timezone">-</span></div>
+      </div>
+
+      <div class="info" id="adminInfo">
+        <div class="fw-bold mb-10" data-i18n="adminInfoTitle">Поточні адміністративні одиниці</div>
+        <div class="info-row"><span data-i18n="oblastLabel">Область:</span><span id="oblast">-</span></div>
+        <div class="info-row"><span data-i18n="raionLabel">Район:</span><span id="raion">-</span></div>
+        <div class="info-row"><span data-i18n="hromadaLabel">Громада:</span><span id="hromada">-</span></div>
+      </div>
+      <div class="info" id="adminStats">
+        <div class="fw-bold mb-10" data-i18n="adminStatsTitle">Статистика адміністративних одиниць</div>
+        <div id="adminStatsContent">
+          <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
+        </div>
+      </div>
+
+
+      <div class="info" id="roadInfo">
+        <div class="fw-bold mb-10" data-i18n="roadInfoTitle">Поточна автомобільна дорога</div>
+        <div class="info-row"><span data-i18n="roadRefLabel">Номер дороги:</span><span id="roadRef">-</span></div>
+        <div class="info-row"><span data-i18n="roadNameLabel">Назва дороги:</span><span id="roadName">-</span></div>
+        <div class="info-row"><span data-i18n="roadDistanceLabel">Довжина (км):</span><span id="roadDistance">-</span>
+        </div>
+        <div class="info-row"><span data-i18n="roadNetworkLabel">Тип:</span><span id="roadNetwork">-</span></div>
+      </div>
+
+      <div class="info" id="roadStats">
+        <div class="fw-bold mb-10" data-i18n="roadStatsTitle">Статистика автомобільних доріг</div>
+        <div id="roadStatsContent">
+          <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
+        </div>
+      </div>
 
       <div class="info" id="speedStats">
         <div class="fw-bold mb-10" data-i18n="speedStatsTitle">Статистика швидкості завантаження</div>
@@ -412,6 +357,36 @@
         </div>
       </div>
 
+      <div class="map-section">
+        <h3 data-i18n="mapTitle">Карта вимірювань</h3>
+        <div id="map"></div>
+      </div>
+
+      <div class="info">
+        <div class="data-header">
+          <h3 data-i18n="latestMeasurementsTitle">База даних</h3>
+        </div>
+        <div class="data-table">
+          <div class="data-row data-header-row">
+            <div data-i18n="timeColumn">Час</div>
+            <div data-i18n="speedColumn">Швидкість завантаження Мбіт/с</div>
+            <div data-i18n="latColumn">Широта</div>
+            <div data-i18n="lonColumn">Довгота</div>
+            <div data-i18n="altColumn">Висота</div>
+            <div data-i18n="moveSpeedColumn">Швидкість руху км/год</div>
+            <div data-i18n="oblastColumn">Область</div>
+            <div data-i18n="raionColumn">Район</div>
+            <div data-i18n="hromadaColumn">Громада</div>
+            <div data-i18n="roadColumn">Дорога</div>
+          </div>
+          <div id="dataDisplay">
+            <div class="text-center p-20 opacity-60" data-i18n="noData">
+              Немає даних
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="info" id="databaseInfo">
         <div class="fw-bold mb-10" data-i18n="dbTitle">Статистика бази даних</div>
         <div class="info-row">
@@ -422,27 +397,28 @@
           <span data-i18n="dbSizeLabel">Розмір:</span>
           <span id="dbSize">0 MB</span>
         </div>
-      </div>
+      </div>          
 
-      </div> <!-- end main-grid -->
+    </div> <!-- end main-grid -->
 
-      <div class="controls">
-        <button id="downloadBtn" class="btn btn-secondary" onclick="downloadCSV()" data-i18n="downloadCSV">
-          Завантажити CSV
-        </button>
-        <button id="kmlBtn" class="btn btn-secondary" onclick="downloadKML()" data-i18n="downloadKML">
-          Завантажити KML
-        </button>
-        <button id="htmlBtn" class="btn btn-secondary" onclick="downloadHTML()" data-i18n="downloadHTML">
-          Завантажити HTML
-        </button>
-        <button class="btn btn-secondary btn-small" onclick="downloadChart()" data-i18n="downloadChart">
-          Завантажити графік швидкості
-        </button>
-        <button class="btn btn-success" onclick="clearData()" data-i18n="clearData">
-          Очистити дані
-        </button>
-      </div>
+    <div class="controls">
+      <button id="downloadBtn" class="btn btn-secondary" onclick="downloadCSV()" data-i18n="downloadCSV">
+        Завантажити CSV
+      </button>
+      <button id="kmlBtn" class="btn btn-secondary" onclick="downloadKML()" data-i18n="downloadKML">
+        Завантажити KML
+      </button>
+      <button id="htmlBtn" class="btn btn-secondary" onclick="downloadHTML()" data-i18n="downloadHTML">
+        Завантажити HTML
+      </button>
+      <button class="btn btn-secondary btn-small" onclick="downloadChart()" data-i18n="downloadChart">
+        Завантажити графік швидкості
+      </button>
+      <button class="btn btn-success" onclick="clearData()" data-i18n="clearData">
+        Очистити дані
+      </button>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
