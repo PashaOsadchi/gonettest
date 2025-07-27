@@ -57,7 +57,7 @@ function updateAdminStats() {
         rows.push(
             `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${regName}</span><span>${reg.total}</span></div>`
         );
-        let sub = speedRows(reg, 15);
+        let sub = speedRows(reg, 30);
         const raions = Object.keys(reg.raions).sort();
         for (const rayName of raions) {
             const ray = reg.raions[rayName];
