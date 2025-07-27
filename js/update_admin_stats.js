@@ -57,21 +57,21 @@ function updateAdminStats() {
         rows.push(
             `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${regName}</span><span>${reg.total}</span></div>`
         );
-        let sub = speedRows(reg, 0);
+        let sub = speedRows(reg, 15);
         const raions = Object.keys(reg.raions).sort();
         for (const rayName of raions) {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle" data-target="${rayId}" style="padding-left:15px"><span><i data-lucide="plus"></i> ${rayName}</span><span>${ray.total}</span></div>` +
-                `<div id="${rayId}" class="admin-content hidden" style="padding-left:15px">` +
-                speedRows(ray, 15);
+                `<div class="info-row admin-toggle" data-target="${rayId}" style="padding-left:30px"><span><i data-lucide="plus"></i> ${rayName}</span><span>${ray.total}</span></div>` +
+                `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
+                speedRows(ray, 30);
             const hroms = Object.keys(ray.hromady).sort();
             for (const hName of hroms) {
                 const h = ray.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="padding-left:30px"><span>${hName}</span><span>${h.total}</span></div>` +
-                    speedRows(h, 30);
+                    `<div class="info-row" style="padding-left:60px"><span>${hName}</span><span>${h.total}</span></div>` +
+                    speedRows(h, 60);
             }
             sub += `</div>`;
         }
