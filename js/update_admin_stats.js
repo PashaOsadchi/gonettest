@@ -47,9 +47,9 @@ function updateAdminStats() {
     const rows = [];
     const pct = (v, tot) => (tot ? Math.round((v / tot) * 100) : 0);
     const speedRows = (obj, indent) =>
-        `<div class="info-row" style="padding-left:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
-        `<div class="info-row" style="padding-left:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
-        `<div class="info-row" style="padding-left:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`;
+        `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
+        `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
+        `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`;
 
     for (const regName of regions) {
         const reg = stats[regName];
@@ -63,14 +63,14 @@ function updateAdminStats() {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle" data-target="${rayId}" style="padding-left:30px"><span><i data-lucide="plus"></i> ${rayName}</span><span>${ray.total}</span></div>` +
+                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${rayName}</span><span>${ray.total}</span></div>` +
                 `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
                 speedRows(ray, 30);
             const hroms = Object.keys(ray.hromady).sort();
             for (const hName of hroms) {
                 const h = ray.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="padding-left:60px"><span>${hName}</span><span>${h.total}</span></div>` +
+                    `<div class="info-row" style="--indent:60px"><span>${hName}</span><span>${h.total}</span></div>` +
                     speedRows(h, 60);
             }
             sub += `</div>`;
