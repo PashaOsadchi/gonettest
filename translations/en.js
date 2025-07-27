@@ -52,6 +52,7 @@ window.i18n.en = {
   dbRecordsLabel: "Records",
   dbSizeLabel: "Size",
   speedStatsTitle: "Download speed statistics",
+  roadStatsTitle: "Road statistics",
   zeroSpeedLabel: "0 Mbps:",
   upTo2SpeedLabel: "Up to 2 Mbps:",
   above2SpeedLabel: "Above 2 Mbps:",

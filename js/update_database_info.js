@@ -63,6 +63,10 @@ function updateDatabaseInfo() {
     if (typeof updateSpeedDistribution === 'function') {
         updateSpeedDistribution();
     }
+
+    if (typeof updateRoadStats === 'function') {
+        updateRoadStats();
+    }
 }
 
 function estimateLocalStorageSize() {
