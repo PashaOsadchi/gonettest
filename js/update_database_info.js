@@ -23,14 +23,15 @@ function initStorageQuota() {
     }
 }
 
-function updateRecordsCount() {
+function updateDatabaseInfo() {
     document.getElementById("recordsCount").textContent = speedData.length;
-    const label = t('recordsCount', 'Записів:');
-    const infoEl = document.getElementById("recordsInfo");
+    const recordsEl = document.getElementById("dbRecordsCount");
+    const sizeEl = document.getElementById("dbSize");
 
     const setInfo = sizeBytes => {
         const sizeStr = formatDownloaded(sizeBytes);
-        infoEl.textContent = `${label} ${speedData.length} (${sizeStr})`;
+        if (recordsEl) recordsEl.textContent = speedData.length;
+        if (sizeEl) sizeEl.textContent = sizeStr;
     };
 
     if (navigator.storage && navigator.storage.estimate) {
@@ -45,14 +46,14 @@ function updateRecordsCount() {
             })
             .catch(err => {
                 console.warn("storage estimate failed", err);
-                const size = estimateLocalStoragePercent();
+                const size = estimateLocalStorageSize();
                 setInfo(size);
                 const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
                 const percent = quota ? Math.round((size / quota) * 100) : 0;
                 notifyStorageThreshold(percent);
             });
     } else {
-        const size = estimateLocalStoragePercent();
+        const size = estimateLocalStorageSize();
         setInfo(size);
         const quota = window.cachedQuota || 5 * 1024 * 1024; // 5MB fallback
         const percent = quota ? Math.round((size / quota) * 100) : 0;
@@ -60,7 +61,7 @@ function updateRecordsCount() {
     }
 }
 
-function estimateLocalStoragePercent() {
+function estimateLocalStorageSize() {
     if (window.cachedDataLength !== speedData.length) {
         window.cachedDataSize = new Blob([JSON.stringify(speedData)]).size;
         window.cachedDataLength = speedData.length;

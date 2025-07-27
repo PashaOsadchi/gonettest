@@ -56,7 +56,7 @@
     <script defer src="js/GPS.js"></script>
     <script defer src="js/data_point.js"></script>
     <script defer src="js/update_data_display.js"></script>
-    <script defer src="js/update_records_count.js"></script>
+    <script defer src="js/update_database_info.js"></script>
     <script defer src="js/replace_spaces_with_underscore.js"></script>
     <script defer src="js/download_CSV.js"></script>
     <script defer src="js/download_KML.js"></script>
@@ -357,7 +357,6 @@
       <div class="data-section">
         <div class="data-header">
           <h3 data-i18n="latestMeasurementsTitle">Останні вимірювання</h3>
-          <div class="records-count" id="recordsInfo" data-i18n="recordsCount">Записів: 0</div>
         </div>
         <div class="data-table">
           <div class="data-row data-header-row">
@@ -372,11 +371,23 @@
             <div data-i18n="hromadaColumn">Громада</div>
             <div data-i18n="roadColumn">Дорога</div>
           </div>
-          <div id="dataDisplay">
-            <div class="text-center p-20 opacity-60" data-i18n="noData">
-              Немає даних
-            </div>
-          </div>
+      <div id="dataDisplay">
+        <div class="text-center p-20 opacity-60" data-i18n="noData">
+          Немає даних
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <div class="info" id="databaseInfo">
+        <div class="fw-bold mb-10" data-i18n="dbTitle">База даних</div>
+        <div class="info-row">
+          <span data-i18n="dbRecordsLabel">Записів:</span>
+          <span id="dbRecordsCount">0</span>
+        </div>
+        <div class="info-row">
+          <span data-i18n="dbSizeLabel">Розмір:</span>
+          <span id="dbSize">0 MB</span>
         </div>
       </div>
 

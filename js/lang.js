@@ -41,7 +41,7 @@ function setLanguage(lang) {
         speedChart.update();
     }
     updateGPSInfo();
-    updateRecordsCount();
+    updateDatabaseInfo();
 }
 
 function initLanguage() {

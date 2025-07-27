@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     requestWakeLock();
     setupMapObserver();
     updateDataDisplay();
-    updateRecordsCount();
+    updateDatabaseInfo();
 
     // Обробка виходу з повноекранного режиму
     document.addEventListener("fullscreenchange", () => {

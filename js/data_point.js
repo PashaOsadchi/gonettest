@@ -101,7 +101,7 @@ async function saveDataPoint() {
     lastSaveEl.classList.add('status-accent');
 
     updateDataDisplay();
-    updateRecordsCount();
+    updateDatabaseInfo();
     updateGPSInfo();
 
     addLog(
