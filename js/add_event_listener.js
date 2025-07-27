@@ -14,6 +14,10 @@ window.addEventListener("DOMContentLoaded", async () => {
     updateDataDisplay();
     updateDatabaseInfo();
 
+    if (window.lucide) {
+        lucide.createIcons({ strokeWidth: 1.5, class: 'h-6 w-6' });
+    }
+
     // Обробка виходу з повноекранного режиму
     document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement && isFullscreen) {

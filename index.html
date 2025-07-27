@@ -46,6 +46,7 @@
   <script defer src="js/chart.js"></script>
   <script defer src="js/update_stats.js"></script>
   <script defer src="js/map.js"></script>
+  <script defer src="js/map_zoom.js"></script>
   <script defer src="js/find_admin_unit.js"></script>
   <script defer src="js/update_GPS_info.js"></script>
   <script defer src="js/GPS.js"></script>
@@ -249,6 +250,9 @@
 
       <div class="map-section">
         <div id="map"></div>
+        <button id="zoom18Btn" class="icon-btn map-zoom-btn" onclick="zoomTo18()" aria-label="Масштаб 18" data-i18n-aria="zoom18Aria">
+          <i data-lucide="zoom-in"></i>
+        </button>
       </div>
 
       <!-- Розширена GPS інформація -->

@@ -6,6 +6,7 @@ window.i18n.uk = {
   fullscreenAria: "Повноекранний",
   settingsAria: "Налаштування",
   refreshAria: "Оновити",
+  zoom18Aria: "Масштаб 18",
   settingsTitle: "Налаштування",
   saveIntervalLabel: "Інтервал збереження даних (секунди):",
   gpsDistanceLabel: "Мінімальна відстань для збереження GPS (метри):",
