@@ -22,7 +22,7 @@ function clearData() {
             mapMarkers = [];
         }
         updateDataDisplay();
-        updateRecordsCount();
+        updateDatabaseInfo();
         updateGPSInfo();
 
         const lastSaveEl = document.getElementById("lastSaveInfo");

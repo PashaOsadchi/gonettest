@@ -33,7 +33,7 @@ async function saveSpeedDataToStorage() {
 
     return new Promise((resolve, reject) => {
         tx.oncomplete = () => {
-            updateRecordsCount();
+            updateDatabaseInfo();
             resolve();
         };
         tx.onerror = () => reject(tx.error);
