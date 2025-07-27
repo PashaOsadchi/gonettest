@@ -58,6 +58,7 @@
     <script defer src="js/update_data_display.js"></script>
     <script defer src="js/update_database_info.js"></script>
     <script defer src="js/update_speed_distribution.js"></script>
+    <script defer src="js/update_road_stats.js"></script>
     <script defer src="js/replace_spaces_with_underscore.js"></script>
     <script defer src="js/download_CSV.js"></script>
     <script defer src="js/download_KML.js"></script>
@@ -348,6 +349,13 @@
           <div class="info-row"><span data-i18n="roadNameLabel">Назва дороги:</span><span id="roadName">-</span></div>
           <div class="info-row"><span data-i18n="roadDistanceLabel">Довжина (км):</span><span id="roadDistance">-</span></div>
           <div class="info-row"><span data-i18n="roadNetworkLabel">Тип:</span><span id="roadNetwork">-</span></div>
+        </div>
+
+        <div class="info" id="roadStats">
+          <div class="fw-bold mb-10" data-i18n="roadStatsTitle">Статистика автомобільних доріг</div>
+          <div id="roadStatsContent">
+            <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
+          </div>
         </div>
 
       <div class="map-section">
