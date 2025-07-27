@@ -762,3 +762,6 @@ h1 {
   border-color: green;
   color: black;
 }
+.hidden { display: none; }
+.admin-toggle { cursor: pointer; user-select: none; }
+.admin-content { padding-left: 0; }

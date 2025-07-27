@@ -59,6 +59,7 @@
     <script defer src="js/update_database_info.js"></script>
     <script defer src="js/update_speed_distribution.js"></script>
     <script defer src="js/update_road_stats.js"></script>
+    <script defer src="js/update_admin_stats.js"></script>
     <script defer src="js/replace_spaces_with_underscore.js"></script>
     <script defer src="js/download_CSV.js"></script>
     <script defer src="js/download_KML.js"></script>
@@ -342,6 +343,13 @@
           <div class="info-row"><span data-i18n="raionLabel">Район:</span><span id="raion">-</span></div>
           <div class="info-row"><span data-i18n="hromadaLabel">Громада:</span><span id="hromada">-</span></div>
         </div>
+        <div class="info" id="adminStats">
+          <div class="fw-bold mb-10" data-i18n="adminStatsTitle">Статистика адміністративних одиниць</div>
+          <div id="adminStatsContent">
+            <div class="info-row"><span data-i18n="noData">Немає даних</span><span></span></div>
+          </div>
+        </div>
+
 
         <div class="info" id="roadInfo">
           <div class="fw-bold mb-10" data-i18n="roadInfoTitle">Поточна автомобільна дорога</div>
