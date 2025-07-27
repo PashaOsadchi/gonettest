@@ -301,6 +301,9 @@ h1 {
 .info-row span:first-child {
   font-weight: 600;
   opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .info-row span:last-child {
