@@ -6,6 +6,7 @@ window.i18n.en = {
   fullscreenAria: "Fullscreen",
   settingsAria: "Settings",
   refreshAria: "Refresh",
+  zoom18Aria: "Zoom to level 18",
   settingsTitle: "Settings",
   saveIntervalLabel: "Data save interval (seconds):",
   gpsDistanceLabel: "Minimum GPS distance to save (meters):",
