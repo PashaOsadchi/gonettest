@@ -59,6 +59,10 @@ function updateDatabaseInfo() {
         const percent = quota ? Math.round((size / quota) * 100) : 0;
         notifyStorageThreshold(percent);
     }
+
+    if (typeof updateSpeedDistribution === 'function') {
+        updateSpeedDistribution();
+    }
 }
 
 function estimateLocalStorageSize() {
