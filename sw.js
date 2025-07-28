@@ -31,7 +31,6 @@ const urlsToCache = [
   'js/toggle_theme.js',
   'js/update_data_display.js',
   'js/update_GPS_info.js',
-  'js/update_records_count.js',
   'js/update_stats.js',
   'js/update_UI.js', 
   'js/wake_lock.js', 
