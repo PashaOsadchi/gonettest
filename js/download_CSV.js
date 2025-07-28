@@ -13,7 +13,7 @@ function downloadCSV() {
     let dateStr = '';
     let timeStr = '';
 
-    // ✨  Додали три нові заголовки після "Час"
+    // ✨  Додали три нові заголовки після "Час" та колонку "Відстань" після "GPS Швидкість"
     const headers =
         "Часова мітка (мс);" +
         "Дата;" +
@@ -30,6 +30,7 @@ function downloadCSV() {
         "Довгота;" +
         "Висота (м);" +
         "GPS Швидкість (км/год);" +
+        "Відстань (м);" +
         "Точність (м);" +
         "Напрямок (°)\n";
 
@@ -71,6 +72,7 @@ function downloadCSV() {
                     `${record.longitude || ""};` +
                     `${record.altitude ? record.altitude.toFixed(0) : ""};` +
                     `${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ""};` +
+                    `${record.distance ? record.distance.toFixed(1) : ""};` +
                     `${record.accuracy ? record.accuracy.toFixed(1) : ""};` +
                     `${record.heading ? record.heading.toFixed(1) : ""};`
                 );
