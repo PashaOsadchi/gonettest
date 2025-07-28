@@ -65,6 +65,7 @@ window.i18n.uk = {
   lonColumn: "Довгота",
   altColumn: "Висота (м)",
   moveSpeedColumn: "Швидкість руху (км/год)",
+  distanceColumn: "Відстань (м)",
   oblastColumn: "Область",
   raionColumn: "Район",
   hromadaColumn: "Громада",
