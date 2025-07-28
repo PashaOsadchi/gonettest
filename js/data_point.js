@@ -57,6 +57,10 @@ async function saveDataPoint() {
     const elapsed = (Date.now() - startTime) / 1000;
 
     // Обчислюємо відстань для додавання до загальної
+    let pointDistance = getDistanceToLastPoint(
+        currentGPSData.latitude,
+        currentGPSData.longitude
+    );
     if (lastSavedGPSData.latitude && lastSavedGPSData.longitude) {
         const distance = calculateDistance(
             lastSavedGPSData.latitude,
@@ -77,6 +81,7 @@ async function saveDataPoint() {
         longitude: currentGPSData.longitude,
         altitude: currentGPSData.altitude,
         gpsSpeed: currentGPSData.speed ? currentGPSData.speed * 3.6 : null,
+        distance: pointDistance,
         accuracy: currentGPSData.accuracy,
         heading: currentGPSData.heading,
         region: adminInfo.region || null,

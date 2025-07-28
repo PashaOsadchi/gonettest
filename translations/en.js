@@ -65,6 +65,7 @@ window.i18n.en = {
   lonColumn: "Longitude",
   altColumn: "Altitude (m)",
   moveSpeedColumn: "Movement speed km/h",
+  distanceColumn: "Distance (m)",
   oblastColumn: "Oblast",
   raionColumn: "District",
   hromadaColumn: "Community",
