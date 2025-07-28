@@ -45,6 +45,21 @@ function downloadHTML() {
 
     let getMarkerPopupContentSrc = window.getMarkerPopupContent.toString();
 
+    const speedRow =
+        "point.gpsSpeed != null ? point.gpsSpeed.toFixed(1) : na],";
+    const distanceRow =
+        "        [ensureColon(t('distanceColumn', 'Відстань (м)')), " +
+        "point.distance != null ? point.distance.toFixed(1) : na],";
+    const idx = getMarkerPopupContentSrc.indexOf(speedRow);
+    if (idx !== -1) {
+        const insertPos = idx + speedRow.length;
+        getMarkerPopupContentSrc =
+            getMarkerPopupContentSrc.slice(0, insertPos) +
+            '\n' +
+            distanceRow +
+            getMarkerPopupContentSrc.slice(insertPos);
+    }
+
     const htmlContent = `
 <!DOCTYPE html>
 <html lang="uk">
