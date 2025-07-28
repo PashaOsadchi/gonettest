@@ -68,7 +68,7 @@ function updateRoadStats() {
         const lenUnit = currentLang === 'uk' ? 'км' : 'km';
         const lenStr = s.length ? `${s.length.toFixed(1)} ${lenUnit}` : '-';
         rows.push(
-            `<div class="info-row"><span>${road}</span><span>${s.total} (${lenStr})</span></div>` +
+            `<div class="info-row"><span>${road} - тестів (відстань)</span><span>${s.total} (${lenStr})</span></div>` +
             `<div class="info-row"><span>Тестів (% від загальної кількості)</span></div>` +
             `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
             `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
