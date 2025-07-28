@@ -33,9 +33,11 @@ function updateRoadStats() {
         const ap = Math.round((s.above2 / s.total) * 100);
         rows.push(
             `<div class="info-row"><span>${road}</span><span>${s.total}</span></div>` +
+            `<div class="info-row"><span>Тестів (% від загальної кількості)</span></div>` +
             `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
             `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
-            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>`
+            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>` +
+            `<div class="info-row"><span>Відстань (% від загальної протяжності дорги)</span></div>`
         );
     }
 
