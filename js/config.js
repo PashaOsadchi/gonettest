@@ -74,7 +74,7 @@ let settings = {
     saveInterval: DEFAULT_SAVE_INTERVAL,
     gpsDistance: 10,
     speedThreshold: 5,
-    soundAlerts: true,
+    soundAlerts: false,
     voiceAlerts: false,
     voiceHromadaChange: false,
     voiceRoadChange: false,
