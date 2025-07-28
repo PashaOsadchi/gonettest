@@ -13,6 +13,7 @@ window.i18n.en = {
   speedThresholdLabel: "Speed threshold for alert (Mbps):",
   soundAlertsLabel: "Sound alerts",
   voiceAlertsLabel: "Voice alerts",
+  voiceHromadaChangeLabel: "Announce community change",
   showHromadyLabel: "Show community boundaries",
   showInternationalRoadsLabel: "Show international roads",
   showNationalRoadsLabel: "Show national roads",
