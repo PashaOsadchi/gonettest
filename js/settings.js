@@ -58,6 +58,7 @@ function saveSettings() {
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
     settings.voiceHromadaChange = document.getElementById("voiceHromadaChange").checked;
+    settings.voiceRoadChange = document.getElementById("voiceRoadChange").checked;
     settings.showHromady = document.getElementById("showHromady").checked;
     settings.showInternationalRoads = document.getElementById("showInternationalRoads").checked;
     settings.showNationalRoads = document.getElementById("showNationalRoads").checked;
@@ -100,6 +101,7 @@ function loadSettings() {
     document.getElementById("soundAlerts").checked = settings.soundAlerts;
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
     document.getElementById("voiceHromadaChange").checked = settings.voiceHromadaChange;
+    document.getElementById("voiceRoadChange").checked = settings.voiceRoadChange;
     document.getElementById("showHromady").checked = settings.showHromady;
     document.getElementById("showInternationalRoads").checked = settings.showInternationalRoads;
     document.getElementById("showNationalRoads").checked = settings.showNationalRoads;
