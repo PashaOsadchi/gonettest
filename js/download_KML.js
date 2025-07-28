@@ -73,6 +73,7 @@ function downloadKML() {
             `Громада: ${record.hromada}<br>` +
             `Номер дороги: ${record.roadRef ?? ''}<br>` +
             `GPS Швидкість (км/год): ${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ''}<br>` +
+            `Відстань (м): ${record.distance ? record.distance.toFixed(1) : ''}<br>` +
             `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
             `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
 
