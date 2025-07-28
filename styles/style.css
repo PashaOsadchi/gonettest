@@ -439,6 +439,9 @@ h1 {
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .records-count {
@@ -632,6 +635,9 @@ h1 {
 
   .data-header-row {
     padding: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
   }
 
   .settings-panel {
