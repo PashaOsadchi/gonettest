@@ -119,6 +119,8 @@ function getMarkerPopupContent(point) {
             point.altitude != null ? point.altitude.toFixed(1) : na],
         [ensureColon(t('moveSpeedColumn', 'Швидкість руху (км/год)')),
             point.gpsSpeed != null ? point.gpsSpeed.toFixed(1) : na],
+        [ensureColon(t('distanceColumn', 'Відстань (м)')),
+            point.distance != null ? point.distance.toFixed(1) : na],
         [ensureColon(t('gpsAccuracyLabel', 'Точність (м)')),
             point.accuracy != null ? point.accuracy.toFixed(1) : na],
         [ensureColon(t('headingLabel', 'Напрямок руху')),
