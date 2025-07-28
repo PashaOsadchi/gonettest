@@ -13,7 +13,7 @@ function announceAdminChange(info) {
             lastAdminUnit.rayon !== info.rayon ||
             lastAdminUnit.region !== info.region
         ) {
-            speak(`Ви перетнули кордон ${info.hromada} ${info.rayon} ${info.region}`);
+            speak(`Вас вітає ${info.hromada} ${info.rayon} ${info.region}`);
         }
     }
 
