@@ -170,6 +170,7 @@ async function updateRoadInfo() {
     }
 
     const road = find_road(currentGPSData.longitude, currentGPSData.latitude);
+    announceRoadChange(road);
 
     if (road) {
         refEl.textContent = road.ref || '-';

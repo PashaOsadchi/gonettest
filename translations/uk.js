@@ -14,6 +14,7 @@ window.i18n.uk = {
   soundAlertsLabel: "Звукові сповіщення",
   voiceAlertsLabel: "Голосові сповіщення",
   voiceHromadaChangeLabel: "Озвучувати зміну громади",
+  voiceRoadChangeLabel: "Озвучувати зміну дороги",
   showHromadyLabel: "Відображати межі громад",
   showInternationalRoadsLabel: "Відображати міжнародні дороги",
   showNationalRoadsLabel: "Відображати національні дороги",

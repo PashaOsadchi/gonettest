@@ -77,6 +77,7 @@ let settings = {
     soundAlerts: true,
     voiceAlerts: false,
     voiceHromadaChange: false,
+    voiceRoadChange: false,
     showHromady: false,
     showInternationalRoads: false,
     showNationalRoads: false,

@@ -14,6 +14,7 @@ window.i18n.en = {
   soundAlertsLabel: "Sound alerts",
   voiceAlertsLabel: "Voice alerts",
   voiceHromadaChangeLabel: "Announce community change",
+  voiceRoadChangeLabel: "Announce road change",
   showHromadyLabel: "Show community boundaries",
   showInternationalRoadsLabel: "Show international roads",
   showNationalRoadsLabel: "Show national roads",
