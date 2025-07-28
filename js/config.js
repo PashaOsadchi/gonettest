@@ -76,6 +76,7 @@ let settings = {
     speedThreshold: 5,
     soundAlerts: true,
     voiceAlerts: false,
+    voiceHromadaChange: false,
     showHromady: false,
     showInternationalRoads: false,
     showNationalRoads: false,

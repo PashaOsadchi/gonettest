@@ -57,6 +57,7 @@ function saveSettings() {
     hasError = hasError || result.error;
     settings.soundAlerts = document.getElementById("soundAlerts").checked;
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
+    settings.voiceHromadaChange = document.getElementById("voiceHromadaChange").checked;
     settings.showHromady = document.getElementById("showHromady").checked;
     settings.showInternationalRoads = document.getElementById("showInternationalRoads").checked;
     settings.showNationalRoads = document.getElementById("showNationalRoads").checked;
@@ -98,6 +99,7 @@ function loadSettings() {
         settings.speedThreshold;
     document.getElementById("soundAlerts").checked = settings.soundAlerts;
     document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
+    document.getElementById("voiceHromadaChange").checked = settings.voiceHromadaChange;
     document.getElementById("showHromady").checked = settings.showHromady;
     document.getElementById("showInternationalRoads").checked = settings.showInternationalRoads;
     document.getElementById("showNationalRoads").checked = settings.showNationalRoads;

@@ -46,9 +46,10 @@
   <script defer src="js/chart.js"></script>
   <script defer src="js/update_stats.js"></script>
   <script defer src="js/map.js"></script>
-  <script defer src="js/map_zoom.js"></script>
-  <script defer src="js/find_admin_unit.js"></script>
-  <script defer src="js/update_GPS_info.js"></script>
+    <script defer src="js/map_zoom.js"></script>
+    <script defer src="js/find_admin_unit.js"></script>
+    <script defer src="js/hromada_change_announcer.js"></script>
+    <script defer src="js/update_GPS_info.js"></script>
   <script defer src="js/GPS.js"></script>
   <script defer src="js/data_point.js"></script>
   <script defer src="js/update_data_display.js"></script>
@@ -137,17 +138,23 @@
           <label class="setting-label" for="soundAlerts" data-i18n="soundAlertsLabel">Звукові сповіщення</label>
         </div>
       </div>
-      <div class="setting-group">
-        <div class="checkbox-group">
-          <input type="checkbox" id="voiceAlerts" />
-          <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові сповіщення</label>
+        <div class="setting-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="voiceAlerts" />
+            <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові сповіщення</label>
+          </div>
         </div>
-      </div>
-      <div class="setting-group">
-        <div class="checkbox-group">
-          <input type="checkbox" id="showHromady" />
-          <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Відображати межі громад</label>
+        <div class="setting-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="voiceHromadaChange" />
+            <label class="setting-label" for="voiceHromadaChange" data-i18n="voiceHromadaChangeLabel">Озвучувати зміну громади</label>
+          </div>
         </div>
+        <div class="setting-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="showHromady" />
+            <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Відображати межі громад</label>
+          </div>
       </div>
       <div class="setting-group">
         <div class="checkbox-group">

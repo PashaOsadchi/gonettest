@@ -131,6 +131,7 @@ async function updateAdminInfo() {
     }
 
     const info = find_admin_unit(currentGPSData.longitude, currentGPSData.latitude);
+    announceAdminChange(info);
 
     if (info) {
         oblastEl.textContent = info.region || '-';
