@@ -793,3 +793,5 @@ h1 {
 .hidden { display: none; }
 .admin-toggle { cursor: pointer; user-select: none; }
 .admin-content { padding-left: 0; }
+.road-toggle { cursor: pointer; user-select: none; }
+.road-content { padding-left: 0; }

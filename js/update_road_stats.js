@@ -54,8 +54,10 @@ function updateRoadStats() {
     }
 
     const rows = [];
+    let id = 0;
     for (const road of keys) {
         const s = stats[road];
+        const roadId = `road-${id++}`;
         const zp = Math.round((s.zero / s.total) * 100);
         const up = Math.round((s.upto2 / s.total) * 100);
         const ap = Math.round((s.above2 / s.total) * 100);
@@ -68,17 +70,34 @@ function updateRoadStats() {
         const lenUnit = currentLang === 'uk' ? 'км' : 'km';
         const lenStr = s.length ? `${s.length.toFixed(1)} ${lenUnit}` : '-';
         rows.push(
-            `<div class="info-row"><span>${road} - тестів (відстань)</span><span>${s.total} (${lenStr})</span></div>` +
+            `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${road}</span><span>${s.total} (${lenStr})</span></div>` +
+            `<div id="${roadId}" class="road-content hidden" style="padding-left:20px">` +
             `<div class="info-row"><span>Тестів (% від загальної кількості)</span></div>` +
-            `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
-            `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
-            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>` +
+            `<div class="info-row" style="--indent:20px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
+            `<div class="info-row" style="--indent:20px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
+            `<div class="info-row" style="--indent:20px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>` +
             `<div class="info-row"><span>Відстань (% від загальної протяжності дорги)</span></div>` +
-            `<div class="info-row"><span>${t('zeroSpeedLabel','0 Мбіт/с:')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
-            `<div class="info-row"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с:')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
-            `<div class="info-row"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с:')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>`
+            `<div class="info-row" style="--indent:20px"><span>${t('zeroSpeedLabel','0 Мбіт/с:')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
+            `<div class="info-row" style="--indent:20px"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с:')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
+            `<div class="info-row" style="--indent:20px"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с:')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>` +
+            `</div>`
         );
     }
 
     container.innerHTML = rows.join('');
+    if (window.lucide) lucide.createIcons({ strokeWidth: 1.2, class: 'h-4 w-4' });
+
+    container.querySelectorAll('.road-toggle').forEach(el => {
+        const target = el.dataset.target;
+        const icon = el.querySelector('i');
+        el.addEventListener('click', () => {
+            const cont = document.getElementById(target);
+            if (!cont) return;
+            cont.classList.toggle('hidden');
+            if (icon) {
+                icon.setAttribute('data-lucide', cont.classList.contains('hidden') ? 'plus' : 'minus');
+                if (window.lucide) lucide.createIcons({ strokeWidth: 1.2, class: 'h-4 w-4' });
+            }
+        });
+    });
 }
