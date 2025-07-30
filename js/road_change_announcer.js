@@ -11,8 +11,9 @@ function announceRoadChange(road) {
     const currentName = road.official_name || road['name:uk'] || road.name || null;
     const currentNetwork = road.network || null;
 
-    if (settings.voiceRoadChange && settings.voiceAlerts && lastRoad.ref) {
+    if (settings.voiceRoadChange && settings.voiceAlerts) {
         if (
+            !lastRoad.ref ||
             lastRoad.ref !== currentRef ||
             lastRoad.name !== currentName ||
             lastRoad.network !== currentNetwork
