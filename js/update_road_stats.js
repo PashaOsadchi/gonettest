@@ -24,15 +24,16 @@ function updateRoadStats() {
 
     const stats = {};
     for (const rec of speedData) {
-        if (!rec.roadRef) continue;
-        if (!stats[rec.roadRef]) {
-            stats[rec.roadRef] = {
+        const ref = rec.roadRef && String(rec.roadRef).trim();
+        if (!ref) continue;
+        if (!Object.prototype.hasOwnProperty.call(stats, ref)) {
+            stats[ref] = {
                 total: 0, zero: 0, upto2: 0, above2: 0,
                 distZero: 0, distUpto2: 0, distAbove2: 0,
-                length: getRoadLength(rec.roadRef)
+                length: getRoadLength(ref)
             };
         }
-        const s = stats[rec.roadRef];
+        const s = stats[ref];
         s.total++;
         const dist = rec.distance || 0;
         if (rec.speed === 0) {
