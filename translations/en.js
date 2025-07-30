@@ -14,6 +14,7 @@ window.i18n.en = {
   speedThresholdLabel: "Speed threshold for alert (Mbps):",
   soundAlertsLabel: "Sound alerts",
   voiceAlertsLabel: "Voice alerts",
+  voiceChangeTitle: "Announce",
   voiceHromadaChangeLabel: "Announce community change",
   voiceRoadChangeLabel: "Announce road change",
   showHromadyLabel: "Show community boundaries",

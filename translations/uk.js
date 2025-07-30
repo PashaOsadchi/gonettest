@@ -14,6 +14,7 @@ window.i18n.uk = {
   speedThresholdLabel: "Поріг швидкості для сповіщення (Мбіт/с):",
   soundAlertsLabel: "Звукові сповіщення",
   voiceAlertsLabel: "Голосові сповіщення",
+  voiceChangeTitle: "Озвучувати",
   voiceHromadaChangeLabel: "Озвучувати зміну громади",
   voiceRoadChangeLabel: "Озвучувати зміну дороги",
   showHromadyLabel: "Відображати межі громад",
