@@ -8,6 +8,7 @@ window.i18n.uk = {
   refreshAria: "Оновити",
   zoom18Aria: "Масштаб 18",
   settingsTitle: "Налаштування",
+  alertsTitle: "Сповіщення падіння швидкості завантаження",
   saveIntervalLabel: "Інтервал збереження даних (секунди):",
   gpsDistanceLabel: "Мінімальна відстань для збереження GPS (метри):",
   speedThresholdLabel: "Поріг швидкості для сповіщення (Мбіт/с):",
