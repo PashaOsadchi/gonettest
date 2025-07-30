@@ -8,6 +8,7 @@ window.i18n.en = {
   refreshAria: "Refresh",
   zoom18Aria: "Zoom to level 18",
   settingsTitle: "Settings",
+  alertsTitle: "Speed drop alerts",
   saveIntervalLabel: "Data save interval (seconds):",
   gpsDistanceLabel: "Minimum GPS distance to save (meters):",
   speedThresholdLabel: "Speed threshold for alert (Mbps):",
