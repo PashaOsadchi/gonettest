@@ -59,6 +59,10 @@ function saveSettings() {
     settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
     settings.voiceHromadaChange = document.getElementById("voiceHromadaChange").checked;
     settings.voiceRoadChange = document.getElementById("voiceRoadChange").checked;
+    if ((settings.voiceHromadaChange || settings.voiceRoadChange) && !settings.voiceAlerts) {
+        settings.voiceAlerts = true;
+        document.getElementById("voiceAlerts").checked = true;
+    }
     settings.showHromady = document.getElementById("showHromady").checked;
     settings.showInternationalRoads = document.getElementById("showInternationalRoads").checked;
     settings.showNationalRoads = document.getElementById("showNationalRoads").checked;

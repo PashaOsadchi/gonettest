@@ -8,7 +8,7 @@ A minimal browser-based network speed test. The app runs entirely in the browser
 - Optional upload test and ping statistics
 - Ability to select a test server
 - GPS tracking with map view and recorded route
-- Sound and voice alerts
+- Sound and voice alerts (community or road announcements automatically enable voice alerts)
 - Works offline and can be installed as a PWA
 - Stores measurements locally using IndexedDB
 - Language selection
