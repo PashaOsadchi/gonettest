@@ -17,6 +17,7 @@ window.i18n.en = {
   voiceChangeTitle: "Announce",
   voiceHromadaChangeLabel: "Announce community change",
   voiceRoadChangeLabel: "Announce road change",
+  mapLayersTitle: "Display on the map",
   showHromadyLabel: "Show community boundaries",
   showInternationalRoadsLabel: "Show international roads",
   showNationalRoadsLabel: "Show national roads",
