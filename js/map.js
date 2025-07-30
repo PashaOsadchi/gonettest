@@ -151,11 +151,15 @@ function addMapMarker(point, centerOnAdd = true) {
         marker.addTo(map);
     }
     if (typeof marker.bindPopup === 'function') {
-        marker.bindPopup(getMarkerPopupContent(point));
+        marker.bindPopup(getMarkerPopupContent(point), { autoPan: false });
     }
     mapMarkers.push(marker);
     if (centerOnAdd) {
-        map.setView([point.latitude, point.longitude], map.getZoom());
+        const openPopup =
+            typeof map.getPopup === 'function' ? map.getPopup() : map._popup;
+        if (!(openPopup && map.hasLayer(openPopup))) {
+            map.setView([point.latitude, point.longitude], map.getZoom());
+        }
     }
 }
 
