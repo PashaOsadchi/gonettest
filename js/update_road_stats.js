@@ -75,13 +75,13 @@ function updateRoadStats() {
             `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${road}</span><span>${s.total} (${lenStr})</span></div>` +
             `<div id="${roadId}" class="road-content hidden" style="padding-left:20px">` +
             `<div class="info-row"><span>Тестів (% від загальної кількості)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>Відстань (% від загальної протяжності дорги)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('zeroSpeedLabel','0 Мбіт/с:')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с:')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
-            `<div class="info-row" style="--indent:20px"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с:')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>` +
+            `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${s.zero} (${zp}%)</span></div>` +
+            `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${s.upto2} (${up}%)</span></div>` +
+            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${s.above2} (${ap}%)</span></div>` +
+            `<div class="info-row"><span>Відстань (% від загальної протяжності дорги)</span></div>` +
+            `<div class="info-row"><span>${t('zeroSpeedLabel','0 Мбіт/с:')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
+            `<div class="info-row"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с:')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
+            `<div class="info-row"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с:')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>` +
             `</div>`
         );
     }
