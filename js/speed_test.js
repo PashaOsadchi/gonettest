@@ -173,10 +173,12 @@ async function runTest() {
         `(${consecutiveErrors}/${MAX_CONSECUTIVE_ERRORS})`
       );
       playBeep(300, 500);
-      if (consecutiveErrors === 1) {
-        showNotification(t('alertConnectionLost', "Втрачено з'єднання!"));
-        speak("Втрачено з'єднання з інтернетом");
-      }
+        if (consecutiveErrors === 1) {
+          showNotification(t('alertConnectionLost', "Втрачено з'єднання!"));
+          if (settings.voiceAlerts) {
+            speak("Втрачено з'єднання з інтернетом");
+          }
+        }
 
       await waitForReconnect();
       if (!testActive) break;
