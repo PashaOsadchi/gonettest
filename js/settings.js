@@ -1,6 +1,13 @@
 function toggleSettings() {
     const panel = document.getElementById("settingsPanel");
+    const shouldOpen = !panel.classList.contains("active");
     panel.classList.toggle("active");
+
+    // Reload settings when panel is opened to show latest state
+    if (shouldOpen) {
+        loadSettingsFromStorage();
+        loadSettings();
+    }
 }
 
 const SETTINGS_STORAGE_KEY = 'settings';
