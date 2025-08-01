@@ -65,11 +65,12 @@ function updateRoadStats() {
         const zKm = s.distZero / 1000;
         const uKm = s.distUpto2 / 1000;
         const aKm = s.distAbove2 / 1000;
+        const coveredKm = (s.distZero + s.distUpto2 + s.distAbove2) / 1000;
         const zl = s.length ? Math.round((zKm / s.length) * 100) : 0;
         const ul = s.length ? Math.round((uKm / s.length) * 100) : 0;
         const al = s.length ? Math.round((aKm / s.length) * 100) : 0;
         const lenUnit = currentLang === 'uk' ? 'км' : 'km';
-        const lenStr = s.length ? `${s.length.toFixed(1)} ${lenUnit}` : '-';
+        const lenStr = coveredKm ? `${coveredKm.toFixed(1)} ${lenUnit}` : '-';
         rows.push(
             `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${road}</span><span>${s.total} (${lenStr})</span></div>` +
             `<div id="${roadId}" class="road-content hidden" style="padding-left:20px">` +
