@@ -91,10 +91,17 @@ function updateAdminStats() {
             `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit}</span></div>`
         );
     };
-    const statsRows = (obj, indent) =>
-        countRows(obj, indent) +
-        `<div class="info-row"><span>Відстань (км)</span></div>` +
-        distRows(obj, indent);
+    const statsRows = (obj, indent) => {
+        const totalKm = (
+            (obj.distZero + obj.distUpto2 + obj.distAbove2) /
+            1000
+        ).toFixed(1);
+        return (
+            countRows(obj, indent) +
+            `<div class="info-row"><span>Відстань (км)</span><span>${totalKm}</span></div>` +
+            distRows(obj, indent)
+        );
+    };
 
     for (const regName of regions) {
         const reg = stats[regName];
