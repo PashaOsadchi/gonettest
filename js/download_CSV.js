@@ -87,6 +87,7 @@ function downloadCSV() {
     link.style.display = "none";
     document.body.appendChild(link);
     link.click();
+    URL.revokeObjectURL(link.href);
     document.body.removeChild(link);
 
     showNotification(t('dataDownloaded', 'Дані завантажено!'));
