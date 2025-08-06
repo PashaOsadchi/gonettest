@@ -1,4 +1,12 @@
-/* global currentSpeedMbps, maxDataPoints, speedChart, chartData */
+/* global currentSpeedMbps, maxDataPoints */
+
+// Ensure global chart variables exist
+if (typeof window.speedChart === "undefined") {
+    window.speedChart = null;
+}
+if (typeof window.chartData === "undefined") {
+    window.chartData = [];
+}
 
 function initChart() {
     const canvas = document.getElementById("speedChart");
@@ -61,6 +69,8 @@ function initChart() {
         },
     });
 }
+// Expose initChart globally so other scripts can invoke it
+window.initChart = initChart;
 
 function updateChart() {
     if (!speedChart) return;
@@ -81,4 +91,6 @@ function updateChart() {
     speedChart.data.datasets[0].data = chartData.map((d) => d.speed);
     speedChart.update("none");
 }
+// Expose updateChart for modules that call it
+window.updateChart = updateChart;
 
