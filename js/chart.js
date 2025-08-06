@@ -4,7 +4,9 @@ let speedChart;
 const chartData = [];
 
 function initChart() {
-    const ctx = document.getElementById("speedChart").getContext("2d");
+    const canvas = document.getElementById("speedChart");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
     speedChart = new Chart(ctx, {
         type: "line",
         data: {
