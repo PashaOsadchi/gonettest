@@ -274,3 +274,6 @@ async function toggleTest() {
         runTest();
     }
 }
+
+document.getElementById('startBtn').addEventListener('click', toggleTest);
+
