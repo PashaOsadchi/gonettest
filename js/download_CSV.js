@@ -24,7 +24,7 @@ function downloadCSV() {
         "Дорога;" +
         "Оператор;" +
         "Швидкість (Мбіт/с);" +
-        "Завантажено (МБ);" +
+        "Сумарно завантажено (МБ);" +
         "Тривалість (с);" +
         "Широта;" +
         "Довгота;" +
@@ -34,6 +34,7 @@ function downloadCSV() {
         "Точність (м);" +
         "Напрямок (°)\n";
 
+    let cumulative = 0;
     const csvContent =
         headers +
         speedData
@@ -66,7 +67,7 @@ function downloadCSV() {
                     `${record.roadRef || ""};` +
                     `${operator};` +
                     `${record.speed.toFixed(2)};` +
-                    `${record.downloadedDelta.toFixed(2)};` +
+                    `${(cumulative += record.downloadedDelta).toFixed(2)};` +
                     `${record.elapsed || ""};` +
                     `${record.latitude || ""};` +
                     `${record.longitude || ""};` +
