@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     } catch (err) {
         console.error('Failed to load speed data from storage', err);
     }
-    initChart();
+    window.initChart();
     loadSettings();
     updateGPSInfo();
     requestWakeLock();
