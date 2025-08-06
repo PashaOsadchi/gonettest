@@ -63,7 +63,7 @@ function downloadKML() {
             `Час: ${timeStr}<br>` +
             `Оператор: ${operator}<br>` +
             `Швидкість (Мбіт/с): ${record.speed.toFixed(2)}<br>` +
-            `Завантажено (МБ): ${record.downloaded.toFixed(2)}<br>` +
+            `Завантажено (МБ): ${record.downloadedDelta.toFixed(2)}<br>` +
             `Тривалість (с): ${record.elapsed ?? ''}<br>` +
             `Широта: ${record.latitude}<br>` +
             `Довгота: ${record.longitude}<br>` +
