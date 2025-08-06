@@ -1,7 +1,10 @@
 function initGPS() {
     if (!navigator.geolocation) {
         addLog("GPS не підтримується браузером");
-        document.getElementById("gpsStatus").textContent = t('gpsNotSupported', 'Не підтримується');
+        const statusEl = document.getElementById("gpsStatus");
+        if (statusEl) {
+            statusEl.textContent = t('gpsNotSupported', 'Не підтримується');
+        }
         return;
     }
 
@@ -37,9 +40,11 @@ function initGPS() {
         (error) => {
             addLog(`GPS помилка: ${error.message}`);
             const statusEl = document.getElementById("gpsStatus");
-            statusEl.textContent = t('gpsError', 'Помилка GPS');
-            statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
-            statusEl.classList.add('status-warning');
+            if (statusEl) {
+                statusEl.textContent = t('gpsError', 'Помилка GPS');
+                statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+                statusEl.classList.add('status-warning');
+            }
         },
         options
     );
@@ -50,8 +55,10 @@ function stopGPS() {
         navigator.geolocation.clearWatch(gpsWatchId);
         gpsWatchId = null;
         const statusEl = document.getElementById("gpsStatus");
-        statusEl.textContent = t('gpsInactive', 'Не активний');
-        statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+        if (statusEl) {
+            statusEl.textContent = t('gpsInactive', 'Не активний');
+            statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+        }
         addLog("GPS зупинено");
     }
 }
