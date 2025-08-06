@@ -1,7 +1,7 @@
 // Wake Lock
 let wakeLock = null;
 
-async function requestWakeLock() {
+export async function requestWakeLock() {
     try {
         wakeLock = await navigator.wakeLock.request('screen');
         wakeLock.addEventListener('release', async () => {
@@ -21,3 +21,7 @@ document.addEventListener('visibilitychange', async () => {
         await requestWakeLock();
     }
 });
+
+if (typeof window !== 'undefined') {
+    window.requestWakeLock = requestWakeLock;
+}
