@@ -16,7 +16,7 @@ function showNotification(message, duration = NOTIFICATION_DURATION) {
 }
 
 function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
-    if (!settings.soundAlerts) return;
+    if (!window.settings || !window.settings.soundAlerts) return;
 
     try {
         if (!audioContext) {
