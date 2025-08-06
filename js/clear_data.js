@@ -12,9 +12,11 @@ function clearData() {
         speedStats = { min: Infinity, max: 0, sum: 0, count: 0 };
 
         if (speedChart) {
-            speedChart.data.labels = [];
-            speedChart.data.datasets[0].data = [];
-            speedChart.update();
+            if (speedChart.data && speedChart.data.datasets && speedChart.data.datasets[0]) {
+                speedChart.data.labels = [];
+                speedChart.data.datasets[0].data = [];
+                speedChart.update();
+            }
         }
 
         if (typeof map !== 'undefined' && map) {
