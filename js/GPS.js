@@ -42,7 +42,7 @@ function initGPS() {
 }
 
 function stopGPS() {
-    if (gpsWatchId) {
+    if (gpsWatchId !== null) {
         navigator.geolocation.clearWatch(gpsWatchId);
         gpsWatchId = null;
         const statusEl = document.getElementById("gpsStatus");
