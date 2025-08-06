@@ -35,4 +35,4 @@ async function detectISP() {
         addLog('detectISP error: ' + e.message);
     }
 }
-detectISP();
+document.addEventListener('DOMContentLoaded', detectISP);
