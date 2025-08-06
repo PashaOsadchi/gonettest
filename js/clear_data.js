@@ -3,6 +3,8 @@ function clearData() {
 
     if (confirm(t('clearDataConfirm', 'Ви впевнені, що хочете очистити всі дані?'))) {
         speedData = [];
+        lastSavedBytes = 0;
+        totalBytes = 0;
         saveSpeedDataToStorage();
         chartData = [];
         lastSavedGPSData = { latitude: null, longitude: null };
