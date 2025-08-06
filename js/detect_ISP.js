@@ -30,9 +30,13 @@ async function detectISP() {
             operatorEl.classList.add('operator-lifecell');
         }
     } catch (e) {
-        document.getElementById('info').innerHTML =
-            '<div class="error-message">Не вдалося отримати інформацію про з’єднання</div>';
-        addLog('detectISP error: ' + e.message);
+        const infoEl = document.getElementById('info');
+        if (infoEl) {
+            infoEl.innerHTML = '<div class="error-message">Не вдалося отримати інформацію про з’єднання</div>';
+        }
+        if (typeof addLog === 'function') {
+            addLog('detectISP error: ' + e.message);
+        }
     }
 }
 document.addEventListener('DOMContentLoaded', detectISP);
