@@ -15,13 +15,17 @@ function showNotification(message, duration = NOTIFICATION_DURATION) {
     }, duration);
 }
 
-function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
+async function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
     if (!window.settings || !window.settings.soundAlerts) return;
 
     try {
         if (!audioContext) {
             audioContext = new (window.AudioContext ||
                 window.webkitAudioContext)();
+        }
+
+        if (audioContext.state === "suspended") {
+            await audioContext.resume();
         }
 
         const oscillator = audioContext.createOscillator();
