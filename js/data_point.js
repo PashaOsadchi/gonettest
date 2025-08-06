@@ -104,10 +104,16 @@ async function saveDataPoint() {
     };
 
     const lastSaveEl = document.getElementById("lastSaveInfo");
-    lastSaveEl.textContent = now.toLocaleTimeString();
-    lastSaveEl.removeAttribute('data-i18n');
-    lastSaveEl.classList.remove('status-warning', 'status-success', 'status-accent');
-    lastSaveEl.classList.add('status-accent');
+    if (lastSaveEl) {
+        lastSaveEl.textContent = now.toLocaleTimeString();
+        lastSaveEl.removeAttribute('data-i18n');
+        lastSaveEl.classList.remove(
+            'status-warning',
+            'status-success',
+            'status-accent'
+        );
+        lastSaveEl.classList.add('status-accent');
+    }
 
     updateDataDisplay();
     updateDatabaseInfo();
