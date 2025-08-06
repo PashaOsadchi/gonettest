@@ -43,7 +43,7 @@ function clearData() {
         if (maxSpeed) maxSpeed.textContent = "0.00";
 
         const minSpeed = document.getElementById("minSpeed");
-        if (minSpeed) minSpeed.textContent = "0.00 ";
+        if (minSpeed) minSpeed.textContent = "0.00";
 
         const totalDistanceInfo = document.getElementById("totalDistanceInfo");
         if (totalDistanceInfo) totalDistanceInfo.textContent = "0.00";
