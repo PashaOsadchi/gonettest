@@ -24,7 +24,12 @@ function initStorageQuota() {
 }
 
 function updateDatabaseInfo() {
-    document.getElementById("recordsCount").textContent = speedData.length;
+    const recordsCountEl = document.getElementById("recordsCount");
+    if (recordsCountEl) {
+        recordsCountEl.textContent = speedData.length;
+    } else {
+        console.warn("recordsCount element not found");
+    }
     const recordsEl = document.getElementById("dbRecordsCount");
     const sizeEl = document.getElementById("dbSize");
 
