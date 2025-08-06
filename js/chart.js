@@ -1,3 +1,8 @@
+/* global currentSpeedMbps, maxDataPoints */
+
+let speedChart;
+const chartData = [];
+
 function initChart() {
     const ctx = document.getElementById("speedChart").getContext("2d");
     speedChart = new Chart(ctx, {
