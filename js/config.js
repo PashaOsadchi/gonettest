@@ -113,7 +113,7 @@ let speedStats = {
 
 let operator = '';
 
-let operators = {
+const operators = {
     'AS21497 PrJSC VF UKRAINE': 'Vodafone',
     'AS15895 "Kyivstar" PJSC': 'Kyivstar',
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
