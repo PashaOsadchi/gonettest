@@ -68,14 +68,14 @@ function downloadCSV() {
                     `${operator};` +
                     `${record.speed.toFixed(2)};` +
                     `${(cumulative += record.downloadedDelta).toFixed(2)};` +
-                    `${record.elapsed || ""};` +
-                    `${record.latitude || ""};` +
-                    `${record.longitude || ""};` +
-                    `${record.altitude ? record.altitude.toFixed(0) : ""};` +
-                    `${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ""};` +
-                    `${record.distance ? record.distance.toFixed(1) : ""};` +
-                    `${record.accuracy ? record.accuracy.toFixed(1) : ""};` +
-                    `${record.heading ? record.heading.toFixed(1) : ""};`
+                    `${record.elapsed ?? ""};` +
+                    `${record.latitude ?? ""};` +
+                    `${record.longitude ?? ""};` +
+                    `${record.altitude !== null && record.altitude !== undefined ? record.altitude.toFixed(0) : ""};` +
+                    `${record.gpsSpeed !== null && record.gpsSpeed !== undefined ? record.gpsSpeed.toFixed(1) : ""};` +
+                    `${record.distance !== null && record.distance !== undefined ? record.distance.toFixed(1) : ""};` +
+                    `${record.accuracy !== null && record.accuracy !== undefined ? record.accuracy.toFixed(1) : ""};` +
+                    `${record.heading !== null && record.heading !== undefined ? record.heading.toFixed(1) : ""};`
                 );
             })
             .join("\n");
