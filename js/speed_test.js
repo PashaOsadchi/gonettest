@@ -144,6 +144,7 @@ async function runTest() {
   pendingRun = false;
   startTime = Date.now();
   prevBytes = totalBytes = 0;
+  lastSavedBytes = 0;
   consecutiveErrors = 0;
   // Запускаємо оновлення UI що секунду
   updateInterval = setInterval(updateUI, UI_UPDATE_INTERVAL);
