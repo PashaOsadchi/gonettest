@@ -1,3 +1,5 @@
+import { requestWakeLock } from './wake_lock.js';
+
 function resetTestState() {
     testInProgress = false;
     pendingRun = false;
@@ -269,6 +271,7 @@ async function toggleTest() {
         testActive = true;
         document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
 
+        await requestWakeLock();
         await detectISP();
 
         addLog("Старт тесту");
