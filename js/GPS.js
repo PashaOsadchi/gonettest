@@ -5,6 +5,10 @@ function initGPS() {
         return;
     }
 
+    if (gpsWatchId !== null) {
+        stopGPS();
+    }
+
     const options = {
         enableHighAccuracy: true,
         timeout: GPS_TIMEOUT,
