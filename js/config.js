@@ -111,10 +111,10 @@ let speedStats = {
     count: 0,
 };
 
-let operator = ''
+let operator = '';
 
  let operators = {
     'AS21497 PrJSC VF UKRAINE': 'Vodafone',
     'AS15895 "Kyivstar" PJSC': 'Kyivstar',
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
-}
+};
