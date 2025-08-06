@@ -36,9 +36,12 @@ function downloadKML() {
         `<Style id="red"><IconStyle><Icon><href>${ICON_RED}</href></Icon></IconStyle></Style>\n` +
         `<Style id="yellow"><IconStyle><Icon><href>${ICON_YELLOW}</href></Icon></IconStyle></Style>\n` +
         `<Style id="green"><IconStyle><Icon><href>${ICON_GREEN}</href></Icon></IconStyle></Style>\n`;
+    let cumulative = 0;
 
     speedData.forEach((record, idx) => {
         if (record.latitude == null || record.longitude == null) return;
+
+        cumulative += record.downloadedDelta;
 
         const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
 
@@ -63,7 +66,7 @@ function downloadKML() {
             `Час: ${timeStr}<br>` +
             `Оператор: ${operator}<br>` +
             `Швидкість (Мбіт/с): ${record.speed.toFixed(2)}<br>` +
-            `Завантажено (МБ): ${record.downloadedDelta.toFixed(2)}<br>` +
+            `Завантажено (МБ): ${cumulative.toFixed(2)}<br>` +
             `Тривалість (с): ${record.elapsed ?? ''}<br>` +
             `Широта: ${record.latitude}<br>` +
             `Довгота: ${record.longitude}<br>` +
