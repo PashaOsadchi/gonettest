@@ -71,11 +71,14 @@ async function saveDataPoint() {
         totalDistance += distance;
     }
 
+    const downloadedDelta =
+        (totalBytes - lastSavedBytes) / (1024 * 1024);
+
     const dataPoint = {
         timestamp: now.toLocaleTimeString(),
         fullTimestamp: now,
         speed: currentSpeedMbps,
-        downloaded: totalBytes / (1024 * 1024),
+        downloadedDelta: downloadedDelta,
         elapsed: Math.floor(elapsed),
         latitude: currentGPSData.latitude,
         longitude: currentGPSData.longitude,
@@ -91,6 +94,7 @@ async function saveDataPoint() {
     };
 
     speedData.push(dataPoint);
+    lastSavedBytes = totalBytes;
     saveSpeedDataToStorage();
     addMapMarker(dataPoint);
 

@@ -66,7 +66,7 @@ function downloadCSV() {
                     `${record.roadRef || ""};` +
                     `${operator};` +
                     `${record.speed.toFixed(2)};` +
-                    `${record.downloaded.toFixed(2)};` +
+                    `${record.downloadedDelta.toFixed(2)};` +
                     `${record.elapsed || ""};` +
                     `${record.latitude || ""};` +
                     `${record.longitude || ""};` +
