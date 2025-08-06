@@ -7,6 +7,9 @@ function initChart() {
     const canvas = document.getElementById("speedChart");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    const textColor = getComputedStyle(
+        document.documentElement
+    ).getPropertyValue("--text-color");
     speedChart = new Chart(ctx, {
         type: "line",
         data: {
@@ -31,18 +34,14 @@ function initChart() {
             plugins: {
                 legend: {
                     labels: {
-                        color: getComputedStyle(
-                            document.documentElement
-                        ).getPropertyValue("--text-color"),
+                        color: textColor,
                     },
                 },
             },
             scales: {
                 x: {
                     ticks: {
-                        color: getComputedStyle(
-                            document.documentElement
-                        ).getPropertyValue("--text-color"),
+                        color: textColor,
                         maxTicksLimit: 10,
                     },
                     grid: {
@@ -52,9 +51,7 @@ function initChart() {
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        color: getComputedStyle(
-                            document.documentElement
-                        ).getPropertyValue("--text-color"),
+                        color: textColor,
                     },
                     grid: {
                         color: "rgba(255,255,255,0.1)",
