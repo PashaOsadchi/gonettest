@@ -49,6 +49,7 @@ function playBeep(frequency = BEEP_FREQUENCY, duration = BEEP_DURATION) {
 function speak(text) {
     if (!speechSynthesis) return;
     speechSynthesis.cancel();
+    if (typeof SpeechSynthesisUtterance === 'undefined') return;
 
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = "uk-UA";
