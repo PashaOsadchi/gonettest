@@ -1,7 +1,4 @@
-/* global currentSpeedMbps, maxDataPoints */
-
-let speedChart;
-const chartData = [];
+/* global currentSpeedMbps, maxDataPoints, speedChart, chartData */
 
 function initChart() {
     const canvas = document.getElementById("speedChart");
