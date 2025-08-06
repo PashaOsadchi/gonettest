@@ -4,6 +4,10 @@ let speechSynthesis = window.speechSynthesis;
 
 function showNotification(message, duration = NOTIFICATION_DURATION) {
     const notification = document.getElementById("notification");
+    if (!notification) {
+        console.warn("Notification element not found");
+        return;
+    }
     notification.textContent = message;
     notification.style.display = "block";
     setTimeout(() => {
