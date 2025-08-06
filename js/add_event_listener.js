@@ -9,7 +9,11 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
     loadTheme();
     loadSettingsFromStorage();
-    await loadSpeedDataFromStorage();
+    try {
+        await loadSpeedDataFromStorage();
+    } catch (err) {
+        console.error('Failed to load speed data from storage', err);
+    }
     initChart();
     loadSettings();
     updateGPSInfo();
