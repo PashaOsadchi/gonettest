@@ -2,7 +2,11 @@
 window.addEventListener("DOMContentLoaded", async () => {
     initStorageQuota();
     initLanguage();
-    loadHromadyData();
+    try {
+        await loadHromadyData();
+    } catch (err) {
+        console.error('Failed to load hromady data', err);
+    }
     loadTheme();
     loadSettingsFromStorage();
     await loadSpeedDataFromStorage();
