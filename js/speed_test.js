@@ -210,43 +210,24 @@ async function runTest() {
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
   // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
-  const checkUrl1 = `https://www.google.com/generate_204`;
-  const checkUrl2 = `https://www.google.com/generate_204`;
+  const checkUrl = `https://www.google.com/generate_204`;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
   while (testActive && !isConnected) {
     if (!testActive) return;
-    let success = false;
     addLog("Перевірка з'єднання…");
 
     try {
       await fetchWithTimeout(
-        checkUrl1,
+        checkUrl,
         { cache: "no-store", mode: "no-cors" },
         RECONNECT_TIMEOUT
       );
-      success = true;
-    } catch (e) {
-      addLog('waitForReconnect checkUrl1 error: ' + e.message);
-    }
-
-    if (!success) {
-      try {
-        await fetchWithTimeout(
-          checkUrl2,
-          { cache: "no-store", mode: "no-cors" },
-          RECONNECT_TIMEOUT
-        );
-        success = true;
-      } catch (e) {
-        addLog('waitForReconnect checkUrl2 error: ' + e.message);
-      }
-    }
-
-    if (success) {
       // Навіть без CORS, якщо запит завершився успішно — мережа присутня
       isConnected = true;
       break;
+    } catch (e) {
+      addLog('waitForReconnect error: ' + e.message);
     }
 
     await new Promise((r) => setTimeout(r, RECONNECT_RETRY_INTERVAL));
