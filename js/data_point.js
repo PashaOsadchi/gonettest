@@ -62,13 +62,7 @@ async function saveDataPoint() {
         currentGPSData.longitude
     );
     if (lastSavedGPSData.latitude && lastSavedGPSData.longitude) {
-        const distance = calculateDistance(
-            lastSavedGPSData.latitude,
-            lastSavedGPSData.longitude,
-            currentGPSData.latitude,
-            currentGPSData.longitude
-        );
-        totalDistance += distance;
+        totalDistance += pointDistance;
     }
 
     const downloadedDelta =
