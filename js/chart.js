@@ -87,3 +87,4 @@ function updateChart() {
     speedChart.data.datasets[0].data = chartData.map((d) => d.speed);
     speedChart.update("none");
 }
+
