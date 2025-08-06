@@ -28,13 +28,23 @@ function clearData() {
         updateGPSInfo();
 
         const lastSaveEl = document.getElementById("lastSaveInfo");
-        lastSaveEl.textContent = t('noData', 'Немає даних');
-        lastSaveEl.setAttribute('data-i18n', 'noData');
-        lastSaveEl.classList.remove('status-accent', 'status-success', 'status-warning');
-        document.getElementById("avgSpeed").textContent = "0.00";
-        document.getElementById("maxSpeed").textContent = "0.00";
-        document.getElementById("minSpeed").textContent = "0.00 ";
-        document.getElementById("totalDistanceInfo").textContent = "0.00";
+        if (lastSaveEl) {
+            lastSaveEl.textContent = t('noData', 'Немає даних');
+            lastSaveEl.setAttribute('data-i18n', 'noData');
+            lastSaveEl.classList.remove('status-accent', 'status-success', 'status-warning');
+        }
+
+        const avgSpeed = document.getElementById("avgSpeed");
+        if (avgSpeed) avgSpeed.textContent = "0.00";
+
+        const maxSpeed = document.getElementById("maxSpeed");
+        if (maxSpeed) maxSpeed.textContent = "0.00";
+
+        const minSpeed = document.getElementById("minSpeed");
+        if (minSpeed) minSpeed.textContent = "0.00 ";
+
+        const totalDistanceInfo = document.getElementById("totalDistanceInfo");
+        if (totalDistanceInfo) totalDistanceInfo.textContent = "0.00";
 
         showNotification(t('dataCleared', 'Дані очищено!'));
     }
