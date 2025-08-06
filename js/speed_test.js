@@ -14,7 +14,10 @@ function resetTestState() {
     }
 }
 
-function updateSpeedPerSecond(speedMbps) {
+function updateSpeedPerSecond(bytes, elapsedMs) {
+    const speedMbps = elapsedMs > 0
+        ? (bytes * 8) / (elapsedMs / 1000) / (1024 * 1024)
+        : 0;
     currentSpeedMbps = speedMbps;
     document.getElementById("speedValue").textContent = speedMbps.toFixed(2);
     updateChart();
@@ -75,6 +78,7 @@ async function measureDownloadSpeed() {
 
         const reader = resp.body.getReader();
         let bytes = 0;
+        let bytesSinceLastUpdate = 0;
         const start = performance.now();
         let lastUpdate = start;
 
@@ -93,13 +97,14 @@ async function measureDownloadSpeed() {
             throw new DOMException('Aborted', 'AbortError');
         }
         bytes += value.length;
+        bytesSinceLastUpdate += value.length;
         totalBytes += value.length;
 
         const now = performance.now();
         if (now - lastUpdate >= 1000) {
-            const speed = (bytes * 8) / ((now - start) / 1000) / (1024 * 1024);
-            updateSpeedPerSecond(speed);
+            updateSpeedPerSecond(bytesSinceLastUpdate, now - lastUpdate);
             lastUpdate = now;
+            bytesSinceLastUpdate = 0;
         }
 
         if (bytes >= TARGET) {
@@ -108,9 +113,14 @@ async function measureDownloadSpeed() {
         }
     }
 
-        const duration = (performance.now() - start) / 1000;
+        const nowFinal = performance.now();
+        if (bytesSinceLastUpdate > 0 && nowFinal > lastUpdate) {
+            updateSpeedPerSecond(bytesSinceLastUpdate, nowFinal - lastUpdate);
+            bytesSinceLastUpdate = 0;
+        }
+
+        const duration = (nowFinal - start) / 1000;
         const speedMbps = (bytes * 8) / (duration * 1024 * 1024);
-        updateSpeedPerSecond(speedMbps);
         return { speedMbps, bytes };
     } finally {
         clearTimeout(timeoutId);
