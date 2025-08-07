@@ -1,4 +1,7 @@
 function formatSeconds(totalSeconds) {
+    // Нормалізуємо значення секунд
+    totalSeconds = Math.max(0, Math.floor(Number(totalSeconds)));
+
     // Обчислюємо години, хвилини та секунди
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
