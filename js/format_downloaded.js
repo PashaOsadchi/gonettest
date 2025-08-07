@@ -6,7 +6,10 @@ function formatDownloaded(bytes) {
     if (bytes >= GB) {
         const gb = Math.floor(bytes / GB);
         const mb = Math.floor((bytes % GB) / MB);
-        return `${gb} ${gbLabel} ${mb} ${mbLabel}`;
+        if (mb > 0) {
+            return `${gb} ${gbLabel} ${mb} ${mbLabel}`;
+        }
+        return `${gb} ${gbLabel}`;
     } else {
         const mb = Math.floor(bytes / MB);
         return `${mb} ${mbLabel}`;
