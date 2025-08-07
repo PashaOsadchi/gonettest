@@ -130,5 +130,7 @@ window.i18n.uk = {
   hoursShort: "г",
   minutesShort: "хв",
   secondsShort: "с",
+  gbShort: "ГБ",
+  mbShort: "МБ",
   directionLabels: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"]
 };
