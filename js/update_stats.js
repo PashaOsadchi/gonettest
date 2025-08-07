@@ -1,3 +1,7 @@
+const avgSpeedEl = document.getElementById("avgSpeed");
+const maxSpeedEl = document.getElementById("maxSpeed");
+const minSpeedEl = document.getElementById("minSpeed");
+
 function updateStats() {
     if (currentSpeedMbps > 0) {
         speedStats.min = Math.min(speedStats.min, currentSpeedMbps);
@@ -7,16 +11,18 @@ function updateStats() {
 
         const avg = speedStats.sum / speedStats.count;
 
-        document.getElementById("avgSpeed").textContent = `${avg.toFixed(
-            2
-        )}`;
-        document.getElementById(
-            "maxSpeed"
-        ).textContent = `${speedStats.max.toFixed(2)}`;
-        document.getElementById("minSpeed").textContent =
-            speedStats.min === Infinity
-                ? "0.00"
-                : `${speedStats.min.toFixed(2)}`;
+        if (avgSpeedEl) {
+            avgSpeedEl.textContent = `${avg.toFixed(2)}`;
+        }
+        if (maxSpeedEl) {
+            maxSpeedEl.textContent = `${speedStats.max.toFixed(2)}`;
+        }
+        if (minSpeedEl) {
+            minSpeedEl.textContent =
+                speedStats.min === Infinity
+                    ? "0.00"
+                    : `${speedStats.min.toFixed(2)}`;
+        }
 
         // Перевірка порогу швидкості
         if (currentSpeedMbps < settings.speedThreshold && isConnected) {
@@ -31,3 +37,4 @@ function updateStats() {
         }
     }
 }
+
