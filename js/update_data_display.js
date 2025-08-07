@@ -1,5 +1,7 @@
 function updateDataDisplay() {
     const dataDisplay = document.getElementById("dataDisplay");
+    if (!dataDisplay) return;
+
     const lastRecords = speedData.slice(-10).reverse();
 
     if (lastRecords.length === 0) {
