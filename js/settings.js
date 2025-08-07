@@ -28,16 +28,22 @@ function loadSettingsFromStorage() {
 }
 
 function saveSettings() {
-    const soundAlerts = document.getElementById("soundAlerts");
-    const voiceAlerts = document.getElementById("voiceAlerts");
-    const voiceHromadaChange = document.getElementById("voiceHromadaChange");
-    const voiceRoadChange = document.getElementById("voiceRoadChange");
-    const showHromady = document.getElementById("showHromady");
-    const showInternationalRoads = document.getElementById("showInternationalRoads");
-    const showNationalRoads = document.getElementById("showNationalRoads");
-    const showRegionalRoads = document.getElementById("showRegionalRoads");
-    const showTerritorialRoads = document.getElementById("showTerritorialRoads");
-    const langSelect = document.getElementById("languageSelect");
+    const panel = document.getElementById("settingsPanel");
+    if (!panel) {
+        console.warn("settingsPanel element not found");
+        return;
+    }
+
+    const soundAlerts = panel.querySelector("#soundAlerts");
+    const voiceAlerts = panel.querySelector("#voiceAlerts");
+    const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
+    const voiceRoadChange = panel.querySelector("#voiceRoadChange");
+    const showHromady = panel.querySelector("#showHromady");
+    const showInternationalRoads = panel.querySelector("#showInternationalRoads");
+    const showNationalRoads = panel.querySelector("#showNationalRoads");
+    const showRegionalRoads = panel.querySelector("#showRegionalRoads");
+    const showTerritorialRoads = panel.querySelector("#showTerritorialRoads");
+    const langSelect = panel.querySelector("#languageSelect");
 
     if (soundAlerts) settings.soundAlerts = soundAlerts.checked; else console.warn("soundAlerts element not found");
     if (voiceAlerts) settings.voiceAlerts = voiceAlerts.checked; else console.warn("voiceAlerts element not found");
@@ -73,16 +79,22 @@ function saveSettings() {
 }
 
 function loadSettings() {
-    const soundAlerts = document.getElementById("soundAlerts");
-    const voiceAlerts = document.getElementById("voiceAlerts");
-    const voiceHromadaChange = document.getElementById("voiceHromadaChange");
-    const voiceRoadChange = document.getElementById("voiceRoadChange");
-    const showHromady = document.getElementById("showHromady");
-    const showInternationalRoads = document.getElementById("showInternationalRoads");
-    const showNationalRoads = document.getElementById("showNationalRoads");
-    const showRegionalRoads = document.getElementById("showRegionalRoads");
-    const showTerritorialRoads = document.getElementById("showTerritorialRoads");
-    const langSelect = document.getElementById("languageSelect");
+    const panel = document.getElementById("settingsPanel");
+    if (!panel) {
+        console.warn("settingsPanel element not found");
+        return;
+    }
+
+    const soundAlerts = panel.querySelector("#soundAlerts");
+    const voiceAlerts = panel.querySelector("#voiceAlerts");
+    const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
+    const voiceRoadChange = panel.querySelector("#voiceRoadChange");
+    const showHromady = panel.querySelector("#showHromady");
+    const showInternationalRoads = panel.querySelector("#showInternationalRoads");
+    const showNationalRoads = panel.querySelector("#showNationalRoads");
+    const showRegionalRoads = panel.querySelector("#showRegionalRoads");
+    const showTerritorialRoads = panel.querySelector("#showTerritorialRoads");
+    const langSelect = panel.querySelector("#languageSelect");
 
     if (soundAlerts) soundAlerts.checked = settings.soundAlerts; else console.warn("soundAlerts element not found");
     if (voiceAlerts) voiceAlerts.checked = settings.voiceAlerts; else console.warn("voiceAlerts element not found");
