@@ -30,6 +30,7 @@ function applyTranslations() {
 
 function setLanguage(lang) {
     window.currentLang = lang;
+    currentLang = lang;
     localStorage.setItem('lang', lang);
     applyTranslations();
     const select = document.getElementById('languageSelect');
