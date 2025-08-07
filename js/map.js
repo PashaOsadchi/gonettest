@@ -4,6 +4,10 @@ function getColorBySpeed(speed) {
     return 'green';
 }
 
+function ensureColon(label) {
+    return label.endsWith(':') ? label : label + ':';
+}
+
 function initMap() {
     if (mapInitialized) return;
     map = L.map('map').setView([48.3794, 31.1656], 6);
@@ -93,10 +97,6 @@ function getMarkerPopupContent(point) {
         second: '2-digit',
     });
 
-    function ensureColon(label) {
-        return label.endsWith(':') ? label : label + ':';
-    }
-
     const speedValue = Number.isFinite(point.speed)
         ? point.speed.toFixed(2)
         : na;
@@ -169,10 +169,6 @@ function addMapMarker(point, centerOnAdd = true) {
 
 function getRoadPopupContent(props) {
     const na = t('naValue', 'N/A');
-
-    function ensureColon(label) {
-        return label.endsWith(':') ? label : label + ':';
-    }
 
     const rows = [
         [ensureColon(t('roadRefLabel', 'Номер дороги')), props.ref || na],
