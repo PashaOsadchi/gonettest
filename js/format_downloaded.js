@@ -1,4 +1,11 @@
+/**
+ * Formats a byte count into a human readable string.
+ * Returns '0' if the input is not a non-negative number.
+ */
 function formatDownloaded(bytes) {
+    if (typeof bytes !== 'number' || Number.isNaN(bytes) || bytes < 0) {
+        return '0';
+    }
     const KB = 1024;
     const MB = KB * 1024;
     const GB = MB * 1024;
