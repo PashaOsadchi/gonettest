@@ -1,7 +1,3 @@
-function addLog(msg) {
-    console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
-}
-
 function logTestSummary() {
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
     const downloadedFormatted = formatDownloaded(totalBytes);
