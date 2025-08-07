@@ -36,8 +36,14 @@ async function saveSpeedDataToStorage() {
 
     return new Promise((resolve, reject) => {
         tx.oncomplete = () => {
-            updateDatabaseInfo();
-            resolve();
+            try {
+                updateDatabaseInfo();
+            } catch (err) {
+                console.error(err);
+                reject(err);
+            } finally {
+                resolve();
+            }
         };
         tx.onerror = () => reject(tx.error);
     });
