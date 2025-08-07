@@ -5,11 +5,7 @@ function toggleTheme() {
     body.setAttribute("data-theme", newTheme);
     localStorage.setItem('theme', newTheme);
 
-    // Update theme color meta tag
-    const themeColorMeta = document.getElementById('themeColorMeta');
-    if (themeColorMeta) {
-        themeColorMeta.content = newTheme === 'dark' ? '#1a1a2e' : '#667eea';
-    }
+    setThemeColor(newTheme);
 
     // Оновлюємо графік під нову тему
     if (speedChart) {
@@ -33,10 +29,13 @@ function loadTheme() {
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
         document.body.setAttribute('data-theme', storedTheme);
-        const themeColorMeta = document.getElementById('themeColorMeta');
-        if (themeColorMeta) {
-            themeColorMeta.content =
-                storedTheme === 'dark' ? '#1a1a2e' : '#667eea';
-        }
+        setThemeColor(storedTheme);
+    }
+}
+
+function setThemeColor(theme) {
+    const themeColorMeta = document.getElementById('themeColorMeta');
+    if (themeColorMeta) {
+        themeColorMeta.content = theme === 'dark' ? '#1a1a2e' : '#667eea';
     }
 }
