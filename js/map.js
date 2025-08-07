@@ -159,8 +159,21 @@ function addMapMarker(point, centerOnAdd = true) {
     }
     mapMarkers.push(marker);
     if (centerOnAdd) {
-        const openPopup =
-            typeof map.getPopup === 'function' ? map.getPopup() : map._popup;
+        let openPopup = null;
+        if (typeof map.getPopup === 'function') {
+            openPopup = map.getPopup();
+        } else if (typeof map.eachLayer === 'function') {
+            map.eachLayer(layer => {
+                if (
+                    !openPopup &&
+                    layer instanceof L.Popup &&
+                    typeof layer.isOpen === 'function' &&
+                    layer.isOpen()
+                ) {
+                    openPopup = layer;
+                }
+            });
+        }
         if (!(openPopup && map.hasLayer(openPopup))) {
             map.setView([point.latitude, point.longitude], map.getZoom());
         }
