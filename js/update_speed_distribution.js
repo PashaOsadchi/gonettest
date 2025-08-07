@@ -1,7 +1,8 @@
 function updateSpeedDistribution() {
     let total = 0,
         zero = 0,
-        upTo2 = 0;
+        upTo2 = 0,
+        above2 = 0;
     for (const rec of speedData) {
         const speed = rec.speed;
         if (typeof speed !== "number" || speed < 0 || Number.isNaN(speed)) {
@@ -12,9 +13,10 @@ function updateSpeedDistribution() {
             zero++;
         } else if (speed > 0 && speed <= 2) {
             upTo2++;
+        } else if (speed > 2) {
+            above2++;
         }
     }
-    const above2 = total - zero - upTo2;
 
     const set = (id, count) => {
         const el = document.getElementById(id);
