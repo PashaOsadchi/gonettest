@@ -56,3 +56,5 @@ function initLanguage() {
         setLanguage(currentLang);
     }
 }
+
+window.initLanguage = initLanguage;
