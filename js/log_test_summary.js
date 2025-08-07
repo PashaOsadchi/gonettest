@@ -9,10 +9,16 @@ function logTestSummary() {
         ? (speedStats.sum / speedStats.count).toFixed(2)
         : "0.00";
     const min = speedStats.min === Infinity ? 0 : speedStats.min;
+    const secLabel = t('secondsShort', 'с');
+    const speedUnit = t('mbpsShort', 'Мбіт/с');
     addLog(
-        `Результати тесту: час ${elapsed} с, дані ${downloadedFormatted}, ` +
-            `середня швидкість ${avg} Мбіт/с, ` +
-            `макс ${speedStats.max.toFixed(2)} Мбіт/с, ` +
-            `мін ${min === 0 ? "0.00" : min.toFixed(2)} Мбіт/с`
+        `${t('testResults', 'Результати тесту')}: ` +
+            `${t('testResultsTime', 'час')} ${elapsed} ${secLabel}, ` +
+            `${t('testResultsData', 'дані')} ${downloadedFormatted}, ` +
+            `${t('testResultsAvgSpeed', 'середня швидкість')} ${avg} ${speedUnit}, ` +
+            `${t('testResultsMax', 'макс')} ${speedStats.max.toFixed(2)} ${speedUnit}, ` +
+            `${t('testResultsMin', 'мін')} ${
+                min === 0 ? '0.00' : min.toFixed(2)
+            } ${speedUnit}`
     );
 }
