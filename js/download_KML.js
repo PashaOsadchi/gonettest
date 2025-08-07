@@ -126,6 +126,7 @@ function downloadKML() {
     link.download = `${baseFileName}.kml`;
     document.body.appendChild(link);
     link.click();
+    URL.revokeObjectURL(link.href);
     document.body.removeChild(link);
 
     showNotification(t('kmlDownloaded', 'KML файл завантажено!'));
