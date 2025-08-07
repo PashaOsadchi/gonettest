@@ -33,7 +33,7 @@ const DEFAULT_DIRECTION_LABELS = {
     en: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"],
 };
 
-let currentLang = localStorage.getItem('lang') || 'uk';
+window.currentLang = window.currentLang || localStorage.getItem('lang') || 'uk';
 
 // Глобальні змінні
 let testActive = false;
