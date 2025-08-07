@@ -1,9 +1,15 @@
+let lastUpdateTime = Date.now();
+
 function updateUI() {
     const now = Date.now();
+    const deltaTime = (now - lastUpdateTime) / 1000;
     const elapsed = (now - startTime) / 1000;
     const delta = totalBytes - prevBytes;
     prevBytes = totalBytes;
-    const speedMbps = (delta * 8) / (1024 * 1024);
+    const speedMbps =
+        deltaTime > 0 ? (delta * 8) / (1024 * 1024 * deltaTime) : 0;
+
+    lastUpdateTime = now;
 
     currentSpeedMbps = speedMbps;
 
