@@ -4,7 +4,7 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
-function updateStats(target, speed, distance) {
+function accumulateAdminStats(target, speed, distance) {
     const dist = distance || 0;
     target.total++;
     if (speed === 0) {
@@ -35,7 +35,7 @@ function updateAdminStats() {
         }
         const reg = stats[rec.region];
         const dist = rec.distance || 0;
-        updateStats(reg, rec.speed, dist);
+        accumulateAdminStats(reg, rec.speed, dist);
 
         if (rec.rayon) {
             if (!reg.raions[rec.rayon]) {
@@ -46,7 +46,7 @@ function updateAdminStats() {
                 };
             }
             const ray = reg.raions[rec.rayon];
-            updateStats(ray, rec.speed, dist);
+            accumulateAdminStats(ray, rec.speed, dist);
 
             if (rec.hromada) {
                 if (!ray.hromady[rec.hromada]) {
@@ -56,7 +56,7 @@ function updateAdminStats() {
                     };
                 }
                 const h = ray.hromady[rec.hromada];
-                updateStats(h, rec.speed, dist);
+                accumulateAdminStats(h, rec.speed, dist);
             }
         }
     }
