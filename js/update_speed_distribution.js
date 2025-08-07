@@ -1,11 +1,16 @@
 function updateSpeedDistribution() {
-    const total = speedData.length;
-    let zero = 0,
+    let total = 0,
+        zero = 0,
         upTo2 = 0;
     for (const rec of speedData) {
-        if (rec.speed === 0) {
+        const speed = rec.speed;
+        if (typeof speed !== "number" || speed < 0 || Number.isNaN(speed)) {
+            continue;
+        }
+        total++;
+        if (speed === 0) {
             zero++;
-        } else if (rec.speed > 0 && rec.speed <= 2) {
+        } else if (speed > 0 && speed <= 2) {
             upTo2++;
         }
     }
