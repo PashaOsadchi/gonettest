@@ -6,7 +6,9 @@ function downloadChart() {
         .toISOString()
         .slice(0, 10)}.png`;
     link.href = speedChart.toBase64Image();
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 
     showNotification(t('chartExported', 'Графік експортовано!'));
 }
