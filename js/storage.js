@@ -70,9 +70,9 @@ async function loadSpeedDataFromStorage() {
         readTx.onerror = () => resolve({ values: [], keys: [], legacy: null });
     });
 
-    if (readResult.legacy !== undefined && readResult.legacy !== null) {
+    if (Array.isArray(readResult.legacy)) {
         // Migrate legacy array stored under 'records'
-        speedData = readResult.legacy || [];
+        speedData = readResult.legacy;
 
         const writeTx = database.transaction(STORAGE_KEY, 'readwrite');
         const writeStore = writeTx.objectStore(STORAGE_KEY);
@@ -84,6 +84,9 @@ async function loadSpeedDataFromStorage() {
             writeTx.onerror = resolve;
         });
     } else {
+        if (readResult.legacy !== undefined && readResult.legacy !== null) {
+            console.warn('Legacy data is not an array; skipping migration');
+        }
         // Build array from individual records
         const pairs = readResult.keys.map((key, idx) => ({
             key: Number(key),
