@@ -41,7 +41,7 @@ function updateGPSInfo() {
         }
 
         // Висота
-        if (currentGPSData.altitude !== null) {
+        if (Number.isFinite(currentGPSData.altitude)) {
             altitudeInfoEl.textContent = `${currentGPSData.altitude.toFixed(
                 1
             )}`;
@@ -50,7 +50,7 @@ function updateGPSInfo() {
         }
 
         // GPS швидкість
-        if (currentGPSData.speed !== null && currentGPSData.speed > 0) {
+        if (Number.isFinite(currentGPSData.speed) && currentGPSData.speed > 0) {
             gpsSpeedInfoEl.textContent = `${(
                 currentGPSData.speed * 3.6
             ).toFixed(1)}`;
@@ -59,7 +59,7 @@ function updateGPSInfo() {
         }
 
         // Напрямок
-        if (currentGPSData.heading !== null) {
+        if (Number.isFinite(currentGPSData.heading)) {
             const directionIndex =
                 Math.round(currentGPSData.heading / 45) % directions.length;
             headingInfoEl.textContent = `${currentGPSData.heading.toFixed(
