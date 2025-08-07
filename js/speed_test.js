@@ -160,10 +160,8 @@ async function runTest() {
         if (!testActive) break;
       }
 
-      const { speedMbps } = await measureDownloadSpeed();
+      await measureDownloadSpeed();
       consecutiveErrors = 0;
-      currentSpeedMbps = speedMbps;
-      updateStats();
     } catch (e) {
       if (e.name === 'AbortError' && !testActive) {
         break;
