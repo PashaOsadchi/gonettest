@@ -178,10 +178,10 @@ function getRoadPopupContent(props) {
         [ensureColon(t('roadRefLabel', 'Номер дороги')), props.ref || na],
         [ensureColon(t('roadNameLabel', 'Назва')), props.official_name || props['name:uk'] || props.name || na],
     ];
-    if (props.distance) {
+    if (props.distance != null) {
         rows.push([ensureColon(t('roadDistanceLabel', 'Довжина (км)')), props.distance]);
     }
-    if (props.network) {
+    if (props.network != null) {
         rows.push([ensureColon(t('roadNetworkLabel', 'Тип')), props.network]);
     }
     return rows.map(r => `<div><strong>${r[0]}</strong> ${r[1]}</div>`).join('');
