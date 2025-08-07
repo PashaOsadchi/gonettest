@@ -1,5 +1,8 @@
 function getDistanceToLastPoint(lat, lon) {
-    if (!lastSavedGPSData.latitude || !lastSavedGPSData.longitude) {
+    if (lastSavedGPSData.latitude == null || lastSavedGPSData.longitude == null) {
+        return 0;
+    }
+    if (lat == null || lon == null) {
         return 0;
     }
     const distance = calculateDistance(
