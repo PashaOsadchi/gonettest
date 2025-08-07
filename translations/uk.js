@@ -132,5 +132,7 @@ window.i18n.uk = {
   secondsShort: "с",
   gbShort: "ГБ",
   mbShort: "МБ",
+  kbShort: "КБ",
+  bShort: "Б",
   directionLabels: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"]
 };
