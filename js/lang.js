@@ -6,7 +6,7 @@ let currentLang = initialLang;
 
 function t(key, fallback = '') {
     const dict = window.i18n && window.i18n[currentLang];
-    return (dict && dict[key]) || fallback;
+    return (dict && key in dict) ? dict[key] : fallback;
 }
 
 function applyTranslations() {
@@ -14,22 +14,22 @@ function applyTranslations() {
     if (!dict) return;
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if (dict[key]) {
+        if (key in dict) {
             el.textContent = dict[key];
         }
     });
     document.querySelectorAll('[data-i18n-aria]').forEach(el => {
         const key = el.getAttribute('data-i18n-aria');
-        if (dict[key]) {
+        if (key in dict) {
             el.setAttribute('aria-label', dict[key]);
         }
     });
     document.documentElement.lang = currentLang;
-    if (dict.appTitle) {
+    if ('appTitle' in dict) {
         document.title = dict.appTitle;
     }
     const logo = document.querySelector('img.logo');
-    if (logo && dict.logoAlt) {
+    if (logo && 'logoAlt' in dict) {
         logo.alt = dict.logoAlt;
     }
 }
