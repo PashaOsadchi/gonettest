@@ -132,5 +132,7 @@ window.i18n.en = {
   secondsShort: "s",
   gbShort: "GB",
   mbShort: "MB",
+  kbShort: "KB",
+  bShort: "B",
   directionLabels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 };
