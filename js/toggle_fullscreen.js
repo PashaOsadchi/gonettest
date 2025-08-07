@@ -1,3 +1,11 @@
+function resizeChartDelayed() {
+    setTimeout(() => {
+        if (speedChart) {
+            speedChart.resize();
+        }
+    }, ORIENTATION_DELAY);
+}
+
 function toggleFullscreen() {
     const body = document.body;
 
@@ -15,11 +23,7 @@ function toggleFullscreen() {
                 isFullscreen = true;
                 body.classList.add("fullscreen-mode");
                 showNotification(t('fullscreenEnabled', 'Повноекранний режим увімкнено'));
-                setTimeout(() => {
-                    if (speedChart) {
-                        speedChart.resize();
-                    }
-                }, ORIENTATION_DELAY);
+                resizeChartDelayed();
             })
             .catch((err) => {
                 isFullscreen = false;
@@ -39,11 +43,7 @@ function toggleFullscreen() {
                 isFullscreen = false;
                 body.classList.remove("fullscreen-mode");
                 showNotification(t('fullscreenDisabled', 'Повноекранний режим вимкнено'));
-                setTimeout(() => {
-                    if (speedChart) {
-                        speedChart.resize();
-                    }
-                }, ORIENTATION_DELAY);
+                resizeChartDelayed();
             })
             .catch((err) => {
                 isFullscreen = true;
@@ -59,10 +59,6 @@ document.addEventListener('fullscreenchange', () => {
     if (fullscreen !== isFullscreen) {
         isFullscreen = fullscreen;
         document.body.classList.toggle('fullscreen-mode', fullscreen);
-        setTimeout(() => {
-            if (speedChart) {
-                speedChart.resize();
-            }
-        }, ORIENTATION_DELAY);
+        resizeChartDelayed();
     }
 });
