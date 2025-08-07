@@ -2,6 +2,9 @@ let db;
 
 function openDatabase() {
     if (db) return Promise.resolve(db);
+    if (!('indexedDB' in window)) {
+        return Promise.reject(new Error('IndexedDB is not supported in this environment'));
+    }
     return new Promise((resolve, reject) => {
         const request = indexedDB.open('gonettestDB', 1);
         request.onupgradeneeded = () => {
