@@ -32,5 +32,11 @@ document.addEventListener('visibilitychange', async () => {
 });
 
 if (typeof window !== 'undefined') {
+    window.addEventListener('load', () => {
+        requestWakeLock();
+    });
+    ['click', 'keydown', 'touchstart'].forEach(event => {
+        window.addEventListener(event, () => requestWakeLock(), { once: true });
+    });
     window.requestWakeLock = requestWakeLock;
 }
