@@ -34,6 +34,7 @@ const DEFAULT_DIRECTION_LABELS = {
 };
 
 window.currentLang = window.currentLang || localStorage.getItem('lang') || 'uk';
+let currentLang = window.currentLang;
 
 // Глобальні змінні
 let testActive = false;
