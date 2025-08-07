@@ -111,8 +111,8 @@ function updateGPSInfo() {
         headingInfoEl.textContent = naText;
     }
 
-    updateAdminInfo();
-    updateRoadInfo();
+    void updateAdminInfo().catch(console.error);
+    void updateRoadInfo().catch(console.error);
 }
 
 async function updateAdminInfo() {
