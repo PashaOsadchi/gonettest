@@ -14,16 +14,20 @@ function downloadKML() {
             lastRecord.fullTimestamp instanceof Date
                 ? lastRecord.fullTimestamp
                 : new Date(lastRecord.fullTimestamp);
-        dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
+        dateStr = ts
+            .toLocaleDateString('uk-UA', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            })
+            .replace(/[^\d]+/g, '-');
+        timeStr = ts
+            .toLocaleTimeString('uk-UA', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+            })
+            .replace(/[^\d]+/g, '-');
     }
 
     const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;

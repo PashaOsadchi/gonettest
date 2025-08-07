@@ -1,3 +1,5 @@
 function replaceSpacesWithUnderscore(str) {
-  return str.replace(/ /g, '_');
+    return str
+        .replace(/\s+/g, '_')
+        .replace(/[^\w-]/g, '');
 }
