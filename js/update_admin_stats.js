@@ -1,3 +1,9 @@
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
@@ -107,7 +113,7 @@ function updateAdminStats() {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
         rows.push(
-            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${regName}</span><span>${reg.total}</span></div>`
+            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total}</span></div>`
         );
         let sub = statsRows(reg, 30);
         const raions = Object.keys(reg.raions).sort();
@@ -115,14 +121,14 @@ function updateAdminStats() {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${rayName}</span><span>${ray.total}</span></div>` +
+                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total}</span></div>` +
                 `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
                 statsRows(ray, 30);
             const hroms = Object.keys(ray.hromady).sort();
             for (const hName of hroms) {
                 const h = ray.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="--indent:60px"><span>${hName}</span><span>${h.total}</span></div>` +
+                    `<div class="info-row" style="--indent:60px"><span>${escapeHtml(hName)}</span><span>${h.total}</span></div>` +
                     statsRows(h, 60);
             }
             sub += `</div>`;
