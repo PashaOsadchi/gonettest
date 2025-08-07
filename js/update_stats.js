@@ -2,6 +2,10 @@ const avgSpeedEl = document.getElementById("avgSpeed");
 const maxSpeedEl = document.getElementById("maxSpeed");
 const minSpeedEl = document.getElementById("minSpeed");
 
+const SPEED_ALERT_COOLDOWN = 15000; // ms between repeated alerts
+let lastSpeedAlertTime = 0;
+let wasSpeedAboveThreshold = true;
+
 function updateStats() {
     // Include zero speeds so periods of complete outage affect statistics
     if (currentSpeedMbps >= 0) {
@@ -27,14 +31,24 @@ function updateStats() {
 
         // Перевірка порогу швидкості
         if (currentSpeedMbps < settings.speedThreshold && isConnected) {
-            playBeep(400, 300);
-            if (settings.voiceAlerts) {
-                speak(
-                    `Швидкість знизилась до ${currentSpeedMbps.toFixed(
-                        1
-                    )} мегабіт на секунду`
-                );
+            const now = Date.now();
+            const crossedThreshold = wasSpeedAboveThreshold;
+            const cooldownPassed =
+                now - lastSpeedAlertTime > SPEED_ALERT_COOLDOWN;
+            if (crossedThreshold || cooldownPassed) {
+                playBeep(400, 300);
+                if (settings.voiceAlerts) {
+                    speak(
+                        `Швидкість знизилась до ${currentSpeedMbps.toFixed(
+                            1
+                        )} мегабіт на секунду`
+                    );
+                }
+                lastSpeedAlertTime = now;
             }
+            wasSpeedAboveThreshold = false;
+        } else {
+            wasSpeedAboveThreshold = true;
         }
     }
 }
