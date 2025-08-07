@@ -21,21 +21,21 @@ function loadHromadyData() {
 }
 
 /**
- * Checks if a point is inside a polygon using the ray-casting algorithm.
+ * Checks if a point is inside a linear ring using the ray-casting algorithm.
  * @param {number[]} point - The point to check, as [longitude, latitude].
- * @param {number[][]} polygon - An array of vertices representing the polygon.
- * @returns {boolean} - True if the point is inside the polygon, false otherwise.
+ * @param {number[][]} ring - An array of vertices representing a linear ring.
+ * @returns {boolean} - True if the point is inside the ring, false otherwise.
  */
-function isPointInPolygon(point, polygon) {
+function isPointInPolygon(point, ring) {
     const x = point[0];
     const y = point[1];
     let isInside = false;
 
-    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-        const xi = polygon[i][0];
-        const yi = polygon[i][1];
-        const xj = polygon[j][0];
-        const yj = polygon[j][1];
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+        const xi = ring[i][0];
+        const yi = ring[i][1];
+        const xj = ring[j][0];
+        const yj = ring[j][1];
 
         const intersect = ((yi > y) !== (yj > y)) &&
             (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
@@ -45,6 +45,26 @@ function isPointInPolygon(point, polygon) {
         }
     }
     return isInside;
+}
+
+/**
+ * Determines if a point lies within a polygon that may contain holes.
+ * The first ring defines the outer boundary and any subsequent rings are holes.
+ * @param {number[]} point - The point to check, as [longitude, latitude].
+ * @param {number[][][]} rings - Array of rings composing the polygon.
+ * @returns {boolean} - True if the point is inside the outer ring and not within any hole.
+ */
+function isPointInPolygonWithHoles(point, rings) {
+    const [outer, ...holes] = rings;
+    if (!isPointInPolygon(point, outer)) {
+        return false;
+    }
+    for (const hole of holes) {
+        if (isPointInPolygon(point, hole)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 /**
@@ -72,19 +92,12 @@ async function find_admin_unit(lon, lat) {
         const properties = feature.properties;
 
         if (geometry.type === 'Polygon') {
-            // A Polygon is an array of rings. The first is the outer boundary.
-            const polygonCoordinates = geometry.coordinates[0];
-            if (isPointInPolygon(point, polygonCoordinates)) {
-                // For simplicity, we are not checking for holes in polygons.
-                // This is generally sufficient for this kind of application.
+            if (isPointInPolygonWithHoles(point, geometry.coordinates)) {
                 return properties;
             }
         } else if (geometry.type === 'MultiPolygon') {
-            // A MultiPolygon is an array of Polygons.
             for (const polygon of geometry.coordinates) {
-                const polygonCoordinates = polygon[0];
-                if (isPointInPolygon(point, polygonCoordinates)) {
-                    // Not checking for holes here either for simplicity.
+                if (isPointInPolygonWithHoles(point, polygon)) {
                     return properties;
                 }
             }
