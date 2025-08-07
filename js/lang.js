@@ -1,3 +1,9 @@
+import { currentLang as initialLang, speedChart } from './config.js';
+import { updateGPSInfo } from './update_GPS_info.js';
+import { updateDatabaseInfo } from './update_database_info.js';
+
+let currentLang = initialLang;
+
 function t(key, fallback = '') {
     const dict = window.i18n && window.i18n[currentLang];
     return (dict && dict[key]) || fallback;
@@ -30,6 +36,7 @@ function applyTranslations() {
 
 function setLanguage(lang) {
     currentLang = lang;
+    window.currentLang = lang;
     localStorage.setItem('lang', lang);
     applyTranslations();
     const select = document.getElementById('languageSelect');
@@ -40,8 +47,12 @@ function setLanguage(lang) {
             speedChart.data.datasets[0].label;
         speedChart.update();
     }
-    updateGPSInfo();
-    updateDatabaseInfo();
+    if (typeof updateGPSInfo === "function") {
+        updateGPSInfo();
+    }
+    if (typeof updateDatabaseInfo === "function") {
+        updateDatabaseInfo();
+    }
 }
 
 function initLanguage() {
