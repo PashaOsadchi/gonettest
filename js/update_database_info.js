@@ -32,12 +32,21 @@ function updateDatabaseInfo() {
         console.warn("recordsCount element not found");
     }
     const recordsEl = document.getElementById("dbRecordsCount");
+    if (!recordsEl) {
+        console.warn("dbRecordsCount element not found");
+    }
     const sizeEl = document.getElementById("dbSize");
+    if (!sizeEl) {
+        console.warn("dbSize element not found");
+    }
+    if (!recordsEl || !sizeEl) {
+        return;
+    }
 
     const setInfo = sizeBytes => {
         const sizeStr = formatDownloaded(sizeBytes);
-        if (recordsEl) recordsEl.textContent = speedData.length;
-        if (sizeEl) sizeEl.textContent = sizeStr;
+        recordsEl.textContent = speedData.length;
+        sizeEl.textContent = sizeStr;
     };
 
     if (navigator.storage && navigator.storage.estimate) {
