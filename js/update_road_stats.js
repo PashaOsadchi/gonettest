@@ -1,21 +1,26 @@
-const roadLengthCache = {};
-function getRoadLength(ref) {
-    if (roadLengthCache[ref] !== undefined) return roadLengthCache[ref];
-    const types = ['international','national','regional','territorial'];
+const roadLengthMap = new Map();
+let roadLengthsLoaded = false;
+
+function buildRoadLengthMap() {
+    if (roadLengthsLoaded) return;
+    const types = ['international', 'national', 'regional', 'territorial'];
     for (const type of types) {
         const data = roadData[type];
         if (!data) continue;
         for (const f of data.features) {
             const p = f.properties || {};
-            if (p.ref === ref) {
-                const len = parseFloat(p.distance);
-                roadLengthCache[ref] = isNaN(len) ? 0 : len;
-                return roadLengthCache[ref];
-            }
+            const ref = p.ref && String(p.ref).trim();
+            if (!ref) continue;
+            const len = parseFloat(p.distance);
+            roadLengthMap.set(ref, isNaN(len) ? 0 : len);
         }
     }
-    roadLengthCache[ref] = 0;
-    return 0;
+    roadLengthsLoaded = true;
+}
+
+function getRoadLength(ref) {
+    if (!roadLengthsLoaded) buildRoadLengthMap();
+    return roadLengthMap.get(ref) || 0;
 }
 
 function updateRoadStats() {
