@@ -1,3 +1,16 @@
+function encodeDataForScript(data) {
+    const json = JSON.stringify(data);
+    if (typeof Buffer !== 'undefined') {
+        return Buffer.from(json, 'utf-8').toString('base64');
+    }
+    const uint8 = new TextEncoder().encode(json);
+    let binary = '';
+    for (const b of uint8) {
+        binary += String.fromCharCode(b);
+    }
+    return btoa(binary);
+}
+
 function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
         console.error('speedData is undefined');
@@ -41,7 +54,7 @@ function downloadHTML() {
 
     const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
 
-    const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
+    const encodedData = encodeDataForScript(speedData);
 
     if (typeof window.getMarkerPopupContent !== 'function') {
         console.error('window.getMarkerPopupContent is not a function');
@@ -165,7 +178,8 @@ function getColorBySpeed(speed) {
 }
 
 /* ------------------ 3. Дані ------------------ */
-const data = ${safeData};
+  const dataEncoded = "${encodedData}";
+  const data = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(dataEncoded), c => c.charCodeAt(0))));
 /* ------------------ 4. Ініціалізація карти ------------------ */
 const map = L.map('map');
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -266,4 +280,8 @@ L.control.layers(null, overlays, { collapsed: true }).addTo(map);
     document.body.removeChild(link);
 
     showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
+}
+
+if (typeof module !== 'undefined') {
+    module.exports = { encodeDataForScript };
 }
