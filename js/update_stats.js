@@ -3,7 +3,8 @@ const maxSpeedEl = document.getElementById("maxSpeed");
 const minSpeedEl = document.getElementById("minSpeed");
 
 function updateStats() {
-    if (currentSpeedMbps > 0) {
+    // Include zero speeds so periods of complete outage affect statistics
+    if (currentSpeedMbps >= 0) {
         speedStats.min = Math.min(speedStats.min, currentSpeedMbps);
         speedStats.max = Math.max(speedStats.max, currentSpeedMbps);
         speedStats.sum += currentSpeedMbps;
