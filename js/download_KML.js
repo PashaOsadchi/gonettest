@@ -54,7 +54,8 @@ function downloadKML() {
         }
         cumulative += Number(record.downloadedDelta) || 0;
 
-        const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
+        const altitude =
+            record.altitude != null ? record.altitude.toFixed(1) : (0).toFixed(1);
 
         const ts =
             record.fullTimestamp instanceof Date
@@ -86,10 +87,18 @@ function downloadKML() {
             `Район: ${record.rayon}<br>` +
             `Громада: ${record.hromada}<br>` +
             `Номер дороги: ${record.roadRef ?? ''}<br>` +
-            `GPS Швидкість (км/год): ${record.gpsSpeed ? record.gpsSpeed.toFixed(1) : ''}<br>` +
-            `Відстань (м): ${record.distance ? record.distance.toFixed(1) : ''}<br>` +
-            `Точність (м): ${record.accuracy ? record.accuracy.toFixed(1) : ''}<br>` +
-            `Напрямок (°): ${record.heading ? record.heading.toFixed(1) : ''}`;
+            `GPS Швидкість (км/год): ${
+                record.gpsSpeed != null ? record.gpsSpeed.toFixed(1) : ''
+            }<br>` +
+            `Відстань (м): ${
+                record.distance != null ? record.distance.toFixed(1) : ''
+            }<br>` +
+            `Точність (м): ${
+                record.accuracy != null ? record.accuracy.toFixed(1) : ''
+            }<br>` +
+            `Напрямок (°): ${
+                record.heading != null ? record.heading.toFixed(1) : ''
+            }`;
 
         let style = '#green';
         if (record.speed === 0) {
