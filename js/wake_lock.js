@@ -2,6 +2,11 @@
 let wakeLock = null;
 
 export async function requestWakeLock() {
+    if (!('wakeLock' in navigator)) {
+        console.warn('Wake Lock API not supported');
+        return;
+    }
+
     try {
         wakeLock = await navigator.wakeLock.request('screen');
         wakeLock.addEventListener('release', async () => {
