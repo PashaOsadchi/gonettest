@@ -2,7 +2,7 @@ import { currentLang as initialLang, speedChart } from './config.js';
 import { updateGPSInfo } from './update_GPS_info.js';
 import { updateDatabaseInfo } from './update_database_info.js';
 
-let currentLang = initialLang;
+let currentLang = initialLang || localStorage.getItem('lang') || 'uk';
 
 function t(key, fallback = '') {
     const dict = window.i18n && window.i18n[currentLang];
@@ -56,5 +56,7 @@ function setLanguage(lang) {
 }
 
 function initLanguage() {
-    setLanguage(currentLang);
+    if (typeof currentLang !== 'undefined') {
+        setLanguage(currentLang);
+    }
 }
