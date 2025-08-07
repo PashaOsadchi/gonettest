@@ -275,8 +275,18 @@ async function toggleTest() {
         testActive = true;
         document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
 
-        await requestWakeLock();
-        await detectISP();
+        try {
+            await requestWakeLock();
+            await detectISP();
+        } catch (error) {
+            testActive = false;
+            await resetTestState();
+            document.getElementById("startBtn").textContent = t('startTest', 'Почати тест');
+            addLog("Не вдалося запустити тест");
+            showNotification(t('testStartFailed', 'Не вдалося запустити тест'));
+            console.error('toggleTest error:', error);
+            return;
+        }
 
         addLog("Старт тесту");
         showNotification(t('testStarted', 'Тест запущено!'));
