@@ -43,6 +43,10 @@ function downloadHTML() {
 
     const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
 
+    if (typeof window.getMarkerPopupContent !== 'function') {
+        console.error('window.getMarkerPopupContent is not a function');
+        return;
+    }
     let getMarkerPopupContentSrc = window.getMarkerPopupContent.toString();
 
     if (!getMarkerPopupContentSrc.includes("distanceColumn")) {
