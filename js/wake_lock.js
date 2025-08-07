@@ -7,6 +7,10 @@ export async function requestWakeLock() {
         return;
     }
 
+    if (wakeLock) {
+        return;
+    }
+
     try {
         wakeLock = await navigator.wakeLock.request('screen');
         wakeLock.addEventListener('release', async () => {
