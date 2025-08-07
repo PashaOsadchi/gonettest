@@ -7,6 +7,10 @@ function announceAdminChange(info) {
         return;
     }
 
+    if (!info.region || !info.rayon || !info.hromada) {
+        console.warn('announceAdminChange: incomplete info', info);
+    }
+
     if (settings.voiceHromadaChange) {
         if (
             !lastAdminUnit.hromada ||
@@ -14,7 +18,11 @@ function announceAdminChange(info) {
             lastAdminUnit.rayon !== info.rayon ||
             lastAdminUnit.region !== info.region
         ) {
-            speak(`Вас вітає ${info.hromada} ${info.rayon} ${info.region}`);
+            const region = info.region ?? '';
+            const rayon = info.rayon ?? '';
+            const hromada = info.hromada ?? '';
+            const message = `Вас вітає ${hromada} ${rayon} ${region}`;
+            speak(message.trim());
         }
     }
 
