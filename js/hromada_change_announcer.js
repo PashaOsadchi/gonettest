@@ -7,8 +7,9 @@ function announceAdminChange(info) {
         return;
     }
 
-    if (settings.voiceHromadaChange && lastAdminUnit.hromada) {
+    if (settings.voiceHromadaChange) {
         if (
+            !lastAdminUnit.hromada ||
             lastAdminUnit.hromada !== info.hromada ||
             lastAdminUnit.rayon !== info.rayon ||
             lastAdminUnit.region !== info.region
