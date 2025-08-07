@@ -45,7 +45,14 @@ function downloadKML() {
     speedData.forEach((record, idx) => {
         if (record.latitude == null || record.longitude == null) return;
 
-        cumulative += record.downloadedDelta;
+        if (Number.isNaN(Number(record.downloadedDelta))) {
+            console.warn(
+                'Skipping record with non-numeric downloadedDelta',
+                record
+            );
+            return;
+        }
+        cumulative += Number(record.downloadedDelta) || 0;
 
         const altitude = record.altitude ? record.altitude.toFixed(1) : '0';
 
