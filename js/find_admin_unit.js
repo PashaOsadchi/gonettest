@@ -159,7 +159,7 @@ function distanceToSegment(lat, lon, lat1, lon1, lat2, lon2) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
-function isPointNearLineString(lon, lat, coords, threshold) {
+function isPointNearLineString(lat, lon, coords, threshold) {
     for (let i = 0; i < coords.length - 1; i++) {
         const [lon1, lat1] = coords[i];
         const [lon2, lat2] = coords[i + 1];
@@ -170,26 +170,26 @@ function isPointNearLineString(lon, lat, coords, threshold) {
     return false;
 }
 
-function isPointNearRoad(lon, lat, feature, threshold) {
+function isPointNearRoad(lat, lon, feature, threshold) {
     const geom = feature.geometry;
     if (!geom) return false;
     if (geom.type === 'LineString') {
-        return isPointNearLineString(lon, lat, geom.coordinates, threshold);
+        return isPointNearLineString(lat, lon, geom.coordinates, threshold);
     } else if (geom.type === 'MultiLineString') {
         for (const line of geom.coordinates) {
-            if (isPointNearLineString(lon, lat, line, threshold)) return true;
+            if (isPointNearLineString(lat, lon, line, threshold)) return true;
         }
     }
     return false;
 }
 
-function find_road(lon, lat, threshold = 50) {
+function find_road(lat, lon, threshold = 50) {
     const types = ['international', 'national', 'regional', 'territorial'];
     for (const type of types) {
         const data = roadData[type];
         if (!data) continue;
         for (const feature of data.features) {
-            if (isPointNearRoad(lon, lat, feature, threshold)) {
+            if (isPointNearRoad(lat, lon, feature, threshold)) {
                 return feature.properties;
             }
         }
