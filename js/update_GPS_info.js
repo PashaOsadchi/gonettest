@@ -37,6 +37,7 @@ function updateGPSInfo() {
                 gpsAccuracyEl.classList.add('status-warning');
             }
         } else {
+            gpsAccuracyEl.classList.remove('status-warning', 'status-success', 'status-accent');
             gpsAccuracyEl.textContent = naText;
         }
 
