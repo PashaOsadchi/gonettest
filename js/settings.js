@@ -1,5 +1,9 @@
 function toggleSettings() {
     const panel = document.getElementById("settingsPanel");
+    if (!panel) {
+        console.warn("settingsPanel element not found");
+        return;
+    }
     const shouldOpen = !panel.classList.contains("active");
     panel.classList.toggle("active");
 
