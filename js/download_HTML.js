@@ -164,6 +164,10 @@ function getColorBySpeed(speed) {
   return COLOR_GREEN;
 }
 
+function ensureColon(label) {
+  return label.endsWith(':') ? label : label + ':';
+}
+
 /* ------------------ 3. Дані ------------------ */
 const data = ${safeData};
 /* ------------------ 4. Ініціалізація карти ------------------ */
