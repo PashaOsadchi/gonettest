@@ -94,6 +94,9 @@ function estimateLocalStorageSize() {
 function notifyStorageThreshold(percent) {
     const thresholds = [50, 90, 95, 99];
     window.lastStoragePercent = window.lastStoragePercent || 0;
+    if (percent < window.lastStoragePercent) {
+        window.lastStoragePercent = percent;
+    }
     thresholds.forEach(th => {
         if (percent >= th && window.lastStoragePercent < th) {
             showNotification(

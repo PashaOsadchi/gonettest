@@ -25,6 +25,7 @@ function clearData() {
             if (greenCluster) greenCluster.clearLayers();
             mapMarkers = [];
         }
+        window.lastStoragePercent = 0;
         updateDataDisplay();
         updateDatabaseInfo();
         updateGPSInfo();
