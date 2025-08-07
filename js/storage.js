@@ -79,9 +79,9 @@ async function loadSpeedDataFromStorage() {
         writeStore.clear();
         speedData.forEach((record, idx) => writeStore.put(record, idx));
 
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
             writeTx.oncomplete = resolve;
-            writeTx.onerror = resolve;
+            writeTx.onerror = () => reject(writeTx.error);
         });
     } else {
         if (readResult.legacy !== undefined && readResult.legacy !== null) {
