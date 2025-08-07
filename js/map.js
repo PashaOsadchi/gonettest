@@ -47,7 +47,7 @@ function initMap() {
     updateRoadLayers();
 
     // Add previously stored markers without centering on each
-    if (speedData.length > 0) {
+    if (typeof speedData !== 'undefined' && Array.isArray(speedData) && speedData.length > 0) {
         speedData.forEach((pt) => addMapMarker(pt, false));
         const last = speedData[speedData.length - 1];
         if (last.latitude != null && last.longitude != null) {
