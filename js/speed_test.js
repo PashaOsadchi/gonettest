@@ -273,7 +273,9 @@ async function toggleTest() {
 
     if (!testInProgress) {
         testActive = true;
-        document.getElementById("startBtn").textContent = t('stopTest', 'Зупинити тест');
+        const startBtn = document.getElementById("startBtn");
+        startBtn.disabled = true;
+        startBtn.textContent = t('stopTest', 'Зупинити тест');
 
         try {
             await requestWakeLock();
@@ -281,7 +283,8 @@ async function toggleTest() {
         } catch (error) {
             testActive = false;
             await resetTestState();
-            document.getElementById("startBtn").textContent = t('startTest', 'Почати тест');
+            startBtn.textContent = t('startTest', 'Почати тест');
+            startBtn.disabled = false;
             addLog("Не вдалося запустити тест");
             showNotification(t('testStartFailed', 'Не вдалося запустити тест'));
             console.error('toggleTest error:', error);
@@ -295,6 +298,7 @@ async function toggleTest() {
         isConnected = await checkRealConnection();
         initGPS();
         runTest();
+        startBtn.disabled = false;
     }
 }
 
