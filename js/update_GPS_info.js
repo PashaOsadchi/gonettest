@@ -168,7 +168,7 @@ async function updateRoadInfo() {
         return;
     }
 
-    const road = find_road(currentGPSData.longitude, currentGPSData.latitude);
+    const road = find_road(currentGPSData.latitude, currentGPSData.longitude);
     announceRoadChange(road);
 
     if (road) {

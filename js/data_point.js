@@ -46,8 +46,8 @@ async function saveDataPoint() {
             currentGPSData.latitude
         )) || {};
     const roadInfo = find_road(
-        currentGPSData.longitude,
-        currentGPSData.latitude
+        currentGPSData.latitude,
+        currentGPSData.longitude
     );
 
     const now = new Date();
