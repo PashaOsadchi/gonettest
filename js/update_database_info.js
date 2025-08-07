@@ -9,7 +9,7 @@ function initStorageQuota() {
             .then(({ quota }) => {
                 if (quota) window.cachedQuota = quota;
             })
-            .catch(() => {});
+            .catch(err => console.error('Storage estimate failed', err));
     } else if (
         navigator.webkitTemporaryStorage &&
         navigator.webkitTemporaryStorage.queryUsageAndQuota
@@ -18,7 +18,7 @@ function initStorageQuota() {
             (_usage, quota) => {
                 if (quota) window.cachedQuota = quota;
             },
-            () => {}
+            (err) => console.error('Quota query failed', err)
         );
     }
 }
