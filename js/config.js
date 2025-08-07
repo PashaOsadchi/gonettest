@@ -10,6 +10,8 @@ const SPEECH_RATE = 0.8;
 const GPS_TIMEOUT = 5000;
 const GPS_MAX_AGE = 1000;
 const MAX_GPS_ACCURACY = 10;
+// Maximum distance (m) between consecutive GPS points to consider them valid
+const MAX_POINT_DISTANCE = 100;
 const DEFAULT_FETCH_TIMEOUT = 1000;
 const STREAM_READ_TIMEOUT = 500000;
 const UI_UPDATE_INTERVAL = 1000;

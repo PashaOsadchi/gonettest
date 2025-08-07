@@ -32,6 +32,13 @@ Use the **Завантажити CSV**, **Завантажити KML**, or **З�
 
 Visit [https://www.gonettest.com](https://www.gonettest.com) for the hosted version.
 
+## Configuration
+
+Application behaviour can be adjusted by editing constants in [`js/config.js`](js/config.js).
+The `MAX_POINT_DISTANCE` constant defines the maximum distance in meters allowed
+between successive GPS points. Distances larger than this value are ignored to
+filter out GPS glitches. The default value is `100`.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
