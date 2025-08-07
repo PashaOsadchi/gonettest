@@ -62,6 +62,7 @@ window.i18n.en = {
   zeroSpeedLabel: "0 Mbps:",
   upTo2SpeedLabel: "Up to 2 Mbps:",
   above2SpeedLabel: "Above 2 Mbps:",
+  distanceKmLabel: "Distance (km)",
   timeColumn: "Time",
   speedColumn: "Download speed Mbps",
   latColumn: "Latitude",

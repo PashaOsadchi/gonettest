@@ -104,7 +104,7 @@ function updateAdminStats() {
         ).toFixed(1);
         return (
             countRows(obj, indent) +
-            `<div class="info-row" style="--indent:${indent}px"><span>Відстань (км)</span><span>${totalKm}</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань (км)')}</span><span>${totalKm}</span></div>` +
             distRows(obj, indent)
         );
     };
