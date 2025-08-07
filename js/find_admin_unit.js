@@ -53,12 +53,16 @@ function isPointInPolygon(point, polygon) {
  * all the necessary information.
  * @param {number} lon - The longitude of the point.
  * @param {number} lat - The latitude of the point.
- * @returns {object|null} - An object with region, rayon, and hromada properties, or null if not found.
+ * @returns {Promise<object|null>} - An object with region, rayon, and hromada properties, or null if not found.
  */
-function find_admin_unit(lon, lat) {
+async function find_admin_unit(lon, lat) {
     if (!hromadyData) {
-        console.error("GeoJSON data not loaded yet.");
-        return null;
+        try {
+            await loadHromadyData();
+        } catch (e) {
+            console.error("GeoJSON data not loaded yet.", e);
+            return null;
+        }
     }
 
     const point = [lon, lat];

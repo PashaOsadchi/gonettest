@@ -120,17 +120,16 @@ async function updateAdminInfo() {
         return;
     }
 
+    let info = null;
     try {
-        await loadHromadyData();
+        info = await find_admin_unit(
+            currentGPSData.longitude,
+            currentGPSData.latitude
+        );
     } catch (e) {
         console.error('Failed to load hromady data', e);
-        oblastEl.textContent = '-';
-        raionEl.textContent = '-';
-        hromadaEl.textContent = '-';
-        return;
     }
 
-    const info = find_admin_unit(currentGPSData.longitude, currentGPSData.latitude);
     announceAdminChange(info);
 
     if (info) {
