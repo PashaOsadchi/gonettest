@@ -12,12 +12,16 @@ function announceRoadChange(road) {
     const currentNetwork = road.network || null;
 
     if (settings.voiceRoadChange) {
-        if (
-            !lastRoad.ref ||
+        const isInitial =
+            lastRoad.ref === null &&
+            lastRoad.name === null &&
+            lastRoad.network === null;
+        const hasChanged =
             lastRoad.ref !== currentRef ||
             lastRoad.name !== currentName ||
-            lastRoad.network !== currentNetwork
-        ) {
+            lastRoad.network !== currentNetwork;
+
+        if (isInitial || hasChanged) {
             const refPart = currentRef ? `${currentRef}` : '';
             const namePart = currentName ? `${currentName}` : '';
             const networkPart = currentNetwork ? `${currentNetwork}` : '';
