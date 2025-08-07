@@ -116,6 +116,12 @@ window.i18n.en = {
   fullscreenDisabled: "Fullscreen disabled",
   themeSwitchedDark: "Switched to dark theme",
   themeSwitchedLight: "Switched to light theme",
+  testResults: "Test results",
+  testResultsTime: "time",
+  testResultsData: "data",
+  testResultsAvgSpeed: "average speed",
+  testResultsMax: "max",
+  testResultsMin: "min",
   storage50: "Local storage 50% full!",
   storage90: "Local storage 90% full!",
   storage95: "Local storage 95% full!",
@@ -134,5 +140,6 @@ window.i18n.en = {
   mbShort: "MB",
   kbShort: "KB",
   bShort: "B",
+  mbpsShort: "Mbps",
   directionLabels: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 };

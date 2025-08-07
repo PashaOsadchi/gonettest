@@ -116,6 +116,12 @@ window.i18n.uk = {
   fullscreenDisabled: "Повноекранний режим вимкнено",
   themeSwitchedDark: "Переключено на темну тему",
   themeSwitchedLight: "Переключено на світлу тему",
+  testResults: "Результати тесту",
+  testResultsTime: "час",
+  testResultsData: "дані",
+  testResultsAvgSpeed: "середня швидкість",
+  testResultsMax: "макс",
+  testResultsMin: "мін",
   storage50: "Локальне сховище заповнене на 50%!",
   storage90: "Локальне сховище заповнене на 90%!",
   storage95: "Локальне сховище заповнене на 95%!",
@@ -134,5 +140,6 @@ window.i18n.uk = {
   mbShort: "МБ",
   kbShort: "КБ",
   bShort: "Б",
+  mbpsShort: "Мбіт/с",
   directionLabels: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"]
 };
