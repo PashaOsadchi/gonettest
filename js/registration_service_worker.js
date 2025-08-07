@@ -14,7 +14,12 @@ if ("serviceWorker" in navigator) {
             .catch((err) => {
                 console.error("Service worker registration failed:", err);
                 if (typeof showNotification === "function") {
-                    showNotification("Service worker error");
+                    const baseMessage = t(
+                        "serviceWorkerError",
+                        "Помилка Service Worker"
+                    );
+                    const details = err?.message || err;
+                    showNotification(`${baseMessage}: ${details}`);
                 }
             });
     });
