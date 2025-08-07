@@ -41,7 +41,7 @@ function setLanguage(lang) {
     applyTranslations();
     const select = document.getElementById('languageSelect');
     if (select) select.value = lang;
-    if (speedChart && window.i18n && window.i18n[currentLang]) {
+    if (speedChart?.data?.datasets?.[0] && window.i18n?.[currentLang]) {
         speedChart.data.datasets[0].label =
             window.i18n[currentLang].speedChartLabel ||
             speedChart.data.datasets[0].label;
