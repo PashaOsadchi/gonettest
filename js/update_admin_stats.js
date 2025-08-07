@@ -4,6 +4,21 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
+function updateStats(target, speed, distance) {
+    const dist = distance || 0;
+    target.total++;
+    if (speed === 0) {
+        target.zero++;
+        target.distZero += dist;
+    } else if (speed > 0 && speed <= 2) {
+        target.upto2++;
+        target.distUpto2 += dist;
+    } else {
+        target.above2++;
+        target.distAbove2 += dist;
+    }
+}
+
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
@@ -20,17 +35,7 @@ function updateAdminStats() {
         }
         const reg = stats[rec.region];
         const dist = rec.distance || 0;
-        reg.total++;
-        if (rec.speed === 0) {
-            reg.zero++;
-            reg.distZero += dist;
-        } else if (rec.speed > 0 && rec.speed <= 2) {
-            reg.upto2++;
-            reg.distUpto2 += dist;
-        } else {
-            reg.above2++;
-            reg.distAbove2 += dist;
-        }
+        updateStats(reg, rec.speed, dist);
 
         if (rec.rayon) {
             if (!reg.raions[rec.rayon]) {
@@ -41,17 +46,7 @@ function updateAdminStats() {
                 };
             }
             const ray = reg.raions[rec.rayon];
-            ray.total++;
-            if (rec.speed === 0) {
-                ray.zero++;
-                ray.distZero += dist;
-            } else if (rec.speed > 0 && rec.speed <= 2) {
-                ray.upto2++;
-                ray.distUpto2 += dist;
-            } else {
-                ray.above2++;
-                ray.distAbove2 += dist;
-            }
+            updateStats(ray, rec.speed, dist);
 
             if (rec.hromada) {
                 if (!ray.hromady[rec.hromada]) {
@@ -61,17 +56,7 @@ function updateAdminStats() {
                     };
                 }
                 const h = ray.hromady[rec.hromada];
-                h.total++;
-                if (rec.speed === 0) {
-                    h.zero++;
-                    h.distZero += dist;
-                } else if (rec.speed > 0 && rec.speed <= 2) {
-                    h.upto2++;
-                    h.distUpto2 += dist;
-                } else {
-                    h.above2++;
-                    h.distAbove2 += dist;
-                }
+                updateStats(h, rec.speed, dist);
             }
         }
     }
