@@ -25,7 +25,8 @@ function announceRoadChange(road) {
             const refPart = currentRef ? `${currentRef}` : '';
             const namePart = currentName ? `${currentName}` : '';
             const networkPart = currentNetwork ? `${currentNetwork}` : '';
-            speak(`Ви виїхали на дорогу ${refPart} ${namePart} ${networkPart}`.trim());
+            const parts = [refPart, namePart, networkPart].filter(part => part);
+            speak(['Ви виїхали на дорогу', ...parts].join(' '));
         }
     }
 
