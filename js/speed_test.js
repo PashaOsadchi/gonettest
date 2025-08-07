@@ -1,9 +1,8 @@
 import { requestWakeLock } from './wake_lock.js';
 
-function resetTestState() {
+async function resetTestState() {
     testInProgress = false;
     pendingRun = false;
-    isConnected = true;
     consecutiveErrors = 0;
 
     if (updateInterval) {
@@ -14,6 +13,21 @@ function resetTestState() {
         clearInterval(dataInterval);
         dataInterval = null;
     }
+
+    isConnected = await checkRealConnection();
+
+    const statusEl = document.getElementById("status");
+    const speedValueEl = document.getElementById("speedValue");
+    const alertIndicatorEl = document.getElementById("alertIndicator");
+
+    if (isConnected) {
+        statusEl.textContent = t('statusReady', 'Натисніть "Почати тест"');
+        alertIndicatorEl.style.display = "none";
+    } else {
+        statusEl.textContent = t('statusNoConnection', 'Відсутнє з\'єднання');
+        alertIndicatorEl.style.display = "block";
+    }
+    speedValueEl.textContent = "0.00";
 }
 
 function updateSpeedPerSecond(bytes, elapsedMs) {
@@ -132,7 +146,7 @@ async function measureDownloadSpeed() {
 
 async function runTest() {
   if (!testActive) {
-    resetTestState();
+    await resetTestState();
     return;
   }
 
@@ -213,7 +227,7 @@ async function runTest() {
     return;
   }
   stopGPS();
-  resetTestState();
+  await resetTestState();
   logTestSummary();
 }
 
