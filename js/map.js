@@ -97,12 +97,16 @@ function getMarkerPopupContent(point) {
         return label.endsWith(':') ? label : label + ':';
     }
 
+    const speedValue = Number.isFinite(point.speed)
+        ? point.speed.toFixed(2)
+        : na;
+
     const rows = [
         [ensureColon(t('timestampMsLabel', 'Часова мітка (мс)')), ts.getTime()],
         [ensureColon(t('dateLabel', 'Дата')), dateStr],
         [ensureColon(t('timeLabel', 'Час')), timeStr],
         [ensureColon(t('operatorLabel', 'Оператор')), operator || na],
-        [ensureColon(t('speedColumn', 'Швидкість завантаження Мбіт/с')), point.speed.toFixed(2)],
+        [ensureColon(t('speedColumn', 'Швидкість завантаження Мбіт/с')), speedValue],
         [ensureColon(t('latColumn', 'Широта')),
             point.latitude != null ? point.latitude.toFixed(6) : na],
         [ensureColon(t('lonColumn', 'Довгота')),
