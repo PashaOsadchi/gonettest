@@ -17,7 +17,8 @@ function getDistanceToLastPoint(lat, lon) {
         lat,
         lon
     );
-    return distance <= 100 ? distance : 0;
+    // Ignore points farther than MAX_POINT_DISTANCE meters to avoid GPS glitches
+    return distance <= MAX_POINT_DISTANCE ? distance : 0;
 }
 
 window.getDistanceToLastPoint = getDistanceToLastPoint;
