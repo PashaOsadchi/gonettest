@@ -62,6 +62,8 @@ window.i18n.uk = {
   zeroSpeedLabel: "0 Мбіт/с:",
   upTo2SpeedLabel: "До 2 Мбіт/с:",
   above2SpeedLabel: "Більше 2 Мбіт/с:",
+  testsPercentTotal: "Тестів (% від загальної кількості)",
+  distancePercentRoad: "Відстань (% від загальної протяжності дороги)",
   distanceKmLabel: "Відстань (км)",
   timeColumn: "Час",
   speedColumn: "Швидкість завантаження Мбіт/с",
