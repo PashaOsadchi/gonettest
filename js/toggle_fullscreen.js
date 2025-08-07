@@ -2,8 +2,15 @@ function toggleFullscreen() {
     const body = document.body;
 
     if (!isFullscreen) {
-        const target = body.requestFullscreen ? body : document.documentElement;
-        target.requestFullscreen()
+        const target = (body.requestFullscreen || body.webkitRequestFullscreen || body.mozRequestFullScreen || body.msRequestFullscreen) ? body : document.documentElement;
+        const request = target.requestFullscreen || target.webkitRequestFullscreen || target.mozRequestFullScreen || target.msRequestFullscreen;
+        if (!request) {
+            isFullscreen = false;
+            showNotification(t('fullscreenEnableFailed', 'Не вдалося увімкнути повноекранний режим'));
+            console.error('Fullscreen API is not supported');
+            return;
+        }
+        Promise.resolve(request.call(target))
             .then(() => {
                 isFullscreen = true;
                 body.classList.add("fullscreen-mode");
@@ -20,7 +27,14 @@ function toggleFullscreen() {
                 console.error('Failed to enter fullscreen', err);
             });
     } else {
-        document.exitFullscreen()
+        const exit = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+        if (!exit) {
+            isFullscreen = true;
+            showNotification(t('fullscreenDisableFailed', 'Не вдалося вимкнути повноекранний режим'));
+            console.error('Fullscreen API is not supported');
+            return;
+        }
+        Promise.resolve(exit.call(document))
             .then(() => {
                 isFullscreen = false;
                 body.classList.remove("fullscreen-mode");
