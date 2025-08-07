@@ -1,5 +1,6 @@
 window.cachedDataSize = 0;
 window.cachedDataLength = 0;
+window.cachedDataJSON = '';
 window.cachedQuota = 0;
 
 function initStorageQuota() {
@@ -78,9 +79,14 @@ function updateDatabaseInfo() {
 }
 
 function estimateLocalStorageSize() {
-    if (window.cachedDataLength !== speedData.length) {
-        window.cachedDataSize = new Blob([JSON.stringify(speedData)]).size;
+    const dataJSON = JSON.stringify(speedData);
+    if (
+        window.cachedDataLength !== speedData.length ||
+        window.cachedDataJSON !== dataJSON
+    ) {
+        window.cachedDataSize = new Blob([dataJSON]).size;
         window.cachedDataLength = speedData.length;
+        window.cachedDataJSON = dataJSON;
     }
     return window.cachedDataSize;
 }
