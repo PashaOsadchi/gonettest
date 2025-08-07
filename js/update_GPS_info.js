@@ -24,7 +24,7 @@ function updateGPSInfo() {
         )}, ${currentGPSData.longitude.toFixed(6)}`;
 
         // Точність
-        if (currentGPSData.accuracy) {
+        if (currentGPSData.accuracy != null) {
             gpsAccuracyEl.textContent = `±${currentGPSData.accuracy.toFixed(
                 1
             )}`;
