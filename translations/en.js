@@ -116,6 +116,7 @@ window.i18n.en = {
   fullscreenDisabled: "Fullscreen disabled",
   themeSwitchedDark: "Switched to dark theme",
   themeSwitchedLight: "Switched to light theme",
+  serviceWorkerError: "Service worker error",
   testResults: "Test results",
   testResultsTime: "time",
   testResultsData: "data",

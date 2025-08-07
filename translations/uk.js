@@ -116,6 +116,7 @@ window.i18n.uk = {
   fullscreenDisabled: "Повноекранний режим вимкнено",
   themeSwitchedDark: "Переключено на темну тему",
   themeSwitchedLight: "Переключено на світлу тему",
+  serviceWorkerError: "Помилка Service Worker",
   testResults: "Результати тесту",
   testResultsTime: "час",
   testResultsData: "дані",
