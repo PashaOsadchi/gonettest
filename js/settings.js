@@ -28,17 +28,27 @@ function loadSettingsFromStorage() {
 }
 
 function saveSettings() {
-    settings.soundAlerts = document.getElementById("soundAlerts").checked;
-    settings.voiceAlerts = document.getElementById("voiceAlerts").checked;
-    settings.voiceHromadaChange = document.getElementById("voiceHromadaChange").checked;
-    settings.voiceRoadChange = document.getElementById("voiceRoadChange").checked;
-    settings.showHromady = document.getElementById("showHromady").checked;
-    settings.showInternationalRoads = document.getElementById("showInternationalRoads").checked;
-    settings.showNationalRoads = document.getElementById("showNationalRoads").checked;
-    settings.showRegionalRoads = document.getElementById("showRegionalRoads").checked;
-    settings.showTerritorialRoads = document.getElementById("showTerritorialRoads").checked;
+    const soundAlerts = document.getElementById("soundAlerts");
+    const voiceAlerts = document.getElementById("voiceAlerts");
+    const voiceHromadaChange = document.getElementById("voiceHromadaChange");
+    const voiceRoadChange = document.getElementById("voiceRoadChange");
+    const showHromady = document.getElementById("showHromady");
+    const showInternationalRoads = document.getElementById("showInternationalRoads");
+    const showNationalRoads = document.getElementById("showNationalRoads");
+    const showRegionalRoads = document.getElementById("showRegionalRoads");
+    const showTerritorialRoads = document.getElementById("showTerritorialRoads");
     const langSelect = document.getElementById("languageSelect");
-    if (langSelect) setLanguage(langSelect.value);
+
+    if (soundAlerts) settings.soundAlerts = soundAlerts.checked; else console.warn("soundAlerts element not found");
+    if (voiceAlerts) settings.voiceAlerts = voiceAlerts.checked; else console.warn("voiceAlerts element not found");
+    if (voiceHromadaChange) settings.voiceHromadaChange = voiceHromadaChange.checked; else console.warn("voiceHromadaChange element not found");
+    if (voiceRoadChange) settings.voiceRoadChange = voiceRoadChange.checked; else console.warn("voiceRoadChange element not found");
+    if (showHromady) settings.showHromady = showHromady.checked; else console.warn("showHromady element not found");
+    if (showInternationalRoads) settings.showInternationalRoads = showInternationalRoads.checked; else console.warn("showInternationalRoads element not found");
+    if (showNationalRoads) settings.showNationalRoads = showNationalRoads.checked; else console.warn("showNationalRoads element not found");
+    if (showRegionalRoads) settings.showRegionalRoads = showRegionalRoads.checked; else console.warn("showRegionalRoads element not found");
+    if (showTerritorialRoads) settings.showTerritorialRoads = showTerritorialRoads.checked; else console.warn("showTerritorialRoads element not found");
+    if (langSelect) setLanguage(langSelect.value); else console.warn("languageSelect element not found");
 
     // Перезапускаємо інтервал збереження якщо тест активний
     if (testActive && dataInterval) {
@@ -63,15 +73,25 @@ function saveSettings() {
 }
 
 function loadSettings() {
-    document.getElementById("soundAlerts").checked = settings.soundAlerts;
-    document.getElementById("voiceAlerts").checked = settings.voiceAlerts;
-    document.getElementById("voiceHromadaChange").checked = settings.voiceHromadaChange;
-    document.getElementById("voiceRoadChange").checked = settings.voiceRoadChange;
-    document.getElementById("showHromady").checked = settings.showHromady;
-    document.getElementById("showInternationalRoads").checked = settings.showInternationalRoads;
-    document.getElementById("showNationalRoads").checked = settings.showNationalRoads;
-    document.getElementById("showRegionalRoads").checked = settings.showRegionalRoads;
-    document.getElementById("showTerritorialRoads").checked = settings.showTerritorialRoads;
+    const soundAlerts = document.getElementById("soundAlerts");
+    const voiceAlerts = document.getElementById("voiceAlerts");
+    const voiceHromadaChange = document.getElementById("voiceHromadaChange");
+    const voiceRoadChange = document.getElementById("voiceRoadChange");
+    const showHromady = document.getElementById("showHromady");
+    const showInternationalRoads = document.getElementById("showInternationalRoads");
+    const showNationalRoads = document.getElementById("showNationalRoads");
+    const showRegionalRoads = document.getElementById("showRegionalRoads");
+    const showTerritorialRoads = document.getElementById("showTerritorialRoads");
     const langSelect = document.getElementById("languageSelect");
-    if (langSelect) langSelect.value = currentLang;
+
+    if (soundAlerts) soundAlerts.checked = settings.soundAlerts; else console.warn("soundAlerts element not found");
+    if (voiceAlerts) voiceAlerts.checked = settings.voiceAlerts; else console.warn("voiceAlerts element not found");
+    if (voiceHromadaChange) voiceHromadaChange.checked = settings.voiceHromadaChange; else console.warn("voiceHromadaChange element not found");
+    if (voiceRoadChange) voiceRoadChange.checked = settings.voiceRoadChange; else console.warn("voiceRoadChange element not found");
+    if (showHromady) showHromady.checked = settings.showHromady; else console.warn("showHromady element not found");
+    if (showInternationalRoads) showInternationalRoads.checked = settings.showInternationalRoads; else console.warn("showInternationalRoads element not found");
+    if (showNationalRoads) showNationalRoads.checked = settings.showNationalRoads; else console.warn("showNationalRoads element not found");
+    if (showRegionalRoads) showRegionalRoads.checked = settings.showRegionalRoads; else console.warn("showRegionalRoads element not found");
+    if (showTerritorialRoads) showTerritorialRoads.checked = settings.showTerritorialRoads; else console.warn("showTerritorialRoads element not found");
+    if (langSelect) langSelect.value = currentLang; else console.warn("languageSelect element not found");
 }
