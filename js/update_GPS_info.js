@@ -12,7 +12,10 @@ function updateGPSInfo() {
     const naText = t('naValue', 'N/A');
     const directions = t('directionLabels', DEFAULT_DIRECTION_LABELS[currentLang]);
 
-    if (currentGPSData.latitude && currentGPSData.longitude) {
+    if (
+        Number.isFinite(currentGPSData.latitude) &&
+        Number.isFinite(currentGPSData.longitude)
+    ) {
         gpsStatusEl.textContent = t('gpsActive', 'Активний');
         gpsStatusEl.classList.remove('status-warning', 'status-success', 'status-accent');
         gpsStatusEl.classList.add('status-accent');
@@ -67,7 +70,10 @@ function updateGPSInfo() {
         }
 
         // Відстань від попередньої точки
-        if (lastSavedGPSData.latitude && lastSavedGPSData.longitude) {
+        if (
+            Number.isFinite(lastSavedGPSData.latitude) &&
+            Number.isFinite(lastSavedGPSData.longitude)
+        ) {
             const distance = calculateDistance(
                 lastSavedGPSData.latitude,
                 lastSavedGPSData.longitude,
@@ -113,7 +119,10 @@ async function updateAdminInfo() {
     const raionEl = document.getElementById('raion');
     const hromadaEl = document.getElementById('hromada');
 
-    if (!currentGPSData.latitude || !currentGPSData.longitude) {
+    if (
+        !Number.isFinite(currentGPSData.latitude) ||
+        !Number.isFinite(currentGPSData.longitude)
+    ) {
         oblastEl.textContent = '-';
         raionEl.textContent = '-';
         hromadaEl.textContent = '-';
@@ -149,7 +158,10 @@ async function updateRoadInfo() {
     const distEl = document.getElementById('roadDistance');
     const networkEl = document.getElementById('roadNetwork');
 
-    if (!currentGPSData.latitude || !currentGPSData.longitude) {
+    if (
+        !Number.isFinite(currentGPSData.latitude) ||
+        !Number.isFinite(currentGPSData.longitude)
+    ) {
         refEl.textContent = '-';
         nameEl.textContent = '-';
         distEl.textContent = '-';
