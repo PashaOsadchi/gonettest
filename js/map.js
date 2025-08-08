@@ -279,3 +279,5 @@ window.getMarkerPopupContent = getMarkerPopupContent;
 window.addMapMarker = addMapMarker;
 window.updateHromadyLayer = updateHromadyLayer;
 window.updateRoadLayers = updateRoadLayers;
+window.setupMapObserver = setupMapObserver;
+window.initMapIfNeeded = initMapIfNeeded;
