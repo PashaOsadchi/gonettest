@@ -8,9 +8,6 @@ function downloadCSV() {
     if (downloadBtn) downloadBtn.disabled = true;
 
     try {
-        let dateStr = '';
-        let timeStr = '';
-
         // ✨  Додали три нові заголовки після "Час" та колонку "Відстань" після "GPS Швидкість"
         const headers =
             "Часова мітка (мс);" +
@@ -37,23 +34,12 @@ function downloadCSV() {
             headers +
             speedData
                 .map((record) => {
-                    // Перевірка, якщо зберігали Date – використовуємо напряму, інакше створюємо об’єкт Date
                     const ts =
                         record.fullTimestamp instanceof Date
                             ? record.fullTimestamp
                             : new Date(record.fullTimestamp);
 
-                    // Формати дати й часу з 2-цифровими компонентами
-                    dateStr = ts.toLocaleDateString("uk-UA", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                    });
-                    timeStr = ts.toLocaleTimeString("uk-UA", {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        second: "2-digit",
-                    });
+                    const { dateStr, timeStr } = formatTimestamp(ts);
 
                     return (
                         `${ts.getTime()};` +                       // Часова мітка (мс)
@@ -77,6 +63,17 @@ function downloadCSV() {
                     );
                 })
                 .join("\n");
+
+        const lastRecord = speedData[speedData.length - 1];
+        let dateStr = '';
+        let timeStr = '';
+        if (lastRecord && lastRecord.fullTimestamp) {
+            ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
+                forFilename: true,
+                dateSeparator: '.',
+                timeSeparator: '-',
+            }));
+        }
 
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
         saveBlob(
