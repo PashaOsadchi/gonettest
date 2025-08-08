@@ -1,4 +1,5 @@
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
+import { DISABLE_CLUSTER_ZOOM } from './config.js';
 
 function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
@@ -132,7 +133,6 @@ function downloadHTML() {
 const operator = ${JSON.stringify(operator)};
 const t = (key, fallback = '') => fallback;
 /* ------------------ 1. Параметри ------------------ */
-const DISABLE_CLUSTER_ZOOM = ${DISABLE_CLUSTER_ZOOM}; // >= цього зума кластери вимикаються
 const COLOR_RED    = 'red';
 const COLOR_YELLOW = 'yellow';
 const COLOR_GREEN  = 'green';
@@ -163,15 +163,15 @@ const makeClusterIconClass = (className) => cluster =>
 
 /* ------------------ 6. Створення трьох кластерних груп ------------------ */
 const redCluster = L.markerClusterGroup({
-  disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+  disableClusteringAtZoom: ${DISABLE_CLUSTER_ZOOM},
   iconCreateFunction: makeClusterIconClass('red')
 });
 const yellowCluster = L.markerClusterGroup({
-  disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+  disableClusteringAtZoom: ${DISABLE_CLUSTER_ZOOM},
   iconCreateFunction: makeClusterIconClass('yellow')
  });
 const greenCluster = L.markerClusterGroup({
-  disableClusteringAtZoom: DISABLE_CLUSTER_ZOOM,
+  disableClusteringAtZoom: ${DISABLE_CLUSTER_ZOOM},
   iconCreateFunction: makeClusterIconClass('green')
 });
 
