@@ -20,22 +20,11 @@ function downloadHTML() {
     let timeStr = '';
     const lastRecord = speedData[speedData.length - 1];
     if (lastRecord && lastRecord.fullTimestamp) {
-        const ts =
-            lastRecord.fullTimestamp instanceof Date
-                ? lastRecord.fullTimestamp
-                : new Date(lastRecord.fullTimestamp);
-        dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        timeStr = ts
-            .toLocaleTimeString('uk-UA', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-            })
-            .replace(/:/g, '-');
+        ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
+            forFilename: true,
+            dateSeparator: '.',
+            timeSeparator: '-',
+        }));
     }
 
     const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;

@@ -7,24 +7,9 @@ function downloadKML() {
     // Use timestamp of the last record to build file and layer names
     const lastRecord = speedData[speedData.length - 1];
     if (lastRecord && lastRecord.fullTimestamp) {
-        const ts =
-            lastRecord.fullTimestamp instanceof Date
-                ? lastRecord.fullTimestamp
-                : new Date(lastRecord.fullTimestamp);
-        dateStr = ts
-            .toLocaleDateString('uk-UA', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-            })
-            .replace(/[^\d]+/g, '-');
-        timeStr = ts
-            .toLocaleTimeString('uk-UA', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-            })
-            .replace(/[^\d]+/g, '-');
+        ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
+            forFilename: true,
+        }));
     }
 
     const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
@@ -58,16 +43,7 @@ function downloadKML() {
             record.fullTimestamp instanceof Date
                 ? record.fullTimestamp
                 : new Date(record.fullTimestamp);
-        const dateStr = ts.toLocaleDateString('uk-UA', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-        });
-        const timeStr = ts.toLocaleTimeString('uk-UA', {
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        });
+        const { dateStr, timeStr } = formatTimestamp(ts);
 
         const description =
             `Часова мітка (мс): ${ts.getTime()}<br>` +
