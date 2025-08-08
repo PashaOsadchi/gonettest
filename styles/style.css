@@ -616,7 +616,6 @@ h1 {
     display: grid;
     width: 100%;
     grid-template-columns: 1fr;
-    row-gap: 10px;
   }
   .info-row span {
     display: inline;
