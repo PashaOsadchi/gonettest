@@ -9,7 +9,7 @@ const BEEP_DURATION = 200;
 const SPEECH_RATE = 0.8;
 const GPS_TIMEOUT = 5000;
 const GPS_MAX_AGE = 1000;
-const MAX_GPS_ACCURACY = 10;
+const MAX_GPS_ACCURACY = 100;
 // Maximum distance (m) between consecutive GPS points to consider them valid
 const MAX_POINT_DISTANCE = 100;
 const DEFAULT_FETCH_TIMEOUT = 1000;
