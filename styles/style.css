@@ -83,6 +83,7 @@ body {
 
 .container {
   background: var(--container-bg);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 40px;
   width: 70%;
@@ -274,6 +275,7 @@ h1 {
   margin: 5px 0;
   font-size: var(--info-font-size);
   border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
@@ -383,6 +385,7 @@ h1 {
   border: none;
   background: var(--glass-bg);
   color: var(--text-color);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   cursor: pointer;
@@ -503,6 +506,7 @@ h1 {
   left: 50%;
   transform: translateX(-50%);
   background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
   padding: 15px 25px;
