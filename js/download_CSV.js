@@ -82,15 +82,10 @@ function downloadCSV() {
                 .join("\n");
 
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.csv`;
-        link.style.display = "none";
-        document.body.appendChild(link);
-        link.click();
-        URL.revokeObjectURL(link.href);
-        document.body.removeChild(link);
-
+        saveBlob(
+            blob,
+            `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.csv`
+        );
         showNotification(t('dataDownloaded', 'Дані завантажено!'));
     } finally {
         if (downloadBtn) downloadBtn.disabled = false;

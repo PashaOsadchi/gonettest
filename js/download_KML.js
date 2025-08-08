@@ -121,13 +121,6 @@ function downloadKML() {
     const blob = new Blob([kmlContent], {
         type: 'application/vnd.google-earth.kml+xml',
     });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${baseFileName}.kml`;
-    document.body.appendChild(link);
-    link.click();
-    URL.revokeObjectURL(link.href);
-    document.body.removeChild(link);
-
+    saveBlob(blob, `${baseFileName}.kml`);
     showNotification(t('kmlDownloaded', 'KML файл завантажено!'));
 }
