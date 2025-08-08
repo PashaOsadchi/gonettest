@@ -39,18 +39,8 @@ function updateRoadStats() {
             };
         }
         const s = stats[ref];
-        s.total++;
         const dist = rec.distance || 0;
-        if (rec.speed === 0) {
-            s.zero++;
-            s.distZero += dist;
-        } else if (rec.speed > 0 && rec.speed <= 2) {
-            s.upto2++;
-            s.distUpto2 += dist;
-        } else {
-            s.above2++;
-            s.distAbove2 += dist;
-        }
+        accumulateSpeedStats(s, rec.speed, dist);
     }
 
     const keys = Object.keys(stats).sort();
