@@ -1,3 +1,5 @@
+import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
+
 function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
         console.error('speedData is undefined');
@@ -47,6 +49,9 @@ function downloadHTML() {
         console.error('window.getMarkerPopupContent is not a function');
         return;
     }
+    const getColorBySpeedSrc = getColorBySpeed.toString();
+    const ensureColonSrc = ensureColon.toString();
+    const addMapMarkerSrc = addMapMarker.toString();
     let getMarkerPopupContentSrc = window.getMarkerPopupContent.toString();
 
     if (!getMarkerPopupContentSrc.includes("distanceColumn")) {
@@ -157,21 +162,16 @@ const COLOR_RED    = 'red';
 const COLOR_YELLOW = 'yellow';
 const COLOR_GREEN  = 'green';
 
-/* ------------------ 2. Функція кольору за швидкістю ------------------ */
-function getColorBySpeed(speed) {
-  if (speed <= 0) return COLOR_RED;
-  if (speed <= 2) return COLOR_YELLOW;
-  return COLOR_GREEN;
-}
+/* ------------------ 2. Допоміжні функції ------------------ */
+${getColorBySpeedSrc}
 
-function ensureColon(label) {
-  return label.endsWith(':') ? label : label + ':';
-}
+${ensureColonSrc}
 
 /* ------------------ 3. Дані ------------------ */
 const data = ${safeData};
 /* ------------------ 4. Ініціалізація карти ------------------ */
 const map = L.map('map');
+const mapMarkers = [];
 const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '© OpenStreetMap contributors'
@@ -209,33 +209,10 @@ greenCluster.addTo(map);
 ${getMarkerPopupContentSrc}
 
 /* ------------------ 9. Додавання маркерів ------------------ */
-function addMapMarker(point) {
-  if (point.latitude == null || point.longitude == null) return;
-  const color = getColorBySpeed(point.speed);
-
-  const marker = L.circleMarker([point.latitude, point.longitude], {
-    radius: 18,
-    color: color,
-    weight: 2,
-    fillColor: color,
-    fillOpacity: 0.85
-  });
-
-  marker.bindPopup(getMarkerPopupContent(point));
-  marker.options.speedValue = point.speed;
-  marker.options.speedColor = color;
-
-  if (color === COLOR_RED) {
-    redCluster.addLayer(marker);
-  } else if (color === COLOR_YELLOW) {
-    yellowCluster.addLayer(marker);
-  } else {
-    greenCluster.addLayer(marker);
-  }
-}
+${addMapMarkerSrc}
 
 /* ------------------ 10. Завантаження всіх точок ------------------ */
-data.forEach(pt => addMapMarker(pt));
+data.forEach(pt => addMapMarker(pt, false));
 
 /* ------------------ 11. Авто-фокус на всіх маркерах ------------------ */
 const coords = data
@@ -271,3 +248,5 @@ L.control.layers(null, overlays, { collapsed: true }).addTo(map);
 
     showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
 }
+
+window.downloadHTML = downloadHTML;
