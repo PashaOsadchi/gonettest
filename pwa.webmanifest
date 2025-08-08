@@ -1,6 +1,7 @@
 {
     "name": "GO Net Test",
     "short_name": "GO Net Test",
+    "id": "/",
     "description": "A minimal browser-based speed test app.",
     "icons": [
         {
