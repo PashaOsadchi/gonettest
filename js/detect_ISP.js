@@ -1,5 +1,4 @@
 // Визначення провайдера
-import { IPINFO_URL, IPINFO_TOKEN } from './config.js';
 
 async function detectISP() {
     try {
