@@ -238,14 +238,7 @@ L.control.layers(null, overlays, { collapsed: true }).addTo(map);
 </html>`;
 
     const blob = new Blob([htmlContent], { type: 'text/html' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `${baseFileName}.html`;
-    document.body.appendChild(link);
-    link.click();
-    URL.revokeObjectURL(link.href);
-    document.body.removeChild(link);
-
+    saveBlob(blob, `${baseFileName}.html`);
     showNotification(t('htmlDownloaded', 'HTML файл завантажено!'));
 }
 

@@ -1,16 +1,14 @@
-function downloadChart() {
+async function downloadChart() {
     if (!speedChart) return;
 
     try {
-        const link = document.createElement("a");
-        link.download = `speed_chart_${new Date()
-            .toISOString()
-            .slice(0, 10)}.png`;
-        link.href = speedChart.toBase64Image();
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
+        const dataUrl = speedChart.toBase64Image();
+        const response = await fetch(dataUrl);
+        const blob = await response.blob();
+        saveBlob(
+            blob,
+            `speed_chart_${new Date().toISOString().slice(0, 10)}.png`
+        );
         showNotification(t('chartExported', 'Графік експортовано!'));
     } catch (e) {
         showNotification(
