@@ -1,14 +1,4 @@
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
-import {
-    LEAFLET_CSS_URL,
-    LEAFLET_JS_URL,
-    MARKERCLUSTER_CSS_URL,
-    MARKERCLUSTER_DEFAULT_CSS_URL,
-    MARKERCLUSTER_JS_URL,
-    OSM_TILE_URL,
-    MAP_FALLBACK_CENTER,
-    DISABLE_CLUSTER_ZOOM,
-} from './config.js';
 
 function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {

@@ -1,5 +1,4 @@
 import { requestWakeLock } from './wake_lock.js';
-import { NETWORK_CHECK_URL } from './config.js';
 
 async function resetTestState() {
     testInProgress = false;
