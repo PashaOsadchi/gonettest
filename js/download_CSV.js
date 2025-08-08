@@ -1,7 +1,7 @@
 function downloadCSV() {
     if (isDownloading) return;
 
-    if (!assertSpeedData('noData', 'Немає даних для завантаження')) return;
+    if (!ensureSpeedData()) return;
 
     isDownloading = true;
     const downloadBtn = document.getElementById('downloadBtn');
