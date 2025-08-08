@@ -16,18 +16,7 @@ function downloadHTML() {
 
     if (!assertSpeedData('noData', 'Немає даних для завантаження')) return;
 
-    let dateStr = '';
-    let timeStr = '';
-    const lastRecord = speedData[speedData.length - 1];
-    if (lastRecord && lastRecord.fullTimestamp) {
-        ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
-            forFilename: true,
-            dateSeparator: '.',
-            timeSeparator: '-',
-        }));
-    }
-
-    const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
+    const baseFileName = buildBaseFileName(speedData, operator);
 
     const safeData = JSON.stringify(speedData).replace(/<\/script>/g, '<\\/script>');
 
