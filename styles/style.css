@@ -141,10 +141,10 @@ h1 {
 }
 
 /* 2) Зробимо сам <canvas> 100% ширини і автоматично розрахуємо висоту */
-.chart-container canvas {
+.chart-section .chart-container > canvas {
   display: block;
-  width: 100% !important;
-  height: 100% !important; /* тепер займає всю висоту контейнера, але контейнер обмежений */
+  width: 100%;
+  height: 100%; /* тепер займає всю висоту контейнера, але контейнер обмежений */
 }
 
 .stats {
@@ -695,8 +695,8 @@ h1 {
     padding: 0; /* інколи зайвий padding “додав” вихід за межі */
   }
 
-  .chart-container canvas {
-    height: auto !important;
+  .chart-section .chart-container > canvas {
+    height: auto;
   }
 
   #map {
