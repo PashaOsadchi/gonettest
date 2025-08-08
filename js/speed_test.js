@@ -1,4 +1,5 @@
 import { requestWakeLock } from './wake_lock.js';
+import { NETWORK_CHECK_URL } from './config.js';
 
 async function resetTestState() {
     testInProgress = false;
@@ -74,7 +75,7 @@ async function readWithTimeout(reader, timeout = STREAM_READ_TIMEOUT) {
 async function checkRealConnection() {
     try {
         await fetchWithTimeout(
-            'https://www.google.com/generate_204',
+            NETWORK_CHECK_URL,
             { cache: 'no-store', mode: 'no-cors' },
             RECONNECT_TIMEOUT
         );
@@ -235,7 +236,7 @@ async function runTest() {
 // (fetch із bytes=1) проходить успішно — тобто мережа з’явилася.
 async function waitForReconnect() {
   // Використовуємо мінімальний 1-байтовий запит для перевірки доступності
-  const checkUrl = `https://www.google.com/generate_204`;
+  const checkUrl = NETWORK_CHECK_URL;
 
   // Поки тест активний і мережі немає — пробуємо кожні 500 мс відправити маленький запит
   while (testActive && !isConnected) {

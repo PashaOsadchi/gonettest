@@ -25,6 +25,7 @@ const STORAGE_KEY = 'speedData';
 
 export const IPINFO_URL = 'https://ipinfo.io/json';
 export const IPINFO_TOKEN = 'e2a0c701aef96b';
+export const NETWORK_CHECK_URL = 'https://www.google.com/generate_204';
 
 export const MAP_DEFAULT_CENTER = [48.3794, 31.1656];
 export const OSM_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
