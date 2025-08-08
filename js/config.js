@@ -29,12 +29,20 @@ export const IPINFO_TOKEN = 'e2a0c701aef96b';
 export const MAP_DEFAULT_CENTER = [48.3794, 31.1656];
 export const OSM_TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
+export const LEAFLET_CSS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+export const LEAFLET_JS_URL = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+export const MARKERCLUSTER_CSS_URL = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css';
+export const MARKERCLUSTER_DEFAULT_CSS_URL = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css';
+export const MARKERCLUSTER_JS_URL = 'https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js';
+
+export const MAP_FALLBACK_CENTER = [50.45, 30.52];
+
 const ICON_RED = 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
 const ICON_YELLOW = 'https://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
 const ICON_GREEN = 'https://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
 
 // Zoom level at which clustering is disabled on the main map
-const DISABLE_CLUSTER_ZOOM = 18;
+export const DISABLE_CLUSTER_ZOOM = 18;
 
 const DEFAULT_DIRECTION_LABELS = {
     uk: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"],
