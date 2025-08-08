@@ -85,7 +85,9 @@ self.addEventListener('fetch', event => {
       fetch(event.request)
         .then(response => {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          event.waitUntil(
+            caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone))
+          );
           return response;
         })
         .catch(() => caches.match(event.request).then(res => res || caches.match('index.html')))
