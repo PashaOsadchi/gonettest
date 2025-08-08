@@ -146,7 +146,7 @@ const operators = {
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
 };
 
-export { HROMADY_GEOJSON, ROAD_FILES };
+export { HROMADY_GEOJSON, ROAD_FILES, DISABLE_CLUSTER_ZOOM };
 
 Object.assign(globalThis, {
     TARGET,
