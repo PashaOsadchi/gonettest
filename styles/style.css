@@ -252,9 +252,9 @@ h1 {
 .status-warning { color: var(--warning-color); }
 
 /* Operator-specific colors */
-.operator-vodafone { color: rgba(230, 0, 0); }
-.operator-kyivstar { color: rgba(0, 160, 228); }
-.operator-lifecell { color: rgba(252, 206, 0); }
+.operator-vodafone { color: rgb(230, 0, 0); }
+.operator-kyivstar { color: rgb(0, 160, 228); }
+.operator-lifecell { color: rgb(252, 206, 0); }
 
 /* Operator name styling */
 #operator {
