@@ -1,18 +1,7 @@
 function downloadKML() {
     if (!assertSpeedData('noData', 'Немає даних для завантаження')) return;
 
-    let dateStr = '';
-    let timeStr = '';
-
-    // Use timestamp of the last record to build file and layer names
-    const lastRecord = speedData[speedData.length - 1];
-    if (lastRecord && lastRecord.fullTimestamp) {
-        ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
-            forFilename: true,
-        }));
-    }
-
-    const baseFileName = `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}`;
+    const baseFileName = buildBaseFileName(speedData, operator);
 
     let kmlContent =
         '<?xml version="1.0" encoding="UTF-8"?>\n' +

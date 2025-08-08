@@ -64,22 +64,10 @@ function downloadCSV() {
                 })
                 .join("\n");
 
-        const lastRecord = speedData[speedData.length - 1];
-        let dateStr = '';
-        let timeStr = '';
-        if (lastRecord && lastRecord.fullTimestamp) {
-            ({ dateStr, timeStr } = formatTimestamp(lastRecord.fullTimestamp, {
-                forFilename: true,
-                dateSeparator: '.',
-                timeSeparator: '-',
-            }));
-        }
+        const baseFileName = buildBaseFileName(speedData, operator);
 
         const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-        saveBlob(
-            blob,
-            `${replaceSpacesWithUnderscore(operator)}_${dateStr}_${timeStr}.csv`
-        );
+        saveBlob(blob, `${baseFileName}.csv`);
         showNotification(t('dataDownloaded', 'Дані завантажено!'));
     } finally {
         if (downloadBtn) downloadBtn.disabled = false;
