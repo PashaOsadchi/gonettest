@@ -1,4 +1,4 @@
-import { MAP_DEFAULT_CENTER, OSM_TILE_URL } from './config.js';
+import { MAP_DEFAULT_CENTER, OSM_TILE_URL, DISABLE_CLUSTER_ZOOM } from './config.js';
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
 
 function initMap() {

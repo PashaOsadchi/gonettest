@@ -1,4 +1,14 @@
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
+import {
+    LEAFLET_CSS_URL,
+    LEAFLET_JS_URL,
+    MARKERCLUSTER_CSS_URL,
+    MARKERCLUSTER_DEFAULT_CSS_URL,
+    MARKERCLUSTER_JS_URL,
+    OSM_TILE_URL,
+    MAP_FALLBACK_CENTER,
+    DISABLE_CLUSTER_ZOOM,
+} from './config.js';
 
 function downloadHTML() {
     if (typeof speedData === 'undefined' || !Array.isArray(speedData)) {
@@ -56,17 +66,17 @@ function downloadHTML() {
 <!-- Leaflet CSS -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  href="${LEAFLET_CSS_URL}"
 />
 
 <!-- MarkerCluster CSS -->
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+  href="${MARKERCLUSTER_CSS_URL}"
 />
 <link
   rel="stylesheet"
-  href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+  href="${MARKERCLUSTER_DEFAULT_CSS_URL}"
 />
 
 <style>
@@ -123,16 +133,16 @@ function downloadHTML() {
 <div id="map"></div>
 
 <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="${LEAFLET_JS_URL}"></script>
 <!-- MarkerCluster JS -->
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="${MARKERCLUSTER_JS_URL}"></script>
 
 <script>
 /* ------------------ 0. Глобальні значення ------------------ */
 const operator = ${JSON.stringify(operator)};
 const t = (key, fallback = '') => fallback;
 /* ------------------ 1. Параметри ------------------ */
-const DISABLE_CLUSTER_ZOOM = 18; // >= цього зума кластери вимикаються
+const DISABLE_CLUSTER_ZOOM = ${DISABLE_CLUSTER_ZOOM}; // >= цього зума кластери вимикаються
 const COLOR_RED    = 'red';
 const COLOR_YELLOW = 'yellow';
 const COLOR_GREEN  = 'green';
@@ -147,7 +157,7 @@ const data = ${safeData};
 /* ------------------ 4. Ініціалізація карти ------------------ */
 const map = L.map('map');
 const mapMarkers = [];
-const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const osm = L.tileLayer('${OSM_TILE_URL}', {
   maxZoom: 19,
   attribution: '© OpenStreetMap contributors'
 });
@@ -197,7 +207,7 @@ const coords = data
 if (coords.length > 0) {
   map.fitBounds(L.latLngBounds(coords).pad(0.05));
 } else {
-  map.setView([50.45, 30.52], 12);
+  map.setView(${JSON.stringify(MAP_FALLBACK_CENTER)}, 12);
 }
 
 /* ------------------ 12. Контроль шарів ------------------ */
