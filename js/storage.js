@@ -1,5 +1,19 @@
 let db;
 
+function hasSpeedData() {
+    return Array.isArray(speedData) && speedData.length > 0;
+}
+
+function assertSpeedData(key = 'noData', fallback = 'Немає даних') {
+    if (!hasSpeedData()) {
+        if (typeof showNotification === 'function' && typeof t === 'function') {
+            showNotification(t(key, fallback));
+        }
+        return false;
+    }
+    return true;
+}
+
 function openDatabase() {
     if (db) return Promise.resolve(db);
     if (!('indexedDB' in window)) {
@@ -26,7 +40,7 @@ async function saveSpeedDataToStorage() {
     const tx = database.transaction(STORAGE_KEY, 'readwrite');
     const store = tx.objectStore(STORAGE_KEY);
 
-    if (speedData.length === 0) {
+    if (!hasSpeedData()) {
         store.clear();
     } else {
         const idx = speedData.length - 1;
