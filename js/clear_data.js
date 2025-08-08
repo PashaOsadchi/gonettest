@@ -1,5 +1,5 @@
 function clearData() {
-    if (speedData.length === 0) return;
+    if (!hasSpeedData()) return;
 
     if (confirm(t('clearDataConfirm', 'Ви впевнені, що хочете очистити всі дані?'))) {
         speedData = [];

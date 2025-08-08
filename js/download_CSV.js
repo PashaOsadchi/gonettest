@@ -1,10 +1,7 @@
 function downloadCSV() {
     if (isDownloading) return;
 
-    if (speedData.length === 0) {
-        showNotification(t('noData', 'Немає даних для завантаження'));
-        return;
-    }
+    if (!assertSpeedData('noData', 'Немає даних для завантаження')) return;
 
     isDownloading = true;
     const downloadBtn = document.getElementById('downloadBtn');

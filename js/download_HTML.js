@@ -14,10 +14,7 @@ function downloadHTML() {
         return;
     }
 
-    if (speedData.length === 0) {
-        showNotification(t('noData', 'Немає даних для завантаження'));
-        return;
-    }
+    if (!assertSpeedData('noData', 'Немає даних для завантаження')) return;
 
     let dateStr = '';
     let timeStr = '';
