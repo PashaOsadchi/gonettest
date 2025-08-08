@@ -75,9 +75,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') {
-    return;
-  }
+  if (event.request.method !== 'GET') return;
 
   const url = event.request.url;
   if (url.includes('speed.cloudflare.com') || url.includes('generate_204')) {
