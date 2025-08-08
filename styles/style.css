@@ -609,6 +609,7 @@ h1 {
   /* icon buttons adjust via variables */
 
   .info {
+    display: grid;
     width: 100%;
     grid-template-columns: 1fr;
     row-gap: 10px;
