@@ -75,12 +75,16 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   const url = event.request.url;
   if (url.includes('speed.cloudflare.com') || url.includes('generate_204')) {
     // Let the browser handle these requests normally without caching
     return;
   }
-  if (event.request.headers.get('Accept')?.includes('text/html')) {
+  if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)
         .then(response => {
