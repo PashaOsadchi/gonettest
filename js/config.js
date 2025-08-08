@@ -23,6 +23,9 @@ const MAX_DATA_POINTS = 60;
 const serverUrl = `https://speed.cloudflare.com/__down?bytes=${TARGET}`;
 const STORAGE_KEY = 'speedData';
 
+export const IPINFO_URL = 'https://ipinfo.io/json';
+export const IPINFO_TOKEN = 'e2a0c701aef96b';
+
 const ICON_RED = 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
 const ICON_YELLOW = 'https://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
 const ICON_GREEN = 'https://maps.google.com/mapfiles/kml/paddle/grn-circle.png';

@@ -1,7 +1,9 @@
 // Визначення провайдера
+import { IPINFO_URL, IPINFO_TOKEN } from './config.js';
+
 async function detectISP() {
     try {
-        const res = await fetch('https://ipinfo.io/json?token=e2a0c701aef96b');
+        const res = await fetch(`${IPINFO_URL}?token=${IPINFO_TOKEN}`);
         if (!res.ok) {
             throw new Error(`IP info request failed: ${res.status}`);
         }
