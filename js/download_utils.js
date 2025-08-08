@@ -1,3 +1,7 @@
+function ensureSpeedData() {
+    return assertSpeedData('noData', 'Немає даних для завантаження');
+}
+
 function buildBaseFileName(speedData, operator) {
     const lastRecord = Array.isArray(speedData)
         ? speedData[speedData.length - 1]
