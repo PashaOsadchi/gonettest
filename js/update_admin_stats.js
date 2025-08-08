@@ -4,21 +4,6 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
-function accumulateAdminStats(target, speed, distance) {
-    const dist = distance || 0;
-    target.total++;
-    if (speed === 0) {
-        target.zero++;
-        target.distZero += dist;
-    } else if (speed > 0 && speed <= 2) {
-        target.upto2++;
-        target.distUpto2 += dist;
-    } else {
-        target.above2++;
-        target.distAbove2 += dist;
-    }
-}
-
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
@@ -35,7 +20,7 @@ function updateAdminStats() {
         }
         const reg = stats[rec.region];
         const dist = rec.distance || 0;
-        accumulateAdminStats(reg, rec.speed, dist);
+        accumulateSpeedStats(reg, rec.speed, dist);
 
         if (rec.rayon) {
             if (!reg.raions[rec.rayon]) {
@@ -46,7 +31,7 @@ function updateAdminStats() {
                 };
             }
             const ray = reg.raions[rec.rayon];
-            accumulateAdminStats(ray, rec.speed, dist);
+            accumulateSpeedStats(ray, rec.speed, dist);
 
             if (rec.hromada) {
                 if (!ray.hromady[rec.hromada]) {
@@ -56,7 +41,7 @@ function updateAdminStats() {
                     };
                 }
                 const h = ray.hromady[rec.hromada];
-                accumulateAdminStats(h, rec.speed, dist);
+                accumulateSpeedStats(h, rec.speed, dist);
             }
         }
     }
