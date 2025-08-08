@@ -1,9 +1,10 @@
+import { MAP_DEFAULT_CENTER, OSM_TILE_URL } from './config.js';
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
 
 function initMap() {
     if (mapInitialized) return;
-    map = L.map('map').setView([48.3794, 31.1656], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    map = L.map('map').setView(MAP_DEFAULT_CENTER, 6);
+    L.tileLayer(OSM_TILE_URL, {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
     }).addTo(map);
