@@ -282,3 +282,4 @@ window.updateHromadyLayer = updateHromadyLayer;
 window.updateRoadLayers = updateRoadLayers;
 window.setupMapObserver = setupMapObserver;
 window.initMapIfNeeded = initMapIfNeeded;
+window.calculateDistance = calculateDistance;
