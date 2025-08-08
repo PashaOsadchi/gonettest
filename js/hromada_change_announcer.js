@@ -21,7 +21,7 @@ function announceAdminChange(info) {
             const region = info.region ?? '';
             const rayon = info.rayon ?? '';
             const hromada = info.hromada ?? '';
-            const message = `Вас вітає ${hromada} ${rayon} ${region}`;
+            const message = `Вас вітає ${hromada} ${rayon} район ${region} область`;
             speak(message.trim());
         }
     }
