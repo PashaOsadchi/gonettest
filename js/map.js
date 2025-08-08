@@ -1,4 +1,5 @@
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
+import { HROMADY_GEOJSON, ROAD_FILES } from './config.js';
 
 function initMap() {
     if (mapInitialized) return;
@@ -155,7 +156,7 @@ function updateHromadyLayer() {
         if (hromadyLayer) {
             hromadyLayer.addTo(map);
         } else {
-            fetch('data/ukraine_hromady.geojson')
+            fetch(HROMADY_GEOJSON)
                 .then(r => r.json())
                 .then(data => {
                     hromadyLayer = L.geoJSON(data, { style: { color: '#555', weight: 1 } }).addTo(map);
@@ -180,7 +181,7 @@ function updateInternationalRoadLayer() {
         if (internationalRoadLayer) {
             internationalRoadLayer.addTo(map);
         } else {
-            fetch('data/international_road_ua_m.geojson')
+            fetch(ROAD_FILES.international)
                 .then(r => r.json())
                 .then(data => {
                     internationalRoadLayer = L.geoJSON(data, {
@@ -200,7 +201,7 @@ function updateNationalRoadLayer() {
         if (nationalRoadLayer) {
             nationalRoadLayer.addTo(map);
         } else {
-            fetch('data/national_road_ua_h.geojson')
+            fetch(ROAD_FILES.national)
                 .then(r => r.json())
                 .then(data => {
                     nationalRoadLayer = L.geoJSON(data, {
@@ -220,7 +221,7 @@ function updateRegionalRoadLayer() {
         if (regionalRoadLayer) {
             regionalRoadLayer.addTo(map);
         } else {
-            fetch('data/regional_road_ua_p.geojson')
+            fetch(ROAD_FILES.regional)
                 .then(r => r.json())
                 .then(data => {
                     regionalRoadLayer = L.geoJSON(data, {
@@ -240,7 +241,7 @@ function updateTerritorialRoadLayer() {
         if (territorialRoadLayer) {
             territorialRoadLayer.addTo(map);
         } else {
-            fetch('data/territorial_road_ua_t.geojson')
+            fetch(ROAD_FILES.territorial)
                 .then(r => r.json())
                 .then(data => {
                     territorialRoadLayer = L.geoJSON(data, {

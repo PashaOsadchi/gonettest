@@ -1,3 +1,5 @@
+import { HROMADY_GEOJSON, ROAD_FILES } from './config.js';
+
 // Global variable to hold the GeoJSON data for hromady (communities)
 let hromadyData = null;
 let hromadyDataPromise = null;
@@ -6,7 +8,7 @@ let hromadyDataPromise = null;
 // Returns a promise that resolves when the data is loaded.
 function loadHromadyData() {
     if (!hromadyDataPromise) {
-        hromadyDataPromise = fetch('data/ukraine_hromady.geojson')
+        hromadyDataPromise = fetch(HROMADY_GEOJSON)
             .then(r => r.json())
             .then(data => {
                 hromadyData = data;
@@ -109,13 +111,6 @@ async function find_admin_unit(lon, lat) {
 
 // ----- Road lookup functionality -----
 
-const roadFiles = {
-    international: 'data/international_road_ua_m.geojson',
-    national: 'data/national_road_ua_h.geojson',
-    regional: 'data/regional_road_ua_p.geojson',
-    territorial: 'data/territorial_road_ua_t.geojson'
-};
-
 const roadData = {
     international: null,
     national: null,
@@ -127,7 +122,7 @@ const roadPromises = {};
 
 function loadRoadData(type) {
     if (!roadPromises[type]) {
-        roadPromises[type] = fetch(roadFiles[type])
+        roadPromises[type] = fetch(ROAD_FILES[type])
             .then(r => r.json())
             .then(data => {
                 roadData[type] = data;
@@ -142,7 +137,7 @@ function loadRoadData(type) {
 }
 
 function loadAllRoadData() {
-    return Promise.all(Object.keys(roadFiles).map(loadRoadData));
+    return Promise.all(Object.keys(ROAD_FILES).map(loadRoadData));
 }
 
 function latLonToXY(lat, lon) {
@@ -209,3 +204,7 @@ function find_road(lat, lon, threshold = 50) {
     }
     return null;
 }
+
+export { loadHromadyData, find_admin_unit, loadAllRoadData, find_road, roadData };
+
+Object.assign(window, { loadHromadyData, find_admin_unit, loadAllRoadData, find_road, roadData });

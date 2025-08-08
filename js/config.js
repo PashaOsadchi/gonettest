@@ -42,6 +42,15 @@ const ICON_RED = 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
 const ICON_YELLOW = 'https://maps.google.com/mapfiles/kml/paddle/ylw-circle.png';
 const ICON_GREEN = 'https://maps.google.com/mapfiles/kml/paddle/grn-circle.png';
 
+const HROMADY_GEOJSON = 'data/ukraine_hromady.geojson';
+
+const ROAD_FILES = {
+    international: 'data/international_road_ua_m.geojson',
+    national: 'data/national_road_ua_h.geojson',
+    regional: 'data/regional_road_ua_p.geojson',
+    territorial: 'data/territorial_road_ua_t.geojson',
+};
+
 // Zoom level at which clustering is disabled on the main map
 const DISABLE_CLUSTER_ZOOM = 18;
 
@@ -136,3 +145,87 @@ const operators = {
     'AS15895 "Kyivstar" PJSC': 'Kyivstar',
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
 };
+
+export { HROMADY_GEOJSON, ROAD_FILES };
+
+Object.assign(globalThis, {
+    TARGET,
+    MAX_CONSECUTIVE_ERRORS,
+    RECONNECT_TIMEOUT,
+    BIG_FETCH_TIMEOUT,
+    NOTIFICATION_DURATION,
+    BEEP_FREQUENCY,
+    BEEP_DURATION,
+    SPEECH_RATE,
+    GPS_TIMEOUT,
+    GPS_MAX_AGE,
+    MAX_GPS_ACCURACY,
+    MAX_POINT_DISTANCE,
+    DEFAULT_FETCH_TIMEOUT,
+    STREAM_READ_TIMEOUT,
+    UI_UPDATE_INTERVAL,
+    DEFAULT_SAVE_INTERVAL,
+    RECONNECT_RETRY_INTERVAL,
+    RUN_LOOP_PAUSE,
+    ORIENTATION_DELAY,
+    MAX_DATA_POINTS,
+    serverUrl,
+    STORAGE_KEY,
+    IPINFO_URL,
+    IPINFO_TOKEN,
+    NETWORK_CHECK_URL,
+    MAP_DEFAULT_CENTER,
+    OSM_TILE_URL,
+    LEAFLET_CSS_URL,
+    LEAFLET_JS_URL,
+    MARKERCLUSTER_CSS_URL,
+    MARKERCLUSTER_DEFAULT_CSS_URL,
+    MARKERCLUSTER_JS_URL,
+    MAP_FALLBACK_CENTER,
+    ICON_RED,
+    ICON_YELLOW,
+    ICON_GREEN,
+    HROMADY_GEOJSON,
+    ROAD_FILES,
+    DISABLE_CLUSTER_ZOOM,
+    DEFAULT_DIRECTION_LABELS,
+    currentLang,
+    testActive,
+    totalBytes,
+    prevBytes,
+    startTime,
+    updateInterval,
+    consecutiveErrors,
+    isConnected,
+    isFullscreen,
+    testInProgress,
+    pendingRun,
+    activeDownloadController,
+    isDownloading,
+    speedData,
+    dataInterval,
+    lastSavedBytes,
+    currentSpeedMbps,
+    currentGPSData,
+    lastSavedGPSData,
+    gpsWatchId,
+    totalDistance,
+    settings,
+    speedChart,
+    chartData,
+    maxDataPoints,
+    map,
+    mapMarkers,
+    mapInitialized,
+    hromadyLayer,
+    internationalRoadLayer,
+    nationalRoadLayer,
+    regionalRoadLayer,
+    territorialRoadLayer,
+    redCluster,
+    yellowCluster,
+    greenCluster,
+    speedStats,
+    operator,
+    operators,
+});
