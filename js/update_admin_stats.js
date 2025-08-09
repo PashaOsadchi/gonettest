@@ -94,14 +94,14 @@ function updateAdminStats() {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total}</span></div>` +
+                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total} (${calcTotalKm(ray)} ${unit})</span></div>` +
                 `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
                 statsRows(ray, 30);
             const hroms = Object.keys(ray.hromady).sort();
             for (const hName of hroms) {
                 const h = ray.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="--indent:60px"><span>${escapeHtml(hName)}</span><span>${h.total}</span></div>` +
+                    `<div class="info-row" style="--indent:60px"><span>${escapeHtml(hName)}</span><span>${h.total} (${calcTotalKm(h)} ${unit})</span></div>` +
                     statsRows(h, 60);
             }
             sub += `</div>`;
