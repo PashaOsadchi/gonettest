@@ -82,9 +82,9 @@ function updateRoadStats() {
             `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.upto2} (${up}%)</span></div>` +
             `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.above2} (${ap}%)</span></div>` +
             `<div class="info-row"><span>${t('distancePercentRoad', 'Відстань:')}</span><span>${roadLenStr}</span></div>` +
-            `<div class="info-row"><span>${t('zeroSpeedLabel','0 Мбіт/с (% від загальної протяжності дороги):')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
-            `<div class="info-row"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с (% від загальної протяжності дороги):')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
-            `<div class="info-row"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с (% від загальної протяжності дороги):')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>` +
+            `<div class="info-row"><span>${t('zeroSpeedLabel','0 Мбіт/с (% від протяжності дороги):')}</span><span>${zKm.toFixed(1)} (${zl}%)</span></div>` +
+            `<div class="info-row"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с (% від протяжності дороги):')}</span><span>${uKm.toFixed(1)} (${ul}%)</span></div>` +
+            `<div class="info-row"><span>${t('above2SpeedLabel','Більше 2 Мбіт/с (% від протяжності дороги):')}</span><span>${aKm.toFixed(1)} (${al}%)</span></div>` +
             `</div>`
         );
     }
