@@ -53,6 +53,7 @@ window.i18n.en = {
   providerInfoTitle: "Provider details",
   latestMeasurementsTitle: "Database",
   recordsCount: "Records:",
+  recordsLabel: "Records",
   dbTitle: "Statistics database",
   dbRecordsLabel: "Records",
   dbSizeLabel: "Size",
