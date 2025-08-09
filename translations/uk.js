@@ -53,6 +53,7 @@ window.i18n.uk = {
   providerInfoTitle: "Детальна інформація про провайдера",
   latestMeasurementsTitle: "База даних",
   recordsCount: "Записів:",
+  recordsLabel: "Записів",
   dbTitle: "Статистика бази даних",
   dbRecordsLabel: "Записів",
   dbSizeLabel: "Розмір",
