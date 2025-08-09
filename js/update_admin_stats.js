@@ -103,7 +103,7 @@ function updateAdminStats() {
     const pct = (v, tot) => (tot ? Math.round((v / tot) * 100) : 0);
     const countRows = (obj, depth) => {
         const indent = calcIndent(depth);
-        const sum = obj.zero + obj.upto2 + obj.above2;
+        const sum = (obj.zero + obj.upto2 + obj.above2).toFixed(1);
         if (obj.total !== sum) {
             console.warn(`Mismatch in total count: ${obj.total} vs ${sum}`);
         }
