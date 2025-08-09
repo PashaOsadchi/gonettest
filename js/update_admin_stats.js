@@ -4,6 +4,10 @@ function escapeHtml(str) {
     return div.innerHTML;
 }
 
+function calcTotalKm(obj) {
+    return ((obj.distZero + obj.distUpto2 + obj.distAbove2) / 1000).toFixed(1);
+}
+
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
@@ -52,15 +56,11 @@ function updateAdminStats() {
         return;
     }
 
-    const totalKm = (
-            (obj.distZero + obj.distUpto2 + obj.distAbove2) /
-            1000
-        ).toFixed(1);
-
-    const statsRows = (obj, indent, totalKm) => {
+    const statsRows = (obj, indent) => {
+        const unit = currentLang === 'uk' ? 'км' : 'km';
         return (
             countRows(obj, indent) +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${calcTotalKm(obj)} ${unit}</span></div>` +
             distRows(obj, indent)
         );
     };
@@ -82,11 +82,13 @@ function updateAdminStats() {
     };
     
 
+    const unit = currentLang === 'uk' ? 'км' : 'km';
+
     for (const regName of regions) {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
         rows.push(
-            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${totalKm} ${unit})</span></div>`
+            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg)} ${unit})</span></div>`
         );
         let sub = statsRows(reg, 30);
         const raions = Object.keys(reg.raions).sort();
