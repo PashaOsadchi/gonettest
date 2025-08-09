@@ -64,9 +64,9 @@ function updateRoadStats() {
     for (const road of keys) {
         const s = stats[road];
         const roadId = `road-${id++}`;
-        const zp = Math.round((s.zero / s.total) * 100);
-        const up = Math.round((s.upto2 / s.total) * 100);
-        const ap = Math.round((s.above2 / s.total) * 100);
+        const zp = s.total > 0 ? Math.round((s.zero / s.total) * 100) : 0;
+        const up = s.total > 0 ? Math.round((s.upto2 / s.total) * 100) : 0;
+        const ap = s.total > 0 ? Math.round((s.above2 / s.total) * 100) : 0;
         const zKm = s.distZero / 1000;
         const uKm = s.distUpto2 / 1000;
         const aKm = s.distAbove2 / 1000;
@@ -78,13 +78,16 @@ function updateRoadStats() {
         const lenUnit = currentLang === 'uk' ? 'км' : 'km';
         const lenStr = coveredKm ? `${coveredKm.toFixed(1)} ${lenUnit}` : '-';
         const roadLenStr = coveredKm ? `${lenStr} (${tl}%)` : '-';
+        const zpStr = s.total > 0 ? `${zp}%` : '0%';
+        const upStr = s.total > 0 ? `${up}%` : '0%';
+        const apStr = s.total > 0 ? `${ap}%` : '0%';
         rows.push(
             `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${escapeHtml(road)}</span><span>${s.total} (${lenStr})</span></div>` +
             `<div id="${roadId}" class="road-content hidden" style="padding-left:20px">` +
             `<div class="info-row"><span>${t('testsPercentTotal', 'Тестів:')}</span><span>${s.total}</span></div>` +
-            `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від загальної кількості):')}</span><span>${s.zero} (${zp}%)</span></div>` +
-            `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.upto2} (${up}%)</span></div>` +
-            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.above2} (${ap}%)</span></div>` +
+            `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від загальної кількості):')}</span><span>${s.zero} (${zpStr})</span></div>` +
+            `<div class="info-row"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.upto2} (${upStr})</span></div>` +
+            `<div class="info-row"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від загальної кількості):')}</span><span>${s.above2} (${apStr})</span></div>` +
             `<div class="info-row"><span>${t('distancePercentRoad', 'Відстань:')}</span><span>${roadLenStr}</span></div>` +
             `<div class="info-row"><span>${t('zeroSpeedLabel','0 Мбіт/с (% від протяжності дороги):')}</span><span>${zKm.toFixed(1)} ${lenUnit} (${zl}%)</span></div>` +
             `<div class="info-row"><span>${t('upTo2SpeedLabel','До 2 Мбіт/с (% від протяжності дороги):')}</span><span>${uKm.toFixed(1)} ${lenUnit} (${ul}%)</span></div>` +
