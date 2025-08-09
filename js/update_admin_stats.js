@@ -11,6 +11,8 @@ function calcTotalKm(obj) {
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
+    if (typeof currentLang === 'undefined') return;
+    const unit = currentLang === 'uk' ? 'км' : 'km';
 
     const stats = {};
     for (const rec of speedData) {
@@ -58,7 +60,6 @@ function updateAdminStats() {
 
     const statsRows = (obj, indent) => {
         const totalKm = calcTotalKm(obj);
-        const unit = currentLang === 'uk' ? 'км' : 'km';
         return (
             countRows(obj, indent) +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
@@ -74,7 +75,6 @@ function updateAdminStats() {
         `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
         `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`;
     const distRows = (obj, indent) => {
-        const unit = currentLang === 'uk' ? 'км' : 'km';
         return (
             `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit}</span></div>` +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit}</span></div>` +
@@ -82,9 +82,6 @@ function updateAdminStats() {
         );
     };
     
-
-    const unit = currentLang === 'uk' ? 'км' : 'km';
-
     for (const regName of regions) {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
