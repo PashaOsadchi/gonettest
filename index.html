@@ -46,13 +46,13 @@
   <script defer src="js/chart.js"></script>
   <script defer src="js/update_stats.js"></script>
   <script type="module" src="js/map.js"></script>
-    <script defer src="js/map_zoom.js"></script>
-    <script type="module" src="js/find_admin_unit.js"></script>
-    <script defer src="js/change_announcer.js"></script>
-    <script defer src="js/hromada_change_announcer.js"></script>
-    <script defer src="js/road_change_announcer.js"></script>
-    <script defer src="js/update_GPS_info.js"></script>
-    <script defer src="js/point_distance.js"></script>
+  <script defer src="js/map_zoom.js"></script>
+  <script type="module" src="js/find_admin_unit.js"></script>
+  <script defer src="js/change_announcer.js"></script>
+  <script defer src="js/hromada_change_announcer.js"></script>
+  <script defer src="js/road_change_announcer.js"></script>
+  <script defer src="js/update_GPS_info.js"></script>
+  <script defer src="js/point_distance.js"></script>
   <script defer src="js/GPS.js"></script>
   <script defer src="js/data_point.js"></script>
   <script defer src="js/update_data_display.js"></script>
@@ -136,55 +136,59 @@
           <label class="setting-label" for="soundAlerts" data-i18n="soundAlertsLabel">Звукові</label>
         </div>
       </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="voiceAlerts" />
-            <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові</label>
-          </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="voiceAlerts" />
+          <label class="setting-label" for="voiceAlerts" data-i18n="voiceAlertsLabel">Голосові</label>
         </div>
-        <h4 class="mb-10" data-i18n="voiceChangeTitle">Озвучувати зміну</h4>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="voiceHromadaChange" />
-            <label class="setting-label" for="voiceHromadaChange" data-i18n="voiceHromadaChangeLabel">Громади</label>
-          </div>
+      </div>
+      <h4 class="mb-10" data-i18n="voiceChangeTitle">Озвучувати зміну</h4>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="voiceHromadaChange" />
+          <label class="setting-label" for="voiceHromadaChange" data-i18n="voiceHromadaChangeLabel">Громади</label>
         </div>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="voiceRoadChange" />
-            <label class="setting-label" for="voiceRoadChange" data-i18n="voiceRoadChangeLabel">Дороги</label>
-          </div>
+      </div>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="voiceRoadChange" />
+          <label class="setting-label" for="voiceRoadChange" data-i18n="voiceRoadChangeLabel">Дороги</label>
         </div>
+      </div>
 
-        <h4 class="mb-10" data-i18n="mapLayersTitle">Відображати на карті</h4>
-        <div class="setting-group">
-          <div class="checkbox-group">
-            <input type="checkbox" id="showHromady" />
-            <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Межі громад</label>
-          </div>
+      <h4 class="mb-10" data-i18n="mapLayersTitle">Відображати на карті</h4>
+      <div class="setting-group">
+        <div class="checkbox-group">
+          <input type="checkbox" id="showHromady" />
+          <label class="setting-label" for="showHromady" data-i18n="showHromadyLabel">Межі громад</label>
+        </div>
       </div>
       <div class="setting-group">
         <div class="checkbox-group">
           <input type="checkbox" id="showInternationalRoads" />
-          <label class="setting-label" for="showInternationalRoads" data-i18n="showInternationalRoadsLabel">Міжнародні дороги</label>
+          <label class="setting-label" for="showInternationalRoads" data-i18n="showInternationalRoadsLabel">Міжнародні
+            дороги</label>
         </div>
       </div>
       <div class="setting-group">
         <div class="checkbox-group">
           <input type="checkbox" id="showNationalRoads" />
-          <label class="setting-label" for="showNationalRoads" data-i18n="showNationalRoadsLabel">Національні дороги</label>
+          <label class="setting-label" for="showNationalRoads" data-i18n="showNationalRoadsLabel">Національні
+            дороги</label>
         </div>
       </div>
       <div class="setting-group">
         <div class="checkbox-group">
           <input type="checkbox" id="showRegionalRoads" />
-          <label class="setting-label" for="showRegionalRoads" data-i18n="showRegionalRoadsLabel">Регіональні дороги</label>
+          <label class="setting-label" for="showRegionalRoads" data-i18n="showRegionalRoadsLabel">Регіональні
+            дороги</label>
         </div>
       </div>
       <div class="setting-group">
         <div class="checkbox-group">
           <input type="checkbox" id="showTerritorialRoads" />
-          <label class="setting-label" for="showTerritorialRoads" data-i18n="showTerritorialRoadsLabel">Територіальні дороги</label>
+          <label class="setting-label" for="showTerritorialRoads" data-i18n="showTerritorialRoadsLabel">Територіальні
+            дороги</label>
         </div>
       </div>
       <div class="setting-group">
@@ -260,7 +264,8 @@
 
       <div class="map-section">
         <div id="map"></div>
-        <button id="zoom18Btn" class="icon-btn map-zoom-btn" onclick="zoomTo18()" aria-label="Масштаб 18" data-i18n-aria="zoom18Aria">
+        <button id="zoom18Btn" class="icon-btn map-zoom-btn" onclick="zoomTo18()" aria-label="Масштаб 18"
+          data-i18n-aria="zoom18Aria">
           <i data-lucide="zoom-in"></i>
         </button>
       </div>
@@ -409,7 +414,7 @@
           <span data-i18n="dbSizeLabel">Розмір:</span>
           <span id="dbSize">0 MB</span>
         </div>
-      </div>          
+      </div>
 
     </div> <!-- end main-grid -->
 
