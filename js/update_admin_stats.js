@@ -52,6 +52,19 @@ function updateAdminStats() {
         return;
     }
 
+    const totalKm = (
+            (obj.distZero + obj.distUpto2 + obj.distAbove2) /
+            1000
+        ).toFixed(1);
+
+    const statsRows = (obj, indent, totalKm) => {
+        return (
+            countRows(obj, indent) +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
+            distRows(obj, indent)
+        );
+    };
+
     let id = 0;
     const rows = [];
     const pct = (v, tot) => (tot ? Math.round((v / tot) * 100) : 0);
@@ -67,23 +80,13 @@ function updateAdminStats() {
             `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit}</span></div>`
         );
     };
-    const statsRows = (obj, indent) => {
-        const totalKm = (
-            (obj.distZero + obj.distUpto2 + obj.distAbove2) /
-            1000
-        ).toFixed(1);
-        return (
-            countRows(obj, indent) +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань (км)')}</span><span>${totalKm}</span></div>` +
-            distRows(obj, indent)
-        );
-    };
+    
 
     for (const regName of regions) {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
         rows.push(
-            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total}</span></div>`
+            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${totalKm} ${unit})</span></div>`
         );
         let sub = statsRows(reg, 30);
         const raions = Object.keys(reg.raions).sort();
