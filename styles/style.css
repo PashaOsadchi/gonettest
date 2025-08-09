@@ -799,3 +799,11 @@ h1 {
 .admin-content { padding-left: var(--indent, 0); }
 .road-toggle { cursor: pointer; user-select: none; }
 .road-content { padding-left: 0; }
+/* Align Leaflet layers toggle contents to the left */
+.leaflet-control-layers-toggle {
+  display: flex;
+  justify-content: flex-start; /* align internal elements to the left */
+  align-items: center;
+  background-position: left center; /* move default background icon to the left */
+  text-align: left;
+}
