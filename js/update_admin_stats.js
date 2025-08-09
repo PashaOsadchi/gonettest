@@ -57,10 +57,11 @@ function updateAdminStats() {
     }
 
     const statsRows = (obj, indent) => {
+        const totalKm = calcTotalKm(obj);
         const unit = currentLang === 'uk' ? 'км' : 'km';
         return (
             countRows(obj, indent) +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${calcTotalKm(obj)} ${unit}</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
             distRows(obj, indent)
         );
     };
