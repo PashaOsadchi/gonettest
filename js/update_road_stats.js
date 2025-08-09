@@ -1,6 +1,12 @@
 const roadLengthMap = new Map();
 let roadLengthsLoaded = false;
 
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 function buildRoadLengthMap() {
     if (roadLengthsLoaded) return;
     const types = ['international', 'national', 'regional', 'territorial'];
@@ -69,7 +75,7 @@ function updateRoadStats() {
         const lenStr = coveredKm ? `${coveredKm.toFixed(1)} ${lenUnit}` : '-';
         const roadLenStr = coveredKm ? `${lenStr} (${tl}%)` : '-';
         rows.push(
-            `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${road}</span><span>${s.total} (${lenStr})</span></div>` +
+            `<div class="info-row road-toggle" data-target="${roadId}"><span><i data-lucide="plus"></i> ${escapeHtml(road)}</span><span>${s.total} (${lenStr})</span></div>` +
             `<div id="${roadId}" class="road-content hidden" style="padding-left:20px">` +
             `<div class="info-row"><span>${t('testsPercentTotal', 'Тестів:')}</span><span>${s.total}</span></div>` +
             `<div class="info-row"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від загальної кількості):')}</span><span>${s.zero} (${zp}%)</span></div>` +
