@@ -8,6 +8,32 @@ function calcTotalKm(obj) {
     return ((obj.distZero + obj.distUpto2 + obj.distAbove2) / 1000).toFixed(1);
 }
 
+function validateAdminStats(stats) {
+    const fields = ['total', 'zero', 'upto2', 'above2', 'distZero', 'distUpto2', 'distAbove2'];
+    for (const [regName, reg] of Object.entries(stats)) {
+        const regSum = Object.fromEntries(fields.map(f => [f, 0]));
+        for (const [rayName, ray] of Object.entries(reg.raions)) {
+            const raySum = Object.fromEntries(fields.map(f => [f, 0]));
+            for (const h of Object.values(ray.hromady)) {
+                for (const f of fields) raySum[f] += h[f];
+            }
+            for (const f of fields) {
+                regSum[f] += ray[f];
+                if (raySum[f] !== ray[f]) {
+                    console.warn(`Mismatch in raion ${rayName} of region ${regName} for ${f}: ${ray[f]} vs ${raySum[f]}`);
+                    ray.mismatch = true;
+                }
+            }
+        }
+        for (const f of fields) {
+            if (regSum[f] !== reg[f]) {
+                console.warn(`Mismatch in region ${regName} for ${f}: ${reg[f]} vs ${regSum[f]}`);
+                reg.mismatch = true;
+            }
+        }
+    }
+}
+
 function updateAdminStats() {
     const container = document.getElementById('adminStatsContent');
     if (!container) return;
@@ -52,6 +78,7 @@ function updateAdminStats() {
         }
     }
 
+    validateAdminStats(stats);
     const regions = Object.keys(stats).sort();
     if (regions.length === 0) {
         container.innerHTML = `<div class="info-row"><span>${t('noData', 'Немає даних')}</span><span></span></div>`;
@@ -86,7 +113,7 @@ function updateAdminStats() {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
         rows.push(
-            `<div class="info-row admin-toggle" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg)} ${unit})</span></div>`
+            `<div class="info-row admin-toggle${reg.mismatch ? ' status-warning' : ''}" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg)} ${unit})</span></div>`
         );
         let sub = statsRows(reg, 30);
         const raions = Object.keys(reg.raions).sort();
@@ -94,7 +121,7 @@ function updateAdminStats() {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total} (${calcTotalKm(ray)} ${unit})</span></div>` +
+                `<div class="info-row admin-toggle${ray.mismatch ? ' status-warning' : ''}" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total} (${calcTotalKm(ray)} ${unit})</span></div>` +
                 `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
                 statsRows(ray, 30);
             const hroms = Object.keys(ray.hromady).sort();
