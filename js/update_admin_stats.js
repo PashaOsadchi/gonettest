@@ -103,8 +103,12 @@ function updateAdminStats() {
     const pct = (v, tot) => (tot ? Math.round((v / tot) * 100) : 0);
     const countRows = (obj, depth) => {
         const indent = calcIndent(depth);
+        const sum = obj.zero + obj.upto2 + obj.above2;
+        if (obj.total !== sum) {
+            console.warn(`Mismatch in total count: ${obj.total} vs ${sum}`);
+        }
         return (
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('recordsLabel', 'Записів')}:</span><span>${obj.zero + obj.upto2 + obj.above2}</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('recordsLabel', 'Записів')}:</span><span>${obj.total}</span></div>` +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
