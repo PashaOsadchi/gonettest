@@ -2,9 +2,8 @@ const roadLengthMap = new Map();
 let roadLengthsLoaded = false;
 
 function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
+    const doc = new DOMParser().parseFromString(str, 'text/html');
+    return doc.body.textContent || '';
 }
 
 function buildRoadLengthMap() {
