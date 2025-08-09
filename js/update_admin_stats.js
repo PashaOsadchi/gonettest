@@ -93,7 +93,7 @@ function updateAdminStats() {
         const totalKm = calcTotalKm(obj);
         return (
             countRows(obj, depth) +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань:')}</span><span>${totalKm} ${unit}</span></div>` +
             distRows(obj, depth)
         );
     };
@@ -109,9 +109,9 @@ function updateAdminStats() {
         }
         return (
             `<div class="info-row" style="--indent:${indent}px"><span>${t('recordsLabel', 'Записів')}:</span><span>${obj.total}</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
         );
     };
     const distRows = (obj, depth) => {
