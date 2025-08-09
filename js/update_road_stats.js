@@ -48,8 +48,8 @@ function updateRoadStats() {
             };
         }
         const s = stats[ref];
-        const dist = Number(rec.distance);
-        const validDist = Number.isFinite(dist) ? dist : 0;
+        const dist = Number(rec.distance) || 0;
+        const validDist = Number.isFinite(dist) && dist >= 0 ? dist : 0;
         accumulateSpeedStats(s, rec.speed, validDist);
     }
 
