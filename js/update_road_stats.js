@@ -17,8 +17,11 @@ function buildRoadLengthMap() {
             const p = f.properties || {};
             const ref = p.ref && String(p.ref).trim();
             if (!ref) continue;
-            const len = parseFloat(p.distance);
-            roadLengthMap.set(ref, isNaN(len) ? 0 : len);
+            const len = Number(p.distance);
+            if (!Number.isFinite(len)) continue;
+            const existing = roadLengthMap.get(ref);
+            const currentLen = Number.isFinite(existing) ? existing : 0;
+            roadLengthMap.set(ref, currentLen + len);
         }
     }
     roadLengthsLoaded = true;
@@ -45,8 +48,9 @@ function updateRoadStats() {
             };
         }
         const s = stats[ref];
-        const dist = rec.distance || 0;
-        accumulateSpeedStats(s, rec.speed, dist);
+        const dist = Number(rec.distance);
+        const validDist = Number.isFinite(dist) ? dist : 0;
+        accumulateSpeedStats(s, rec.speed, validDist);
     }
 
     const keys = Object.keys(stats).sort();
