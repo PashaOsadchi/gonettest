@@ -64,7 +64,7 @@ function updateRoadStats() {
         const zl = s.length ? Math.round((zKm / s.length) * 100) : 0;
         const ul = s.length ? Math.round((uKm / s.length) * 100) : 0;
         const al = s.length ? Math.round((aKm / s.length) * 100) : 0;
-        const tl = s.length ? Math.round((coveredKm / s.total) * 100) : 0;
+        const tl = s.length ? Math.round((coveredKm / s.length) * 100) : 0;
         const lenUnit = currentLang === 'uk' ? 'км' : 'km';
         const lenStr = coveredKm ? `${coveredKm.toFixed(1)} ${lenUnit}` : '-';
         const roadLenStr = coveredKm ? `${lenStr} (${tl}%)` : '-';
