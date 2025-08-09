@@ -85,23 +85,32 @@ function updateAdminStats() {
         return;
     }
 
-    const statsRows = (obj, indent) => {
+    const baseIndent = 30;
+    const calcIndent = depth => baseIndent * depth;
+
+    const statsRows = (obj, depth) => {
+        const indent = calcIndent(depth);
         const totalKm = calcTotalKm(obj);
         return (
-            countRows(obj, indent) +
+            countRows(obj, depth) +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань')}</span><span>${totalKm} ${unit}</span></div>` +
-            distRows(obj, indent)
+            distRows(obj, depth)
         );
     };
 
     let id = 0;
     const rows = [];
     const pct = (v, tot) => (tot ? Math.round((v / tot) * 100) : 0);
-    const countRows = (obj, indent) =>
-        `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
-        `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
-        `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`;
-    const distRows = (obj, indent) => {
+    const countRows = (obj, depth) => {
+        const indent = calcIndent(depth);
+        return (
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с:')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
+        );
+    };
+    const distRows = (obj, depth) => {
+        const indent = calcIndent(depth);
         return (
             `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с:')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit}</span></div>` +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с:')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit}</span></div>` +
@@ -115,21 +124,21 @@ function updateAdminStats() {
         rows.push(
             `<div class="info-row admin-toggle${reg.mismatch ? ' status-warning' : ''}" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg)} ${unit})</span></div>`
         );
-        let sub = statsRows(reg, 30);
+        let sub = statsRows(reg, 1);
         const raions = Object.keys(reg.raions).sort();
         for (const rayName of raions) {
             const ray = reg.raions[rayName];
             const rayId = `ray-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle${ray.mismatch ? ' status-warning' : ''}" data-target="${rayId}" style="--indent:30px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total} (${calcTotalKm(ray)} ${unit})</span></div>` +
-                `<div id="${rayId}" class="admin-content hidden" style="padding-left:30px">` +
-                statsRows(ray, 30);
+                `<div class="info-row admin-toggle${ray.mismatch ? ' status-warning' : ''}" data-target="${rayId}" style="--indent:${calcIndent(1)}px"><span><i data-lucide="plus"></i> ${escapeHtml(rayName)}</span><span>${ray.total} (${calcTotalKm(ray)} ${unit})</span></div>` +
+                `<div id="${rayId}" class="admin-content hidden">` +
+                statsRows(ray, 2);
             const hroms = Object.keys(ray.hromady).sort();
             for (const hName of hroms) {
                 const h = ray.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="--indent:60px"><span>${escapeHtml(hName)}</span><span>${h.total} (${calcTotalKm(h)} ${unit})</span></div>` +
-                    statsRows(h, 60);
+                    `<div class="info-row" style="--indent:${calcIndent(3)}px"><span>${escapeHtml(hName)}</span><span>${h.total} (${calcTotalKm(h)} ${unit})</span></div>` +
+                    statsRows(h, 3);
             }
             sub += `</div>`;
         }
