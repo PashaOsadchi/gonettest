@@ -5,7 +5,7 @@ function escapeHtml(str) {
 }
 
 function calcTotalKm(obj) {
-    return ((obj.distZero + obj.distUpto2 + obj.distAbove2) / 1000).toFixed(1);
+    return (obj.distZero + obj.distUpto2 + obj.distAbove2) / 1000;
 }
 
 function validateAdminStats(stats) {
@@ -90,7 +90,7 @@ function updateAdminStats() {
 
     const statsRows = (obj, depth) => {
         const indent = calcIndent(depth);
-        const totalKm = calcTotalKm(obj);
+        const totalKm = calcTotalKm(obj).toFixed(1);
         return (
             countRows(obj, depth) +
             `<div class="info-row" style="--indent:${indent}px"><span>${t('distanceKmLabel', 'Відстань:')}</span><span>${totalKm} ${unit}</span></div>` +
@@ -127,7 +127,7 @@ function updateAdminStats() {
         const reg = stats[regName];
         const regId = `reg-${id++}`;
         rows.push(
-            `<div class="info-row admin-toggle${reg.mismatch ? ' status-warning' : ''}" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg)} ${unit})</span></div>`
+            `<div class="info-row admin-toggle${reg.mismatch ? ' status-warning' : ''}" data-target="${regId}"><span><i data-lucide="plus"></i> ${escapeHtml(regName)}</span><span>${reg.total} (${calcTotalKm(reg).toFixed(1)} ${unit})</span></div>`
         );
         let sub = statsRows(reg, 1);
         const rayons = Object.keys(reg.rayons).sort();
@@ -135,14 +135,14 @@ function updateAdminStats() {
             const rayon = reg.rayons[rayonName];
             const rayonId = `rayon-${id++}`;
             sub +=
-                `<div class="info-row admin-toggle${rayon.mismatch ? ' status-warning' : ''}" data-target="${rayonId}" style="--indent:${calcIndent(1)}px"><span><i data-lucide="plus"></i> ${escapeHtml(rayonName)}</span><span>${rayon.total} (${calcTotalKm(rayon)} ${unit})</span></div>` +
+                `<div class="info-row admin-toggle${rayon.mismatch ? ' status-warning' : ''}" data-target="${rayonId}" style="--indent:${calcIndent(1)}px"><span><i data-lucide="plus"></i> ${escapeHtml(rayonName)}</span><span>${rayon.total} (${calcTotalKm(rayon).toFixed(1)} ${unit})</span></div>` +
                 `<div id="${rayonId}" class="admin-content hidden">` +
                 statsRows(rayon, 2);
             const hroms = Object.keys(rayon.hromady).sort();
             for (const hName of hroms) {
                 const h = rayon.hromady[hName];
                 sub +=
-                    `<div class="info-row" style="--indent:${calcIndent(3)}px"><span>${escapeHtml(hName)}</span><span>${h.total} (${calcTotalKm(h)} ${unit})</span></div>` +
+                    `<div class="info-row" style="--indent:${calcIndent(3)}px"><span>${escapeHtml(hName)}</span><span>${h.total} (${calcTotalKm(h).toFixed(1)} ${unit})</span></div>` +
                     statsRows(h, 3);
             }
             sub += `</div>`;
