@@ -26,6 +26,7 @@ function updateSpeedDistribution() {
         }
     };
 
+    set("allSpeedCount", total);
     set("zeroSpeedCount", zero);
     set("upto2SpeedCount", upTo2);
     set("above2SpeedCount", above2);
