@@ -109,9 +109,9 @@ function updateAdminStats() {
         }
         return (
             `<div class="info-row" style="--indent:${indent}px"><span>${t('recordsLabel', 'Записів')}:</span><span>${obj.total}</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від загальної протяжності):')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від протяжності):')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від протяжності):')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від протяжності):')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
         );
     };
     const distRows = (obj, depth) => {
