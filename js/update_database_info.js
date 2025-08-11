@@ -80,7 +80,11 @@ function updateDatabaseInfo() {
     }
 
     if (typeof updateRoadStats === 'function') {
-        updateRoadStats();
+        try {
+            updateRoadStats();
+        } catch (err) {
+            console.error('updateRoadStats failed', err);
+        }
     }
     if (typeof updateAdminStats === "function") {
         updateAdminStats();
