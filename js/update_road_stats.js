@@ -32,8 +32,16 @@ function getRoadLength(ref) {
 }
 
 function updateRoadStats() {
+    const wrapper = document.getElementById('roadStats');
     const container = document.getElementById('roadStatsContent');
-    if (!container) return;
+    if (!wrapper || !container) return;
+
+    if (!Array.isArray(speedData) || speedData.length === 0) {
+        wrapper.style.display = 'none';
+        container.innerHTML = '';
+        return;
+    }
+    wrapper.style.display = '';
 
     const stats = {};
     for (const rec of speedData) {
