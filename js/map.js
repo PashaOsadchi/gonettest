@@ -271,9 +271,13 @@ function updateSpeedCameraLayer() {
                             const lon = item["Довгота"];
                             if (lat == null || lon == null) return null;
                             const marker = L.marker([lat, lon]);
-                            if (item["Адреса"]) {
-                                marker.bindPopup(item["Адреса"]);
-                            }
+
+                            const popupContent = Object.entries(item)
+                                .map(([key, value]) =>
+                                    `<div><strong>${ensureColon(key)}</strong> ${value ?? ''}</div>`
+                                )
+                                .join('');
+                            marker.bindPopup(popupContent);
                             return marker;
                         })
                         .filter(Boolean);
