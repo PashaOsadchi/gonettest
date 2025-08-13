@@ -38,6 +38,7 @@ function saveSettings() {
     const voiceAlerts = panel.querySelector("#voiceAlerts");
     const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
     const voiceRoadChange = panel.querySelector("#voiceRoadChange");
+    const voiceSpeedCameraApproach = panel.querySelector("#voiceSpeedCameraApproach");
     const showHromady = panel.querySelector("#showHromady");
     const showInternationalRoads = panel.querySelector("#showInternationalRoads");
     const showNationalRoads = panel.querySelector("#showNationalRoads");
@@ -50,6 +51,7 @@ function saveSettings() {
     if (voiceAlerts) settings.voiceAlerts = voiceAlerts.checked; else console.warn("voiceAlerts element not found");
     if (voiceHromadaChange) settings.voiceHromadaChange = voiceHromadaChange.checked; else console.warn("voiceHromadaChange element not found");
     if (voiceRoadChange) settings.voiceRoadChange = voiceRoadChange.checked; else console.warn("voiceRoadChange element not found");
+    if (voiceSpeedCameraApproach) settings.voiceSpeedCameraApproach = voiceSpeedCameraApproach.checked; else console.warn("voiceSpeedCameraApproach element not found");
     if (showHromady) settings.showHromady = showHromady.checked; else console.warn("showHromady element not found");
     if (showInternationalRoads) settings.showInternationalRoads = showInternationalRoads.checked; else console.warn("showInternationalRoads element not found");
     if (showNationalRoads) settings.showNationalRoads = showNationalRoads.checked; else console.warn("showNationalRoads element not found");
@@ -91,6 +93,7 @@ function loadSettings() {
     const voiceAlerts = panel.querySelector("#voiceAlerts");
     const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
     const voiceRoadChange = panel.querySelector("#voiceRoadChange");
+    const voiceSpeedCameraApproach = panel.querySelector("#voiceSpeedCameraApproach");
     const showHromady = panel.querySelector("#showHromady");
     const showInternationalRoads = panel.querySelector("#showInternationalRoads");
     const showNationalRoads = panel.querySelector("#showNationalRoads");
@@ -103,6 +106,7 @@ function loadSettings() {
     if (voiceAlerts) voiceAlerts.checked = settings.voiceAlerts; else console.warn("voiceAlerts element not found");
     if (voiceHromadaChange) voiceHromadaChange.checked = settings.voiceHromadaChange; else console.warn("voiceHromadaChange element not found");
     if (voiceRoadChange) voiceRoadChange.checked = settings.voiceRoadChange; else console.warn("voiceRoadChange element not found");
+    if (voiceSpeedCameraApproach) voiceSpeedCameraApproach.checked = settings.voiceSpeedCameraApproach; else console.warn("voiceSpeedCameraApproach element not found");
     if (showHromady) showHromady.checked = settings.showHromady; else console.warn("showHromady element not found");
     if (showInternationalRoads) showInternationalRoads.checked = settings.showInternationalRoads; else console.warn("showInternationalRoads element not found");
     if (showNationalRoads) showNationalRoads.checked = settings.showNationalRoads; else console.warn("showNationalRoads element not found");

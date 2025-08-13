@@ -17,6 +17,7 @@ window.i18n.en = {
   voiceChangeTitle: "Voice change",
   voiceHromadaChangeLabel: "Community",
   voiceRoadChangeLabel: "Road",
+  voiceSpeedCameraApproachLabel: "Approaching speed camera",
   mapLayersTitle: "Display on the map",
   showHromadyLabel: "Community boundaries",
   showInternationalRoadsLabel: "International roads",
