@@ -117,9 +117,9 @@ function updateAdminStats() {
     const distRows = (obj, depth) => {
         const indent = calcIndent(depth);
         return (
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с:')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit}</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с:')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit}</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с:')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit}</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с:')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с:')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с:')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>`
         );
     };
     
