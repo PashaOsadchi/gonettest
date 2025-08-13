@@ -82,6 +82,7 @@ let isDownloading = false;
 let speedData = [];
 let dataInterval = null;
 let lastSavedBytes = 0;
+let lastSavedTime = 0;
 let currentSpeedMbps = 0;
 let currentGPSData = {
     latitude: null,
@@ -210,6 +211,7 @@ Object.assign(globalThis, {
     speedData,
     dataInterval,
     lastSavedBytes,
+    lastSavedTime,
     currentSpeedMbps,
     currentGPSData,
     lastSavedGPSData,
