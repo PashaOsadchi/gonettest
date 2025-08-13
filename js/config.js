@@ -51,6 +51,8 @@ const ROAD_FILES = {
     territorial: 'data/territorial_road_ua_t.geojson',
 };
 
+const SPEED_CAMERA_FILE = 'data/speed_camera_coordinates.json';
+
 // Zoom level at which clustering is disabled on the main map
 const DISABLE_CLUSTER_ZOOM = 18;
 
@@ -110,6 +112,7 @@ let settings = {
     showNationalRoads: false,
     showRegionalRoads: false,
     showTerritorialRoads: false,
+    showSpeedCameras: false,
 };
 
 // Графік
@@ -126,6 +129,7 @@ let internationalRoadLayer = null;
 let nationalRoadLayer = null;
 let regionalRoadLayer = null;
 let territorialRoadLayer = null;
+let speedCameraLayer = null;
 let redCluster = null;
 let yellowCluster = null;
 let greenCluster = null;
@@ -146,7 +150,7 @@ const operators = {
     'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
 };
 
-export { HROMADY_GEOJSON, ROAD_FILES, DISABLE_CLUSTER_ZOOM };
+export { HROMADY_GEOJSON, ROAD_FILES, DISABLE_CLUSTER_ZOOM, SPEED_CAMERA_FILE };
 
 Object.assign(globalThis, {
     TARGET,
@@ -187,6 +191,7 @@ Object.assign(globalThis, {
     ICON_GREEN,
     HROMADY_GEOJSON,
     ROAD_FILES,
+    SPEED_CAMERA_FILE,
     DISABLE_CLUSTER_ZOOM,
     DEFAULT_DIRECTION_LABELS,
     currentLang,
@@ -222,6 +227,7 @@ Object.assign(globalThis, {
     nationalRoadLayer,
     regionalRoadLayer,
     territorialRoadLayer,
+    speedCameraLayer,
     redCluster,
     yellowCluster,
     greenCluster,
