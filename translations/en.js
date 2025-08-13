@@ -23,6 +23,7 @@ window.i18n.en = {
   showNationalRoadsLabel: "National roads",
   showRegionalRoadsLabel: "Regional roads",
   showTerritorialRoadsLabel: "Territorial roads",
+  showSpeedCamerasLabel: "Speed cameras",
   languageLabel: "Language",
   saveSettingsButton: "Save settings",
   currentSpeedLabel: "Current download speed Mbps",

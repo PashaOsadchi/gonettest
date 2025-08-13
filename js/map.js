@@ -1,5 +1,5 @@
 import { getColorBySpeed, ensureColon, addMapMarker } from './map_utils.js';
-import { HROMADY_GEOJSON, ROAD_FILES } from './config.js';
+import { HROMADY_GEOJSON, ROAD_FILES, SPEED_CAMERA_FILE } from './config.js';
 
 function initMap() {
     if (mapInitialized) return;
@@ -174,6 +174,7 @@ function updateRoadLayers() {
     updateNationalRoadLayer();
     updateRegionalRoadLayer();
     updateTerritorialRoadLayer();
+    updateSpeedCameraLayer();
 }
 
 function updateInternationalRoadLayer() {
@@ -253,6 +254,35 @@ function updateTerritorialRoadLayer() {
         }
     } else if (territorialRoadLayer) {
         map.removeLayer(territorialRoadLayer);
+    }
+}
+
+function updateSpeedCameraLayer() {
+    if (settings.showSpeedCameras) {
+        if (speedCameraLayer) {
+            speedCameraLayer.addTo(map);
+        } else {
+            fetch(SPEED_CAMERA_FILE)
+                .then(r => r.json())
+                .then(data => {
+                    const markers = data
+                        .map(item => {
+                            const lat = item["Широта"];
+                            const lon = item["Довгота"];
+                            if (lat == null || lon == null) return null;
+                            const marker = L.marker([lat, lon]);
+                            if (item["Адреса"]) {
+                                marker.bindPopup(item["Адреса"]);
+                            }
+                            return marker;
+                        })
+                        .filter(Boolean);
+                    speedCameraLayer = L.layerGroup(markers).addTo(map);
+                })
+                .catch(err => console.error('Speed camera load failed', err));
+        }
+    } else if (speedCameraLayer) {
+        map.removeLayer(speedCameraLayer);
     }
 }
 

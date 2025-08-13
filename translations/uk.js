@@ -23,6 +23,7 @@ window.i18n.uk = {
   showNationalRoadsLabel: "Національні дороги",
   showRegionalRoadsLabel: "Регіональні дороги",
   showTerritorialRoadsLabel: "Територіальні дороги",
+  showSpeedCamerasLabel: "Камери контролю швидкості",
   languageLabel: "Мова",
   saveSettingsButton: "Зберегти налаштування",
   currentSpeedLabel: "Поточна швидкість завантаження Мбіт/с",
