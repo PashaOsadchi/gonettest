@@ -109,17 +109,17 @@ function updateAdminStats() {
         }
         return (
             `<div class="info-row" style="--indent:${indent}px"><span>${t('recordsLabel', 'Записів')}:</span><span>${obj.total}</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с (% від протяжності):')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с (% від протяжності):')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с (% від протяжності):')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel', '0 Мбіт/с  (% від кількості):')}</span><span>${obj.zero} (${pct(obj.zero, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel', 'До 2 Мбіт/с  (% від кількості):')}</span><span>${obj.upto2} (${pct(obj.upto2, obj.total)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel', 'Більше 2 Мбіт/с  (% від кількості):')}</span><span>${obj.above2} (${pct(obj.above2, obj.total)}%)</span></div>`
         );
     };
     const distRows = (obj, depth) => {
         const indent = calcIndent(depth);
         return (
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с:')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с:')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit} (${pct(obj.distUpto2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с:')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit} (${pct(obj.distAbove2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с (% від протяжності):')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit} (${pct(obj.distUpto2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit} (${pct(obj.distAbove2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>`
         );
     };
     
