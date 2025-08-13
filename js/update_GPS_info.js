@@ -113,6 +113,7 @@ function updateGPSInfo() {
 
     void updateAdminInfo().catch(console.error);
     void updateRoadInfo().catch(console.error);
+    void checkSpeedCameraProximity().catch(console.error);
 }
 
 async function updateAdminInfo() {

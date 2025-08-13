@@ -17,6 +17,7 @@ window.i18n.uk = {
   voiceChangeTitle: "Озвучувати зміну",
   voiceHromadaChangeLabel: "Громади",
   voiceRoadChangeLabel: "Дороги",
+  voiceSpeedCameraApproachLabel: "Наближення до камери контролю швидкості",
   mapLayersTitle: "Відображати на карті",
   showHromadyLabel: "Межі громад",
   showInternationalRoadsLabel: "Міжнародні дороги",
