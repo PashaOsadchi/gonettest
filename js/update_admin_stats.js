@@ -116,10 +116,11 @@ function updateAdminStats() {
     };
     const distRows = (obj, depth) => {
         const indent = calcIndent(depth);
+        const totalDist = obj.distZero + obj.distUpto2 + obj.distAbove2;
         return (
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с (% від протяжності):')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit} (${pct(obj.distUpto2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>` +
-            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit} (${pct(obj.distAbove2, obj.distZero + obj.distUpto2 + obj.distAbove2)}%)</span></div>`
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('zeroSpeedLabel2', '0 Мбіт/с (% від протяжності):')}</span><span>${(obj.distZero / 1000).toFixed(1)} ${unit} (${pct(obj.distZero, totalDist)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('upTo2SpeedLabel2', 'До 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distUpto2 / 1000).toFixed(1)} ${unit} (${pct(obj.distUpto2, totalDist)}%)</span></div>` +
+            `<div class="info-row" style="--indent:${indent}px"><span>${t('above2SpeedLabel2', 'Більше 2 Мбіт/с (% від протяжності):')}</span><span>${(obj.distAbove2 / 1000).toFixed(1)} ${unit} (${pct(obj.distAbove2, totalDist)}%)</span></div>`
         );
     };
     
