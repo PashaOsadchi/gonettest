@@ -51,7 +51,7 @@ async function saveDataPoint() {
     );
 
     const now = new Date();
-    const elapsed = (Date.now() - startTime) / 1000;
+    const elapsed = (Date.now() - lastSavedTime) / 1000;
 
     // Обчислюємо відстань для додавання до загальної
     let pointDistance = getDistanceToLastPoint(
@@ -86,6 +86,7 @@ async function saveDataPoint() {
 
     speedData.push(dataPoint);
     lastSavedBytes = totalBytes;
+    lastSavedTime = now.getTime();
     saveSpeedDataToStorage();
     addMapMarker(dataPoint);
 

@@ -157,6 +157,7 @@ async function runTest() {
   testInProgress = true;
   pendingRun = false;
   startTime = Date.now();
+  lastSavedTime = startTime;
   prevBytes = totalBytes = 0;
   lastSavedBytes = 0;
   consecutiveErrors = 0;
