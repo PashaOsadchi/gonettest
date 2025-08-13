@@ -56,7 +56,7 @@ async function checkSpeedCameraProximity() {
         for (const threshold of [1000, 500, 100]) {
             if (lastDistance > threshold && minDist <= threshold) {
                 speak(
-                    `Через ${Math.round(minDist)} метрів обмеження швидкості у ${nearest["Максимальна швидкість"]}`
+                    `Через ${Math.round(minDist)} метрів обмеження швидкості у ${nearest["Максимальна швидкість"]} кілометрів на годину`
                 );
                 break;
             }
