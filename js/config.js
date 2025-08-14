@@ -54,7 +54,7 @@ const ROAD_FILES = {
 const SPEED_CAMERA_FILE = 'data/speed_camera_coordinates.json';
 
 // Zoom level at which clustering is disabled on the main map
-const DISABLE_CLUSTER_ZOOM = 16;
+const DISABLE_CLUSTER_ZOOM = 14;
 
 const DEFAULT_DIRECTION_LABELS = {
     uk: ["Пн", "ПнСх", "Сх", "ПдСх", "Пд", "ПдЗх", "Зх", "ПнЗх"],
