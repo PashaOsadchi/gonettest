@@ -20,15 +20,19 @@ function updateSpeedDistribution() {
     }
 
     const total = stats.total;
-    const setCount = (id, count) => {
+    const setCount = (id, count, showPercent = true) => {
         const el = document.getElementById(id);
         if (el) {
-            const percent = total ? Math.round((count / total) * 100) : 0;
-            el.textContent = `${count} (${percent}%)`;
+            if (showPercent) {
+                const percent = total ? Math.round((count / total) * 100) : 0;
+                el.textContent = `${count} (${percent}%)`;
+            } else {
+                el.textContent = `${count}`;
+            }
         }
     };
 
-    setCount("allSpeedCount", stats.total);
+    setCount("allSpeedCount", stats.total, false);
     setCount("zeroSpeedCount", stats.zero);
     setCount("upto2SpeedCount", stats.upto2);
     setCount("above2SpeedCount", stats.above2);
