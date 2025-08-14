@@ -279,7 +279,7 @@ function updateSpeedCameraLayer() {
                             const outerCircle = L.circle([lat, lon], {
                                 color: 'yellow',
                                 fillColor: 'yellow',
-                                fillOpacity: 0.1,
+                                fillOpacity: 0.3,
                                 radius: 500,
                             });
 
