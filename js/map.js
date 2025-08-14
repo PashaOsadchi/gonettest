@@ -265,12 +265,18 @@ function updateSpeedCameraLayer() {
             fetch(SPEED_CAMERA_FILE)
                 .then(r => r.json())
                 .then(data => {
-                    const markers = data
+                    const layers = data
                         .map(item => {
                             const lat = item["Широта"];
                             const lon = item["Довгота"];
                             if (lat == null || lon == null) return null;
                             const marker = L.marker([lat, lon]);
+                            const circle = L.circle([lat, lon], {
+                                color: 'red',
+                                fillColor: 'red',
+                                fillOpacity: 0.5,
+                                radius: 100,
+                            });
 
                             const popupContent = Object.entries(item)
                                 .map(([key, value]) =>
@@ -278,10 +284,10 @@ function updateSpeedCameraLayer() {
                                 )
                                 .join('');
                             marker.bindPopup(popupContent);
-                            return marker;
+                            return L.layerGroup([circle, marker]);
                         })
                         .filter(Boolean);
-                    speedCameraLayer = L.layerGroup(markers).addTo(map);
+                    speedCameraLayer = L.layerGroup(layers).addTo(map);
                 })
                 .catch(err => console.error('Speed camera load failed', err));
         }
