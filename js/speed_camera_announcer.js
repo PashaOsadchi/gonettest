@@ -53,10 +53,9 @@ async function checkSpeedCameraProximity() {
     }
 
     if (minDist < lastDistance) {
-        for (const threshold of [1000, 500, 100]) {
+        for (const threshold of [100, 500, 1000]) {
             if (lastDistance > threshold && minDist <= threshold) {
                 speak(`Через ${Math.round(minDist)} метрів обмеження швидкості у ${nearest["Максимальна швидкість"]} кілометрів на годину`);
-                break;
             }
         }
     }
