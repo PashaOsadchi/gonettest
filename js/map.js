@@ -270,7 +270,6 @@ function updateSpeedCameraLayer() {
                             const lat = item["Широта"];
                             const lon = item["Довгота"];
                             if (lat == null || lon == null) return null;
-                            const marker = L.marker([lat, lon]);
                             const circle = L.circle([lat, lon], {
                                 color: 'red',
                                 fillColor: 'red',
@@ -283,8 +282,8 @@ function updateSpeedCameraLayer() {
                                     `<div><strong>${ensureColon(key)}</strong> ${value ?? ''}</div>`
                                 )
                                 .join('');
-                            marker.bindPopup(popupContent);
-                            return L.layerGroup([circle, marker]);
+                            circle.bindPopup(popupContent);
+                            return circle;
                         })
                         .filter(Boolean);
                     speedCameraLayer = L.layerGroup(layers).addTo(map);
