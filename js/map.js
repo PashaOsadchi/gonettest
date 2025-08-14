@@ -289,7 +289,9 @@ function updateSpeedCameraLayer() {
                                 )
                                 .join('');
 
-                            const group = L.layerGroup([innerCircle, outerCircle]).bindPopup(popupContent);
+                            innerCircle.bindPopup(popupContent);
+                            outerCircle.bindPopup(popupContent);
+                            const group = L.layerGroup([innerCircle, outerCircle]);
                             return group;
                         })
                         .filter(Boolean);
