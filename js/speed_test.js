@@ -28,6 +28,7 @@ async function resetTestState() {
         alertIndicatorEl.style.display = "block";
     }
     speedValueEl.textContent = "0.00";
+    currentSpeedMbps = 0;
 }
 
 function updateSpeedPerSecond(bytes, elapsedMs) {
@@ -187,6 +188,7 @@ async function runTest() {
       }
       isConnected = false;
       consecutiveErrors++;
+      currentSpeedMbps = 0;
       document.getElementById("speedValue").textContent = "0.00";
       document.getElementById("status").textContent = t('statusNoConnection', 'Відсутнє з\'єднання');
       document.getElementById("alertIndicator").style.display = "block";

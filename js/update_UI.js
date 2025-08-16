@@ -38,6 +38,9 @@ function updateUI() {
 
         // Ховаємо індикатор помилки
         alertIndicatorEl.style.display = "none";
+    } else {
+        currentSpeedMbps = 0;
+        speedValueEl.textContent = "0.00";
     }
 
     downloadedValueEl.textContent = formatDownloaded(totalBytes);
