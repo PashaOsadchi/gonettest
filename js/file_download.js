@@ -5,6 +5,10 @@ function saveBlob(blob, fileName) {
     link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
-    URL.revokeObjectURL(link.href);
-    document.body.removeChild(link);
+    // Delay cleanup to prevent large file downloads from failing if the URL
+    // is revoked before the download fully starts.
+    setTimeout(() => {
+        URL.revokeObjectURL(link.href);
+        document.body.removeChild(link);
+    }, 0);
 }
