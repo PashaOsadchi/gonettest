@@ -149,7 +149,7 @@ let operator = '';
 const operators = {
     'AS21497 PrJSC VF UKRAINE': 'Vodafone',
     'AS15895 "Kyivstar" PJSC': 'Kyivstar',
-    'AS34058 Limited Liability Company "lifecell"': 'Lifecell'
+    'AS34058 Limited Liability Company lifecell': 'Lifecell'
 };
 
 export { HROMADY_GEOJSON, ROAD_FILES, DISABLE_CLUSTER_ZOOM, SPEED_CAMERA_FILE };
