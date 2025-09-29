@@ -12,6 +12,29 @@ function updateGPSInfo() {
     const naText = t('naValue', 'N/A');
     const directions = t('directionLabels', DEFAULT_DIRECTION_LABELS[currentLang]);
 
+    if (settings.testWithoutGPS) {
+        gpsStatusEl.textContent = t('gpsDisabled', 'GPS вимкнено');
+        gpsStatusEl.classList.remove('status-accent', 'status-success', 'status-warning');
+        gpsStatusEl.classList.add('status-warning');
+
+        currentCoordsEl.textContent = naText;
+        distanceInfoEl.textContent = naText;
+        distanceInfoEl.classList.remove('status-warning', 'status-success', 'status-accent');
+
+        gpsAccuracyEl.textContent = naText;
+        gpsAccuracyEl.classList.remove('status-warning', 'status-success', 'status-accent');
+
+        altitudeInfoEl.textContent = naText;
+        gpsSpeedInfoEl.textContent = naText;
+        headingInfoEl.textContent = naText;
+
+        totalDistanceInfoEl.textContent = '0.00';
+
+        void updateAdminInfo().catch(console.error);
+        void updateRoadInfo().catch(console.error);
+        return;
+    }
+
     if (
         Number.isFinite(currentGPSData.latitude) &&
         Number.isFinite(currentGPSData.longitude)
@@ -121,6 +144,13 @@ async function updateAdminInfo() {
     const raionEl = document.getElementById('raion');
     const hromadaEl = document.getElementById('hromada');
 
+    if (settings.testWithoutGPS) {
+        oblastEl.textContent = '-';
+        raionEl.textContent = '-';
+        hromadaEl.textContent = '-';
+        return;
+    }
+
     if (
         !Number.isFinite(currentGPSData.latitude) ||
         !Number.isFinite(currentGPSData.longitude)
@@ -159,6 +189,14 @@ async function updateRoadInfo() {
     const nameEl = document.getElementById('roadName');
     const distEl = document.getElementById('roadDistance');
     const networkEl = document.getElementById('roadNetwork');
+
+    if (settings.testWithoutGPS) {
+        refEl.textContent = '-';
+        nameEl.textContent = '-';
+        distEl.textContent = '-';
+        networkEl.textContent = '-';
+        return;
+    }
 
     if (
         !Number.isFinite(currentGPSData.latitude) ||

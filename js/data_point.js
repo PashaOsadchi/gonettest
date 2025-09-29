@@ -1,5 +1,12 @@
 function shouldSaveDataPoint() {
-    if (!currentGPSData.latitude || !currentGPSData.longitude) {
+    if (settings.testWithoutGPS) {
+        return true;
+    }
+
+    if (
+        !Number.isFinite(currentGPSData.latitude) ||
+        !Number.isFinite(currentGPSData.longitude)
+    ) {
         return false;
     }
 
@@ -13,7 +20,10 @@ function shouldSaveDataPoint() {
         return false;
     }
 
-    if (!lastSavedGPSData.latitude || !lastSavedGPSData.longitude) {
+    if (
+        !Number.isFinite(lastSavedGPSData.latitude) ||
+        !Number.isFinite(lastSavedGPSData.longitude)
+    ) {
         return true;
     }
 
@@ -34,6 +44,59 @@ async function saveDataPoint() {
         return;
     }
 
+    const now = new Date();
+    const elapsed = (Date.now() - lastSavedTime) / 1000;
+    const downloadedDelta =
+        (totalBytes - lastSavedBytes) / (1024 * 1024);
+
+    if (settings.testWithoutGPS) {
+        const dataPoint = {
+            timestamp: now.toLocaleTimeString(),
+            fullTimestamp: now,
+            speed: currentSpeedMbps,
+            downloadedDelta,
+            elapsed: Math.floor(elapsed),
+            latitude: null,
+            longitude: null,
+            altitude: null,
+            gpsSpeed: null,
+            distance: null,
+            accuracy: null,
+            heading: null,
+            region: null,
+            rayon: null,
+            hromada: null,
+            roadRef: null,
+        };
+
+        speedData.push(dataPoint);
+        lastSavedBytes = totalBytes;
+        lastSavedTime = now.getTime();
+        saveSpeedDataToStorage();
+
+        lastSavedGPSData = { latitude: null, longitude: null };
+        totalDistance = 0;
+
+        const lastSaveEl = document.getElementById("lastSaveInfo");
+        if (lastSaveEl) {
+            lastSaveEl.textContent = now.toLocaleTimeString();
+            lastSaveEl.removeAttribute('data-i18n');
+            lastSaveEl.classList.remove(
+                'status-warning',
+                'status-success',
+                'status-accent'
+            );
+            lastSaveEl.classList.add('status-accent');
+        }
+
+        updateDataDisplay();
+        updateDatabaseInfo();
+        updateGPSInfo();
+
+        addLog('Дані збережено без GPS координат');
+        return;
+    }
+
     try {
         await loadAllRoadData();
     } catch (e) {
@@ -50,20 +113,17 @@ async function saveDataPoint() {
         currentGPSData.longitude
     );
 
-    const now = new Date();
-    const elapsed = (Date.now() - lastSavedTime) / 1000;
-
     // Обчислюємо відстань для додавання до загальної
     let pointDistance = getDistanceToLastPoint(
         currentGPSData.latitude,
         currentGPSData.longitude
     );
-    if (lastSavedGPSData.latitude && lastSavedGPSData.longitude) {
+    if (
+        Number.isFinite(lastSavedGPSData.latitude) &&
+        Number.isFinite(lastSavedGPSData.longitude)
+    ) {
         totalDistance += pointDistance;
     }
-
-    const downloadedDelta =
-        (totalBytes - lastSavedBytes) / (1024 * 1024);
 
     const dataPoint = {
         timestamp: now.toLocaleTimeString(),

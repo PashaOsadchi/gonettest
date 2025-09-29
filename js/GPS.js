@@ -1,4 +1,13 @@
 function initGPS() {
+    if (settings.testWithoutGPS) {
+        addLog('GPS ініціалізацію пропущено — режим без GPS');
+        const statusEl = document.getElementById("gpsStatus");
+        if (statusEl) {
+            statusEl.textContent = t('gpsDisabled', 'GPS вимкнено');
+        }
+        return;
+    }
+
     if (!navigator.geolocation) {
         addLog("GPS не підтримується браузером");
         const statusEl = document.getElementById("gpsStatus");
@@ -56,7 +65,11 @@ function stopGPS() {
         gpsWatchId = null;
         const statusEl = document.getElementById("gpsStatus");
         if (statusEl) {
-            statusEl.textContent = t('gpsInactive', 'Не активний');
+            if (settings.testWithoutGPS) {
+                statusEl.textContent = t('gpsDisabled', 'GPS вимкнено');
+            } else {
+                statusEl.textContent = t('gpsInactive', 'Не активний');
+            }
             statusEl.classList.remove('status-accent', 'status-success', 'status-warning');
         }
         addLog("GPS зупинено");
