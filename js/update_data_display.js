@@ -25,7 +25,8 @@ function updateDataDisplay() {
         row.appendChild(timestamp);
 
         const speed = document.createElement("div");
-        speed.textContent = record.speed.toFixed(2);
+        speed.textContent =
+            Number.isFinite(record.speed) ? record.speed.toFixed(2) : "N/A";
         row.appendChild(speed);
 
         const latitude = document.createElement("div");
@@ -50,7 +51,7 @@ function updateDataDisplay() {
 
         const distance = document.createElement("div");
         distance.textContent =
-            record.distance !== undefined ? record.distance.toFixed(1) : "N/A";
+            Number.isFinite(record.distance) ? record.distance.toFixed(1) : "N/A";
         row.appendChild(distance);
 
         const region = document.createElement("div");
