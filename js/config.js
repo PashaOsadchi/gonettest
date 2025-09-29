@@ -109,6 +109,7 @@ let settings = {
     voiceHromadaChange: false,
     voiceRoadChange: false,
     voiceSpeedCameraApproach: false,
+    testWithoutGPS: false,
     showHromady: false,
     showInternationalRoads: false,
     showNationalRoads: false,

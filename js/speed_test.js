@@ -299,7 +299,12 @@ async function toggleTest() {
         initMapIfNeeded();
 
         isConnected = await checkRealConnection();
-        initGPS();
+        if (settings.testWithoutGPS) {
+            stopGPS();
+            updateGPSInfo();
+        } else {
+            initGPS();
+        }
         runTest();
         startBtn.disabled = false;
     }

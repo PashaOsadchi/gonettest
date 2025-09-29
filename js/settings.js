@@ -34,11 +34,14 @@ function saveSettings() {
         return;
     }
 
+    const previousTestWithoutGPS = settings.testWithoutGPS;
+
     const soundAlerts = panel.querySelector("#soundAlerts");
     const voiceAlerts = panel.querySelector("#voiceAlerts");
     const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
     const voiceRoadChange = panel.querySelector("#voiceRoadChange");
     const voiceSpeedCameraApproach = panel.querySelector("#voiceSpeedCameraApproach");
+    const testWithoutGPS = panel.querySelector("#testWithoutGPS");
     const showHromady = panel.querySelector("#showHromady");
     const showInternationalRoads = panel.querySelector("#showInternationalRoads");
     const showNationalRoads = panel.querySelector("#showNationalRoads");
@@ -52,6 +55,7 @@ function saveSettings() {
     if (voiceHromadaChange) settings.voiceHromadaChange = voiceHromadaChange.checked; else console.warn("voiceHromadaChange element not found");
     if (voiceRoadChange) settings.voiceRoadChange = voiceRoadChange.checked; else console.warn("voiceRoadChange element not found");
     if (voiceSpeedCameraApproach) settings.voiceSpeedCameraApproach = voiceSpeedCameraApproach.checked; else console.warn("voiceSpeedCameraApproach element not found");
+    if (testWithoutGPS) settings.testWithoutGPS = testWithoutGPS.checked; else console.warn("testWithoutGPS element not found");
     if (showHromady) settings.showHromady = showHromady.checked; else console.warn("showHromady element not found");
     if (showInternationalRoads) settings.showInternationalRoads = showInternationalRoads.checked; else console.warn("showInternationalRoads element not found");
     if (showNationalRoads) settings.showNationalRoads = showNationalRoads.checked; else console.warn("showNationalRoads element not found");
@@ -70,6 +74,26 @@ function saveSettings() {
     }
 
     localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+
+    const testWithoutGPSChanged = previousTestWithoutGPS !== settings.testWithoutGPS;
+    if (testWithoutGPSChanged) {
+        if (settings.testWithoutGPS) {
+            stopGPS();
+            currentGPSData = {
+                latitude: null,
+                longitude: null,
+                altitude: null,
+                speed: null,
+                accuracy: null,
+                heading: null,
+            };
+            lastSavedGPSData = { latitude: null, longitude: null };
+            totalDistance = 0;
+        } else if (testActive) {
+            initGPS();
+        }
+        updateGPSInfo();
+    }
 
     if (typeof updateHromadyLayer === 'function') {
         updateHromadyLayer();
@@ -94,6 +118,7 @@ function loadSettings() {
     const voiceHromadaChange = panel.querySelector("#voiceHromadaChange");
     const voiceRoadChange = panel.querySelector("#voiceRoadChange");
     const voiceSpeedCameraApproach = panel.querySelector("#voiceSpeedCameraApproach");
+    const testWithoutGPS = panel.querySelector("#testWithoutGPS");
     const showHromady = panel.querySelector("#showHromady");
     const showInternationalRoads = panel.querySelector("#showInternationalRoads");
     const showNationalRoads = panel.querySelector("#showNationalRoads");
@@ -107,6 +132,7 @@ function loadSettings() {
     if (voiceHromadaChange) voiceHromadaChange.checked = settings.voiceHromadaChange; else console.warn("voiceHromadaChange element not found");
     if (voiceRoadChange) voiceRoadChange.checked = settings.voiceRoadChange; else console.warn("voiceRoadChange element not found");
     if (voiceSpeedCameraApproach) voiceSpeedCameraApproach.checked = settings.voiceSpeedCameraApproach; else console.warn("voiceSpeedCameraApproach element not found");
+    if (testWithoutGPS) testWithoutGPS.checked = settings.testWithoutGPS; else console.warn("testWithoutGPS element not found");
     if (showHromady) showHromady.checked = settings.showHromady; else console.warn("showHromady element not found");
     if (showInternationalRoads) showInternationalRoads.checked = settings.showInternationalRoads; else console.warn("showInternationalRoads element not found");
     if (showNationalRoads) showNationalRoads.checked = settings.showNationalRoads; else console.warn("showNationalRoads element not found");
